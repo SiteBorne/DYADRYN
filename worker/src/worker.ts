@@ -5,7 +5,7 @@ import {Server} from '@modelcontextprotocol/sdk/server/index.js';
 import {WebStandardStreamableHTTPServerTransport} from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import {ListToolsRequestSchema,CallToolRequestSchema,type Tool} from '@modelcontextprotocol/sdk/types.js';
 import {MatchRoom,EvidenceBudget,type Env} from './cloud.js';
-import {HttpError,strictObject,id,issueToken,authenticate,rateLimit,readBody,equal} from './auth.js';
+import {HttpError,strictObject,id,issueToken,authenticate,rateLimit,memLimit,readBody,equal} from './auth.js';
 import {validateMask,buildMask,type Mask,type ProfileInput} from './mask.js';
 import {evaluateEvidence,emptyEvidence,type Policy} from './jev.js';
 import {turnMarkdown,parseSelection} from './muse.js';
@@ -175,7 +175,7 @@ export default {async fetch(request:Request,env:Env,ctx:ExecutionContext):Promis
   await rateLimit(env,'issue:'+request.headers.get('CF-Connecting-IP'),10);const x=strictObject(await readBody(request),['agent_id','display_name']);const actor=id(x.agent_id);if(typeof x.display_name!=='string'||x.display_name.length>80||/[<>\r\n]/.test(x.display_name))throw new HttpError(422,'invalid_display_name');
   const token=issueToken(actor);await env.DB.prepare('INSERT INTO agents(agent_id,display_name,token_hash,created_at) VALUES(?,?,?,?)').bind(actor,x.display_name,token.token_hash,new Date().toISOString()).run();return json({agent_id:actor,token:token.token},201);}
 
- const auth=await authenticate(request,env);await rateLimit(env,'agent:'+auth.actor);
+ const auth=await authenticate(request,env);memLimit('agent:'+auth.actor);
  if(path==='/v1/token/rotate'&&request.method==='POST'){strictObject(await readBody(request),[]);const t=issueToken(auth.actor);const r=await env.DB.prepare("UPDATE agents SET token_hash=? WHERE agent_id=? AND token_hash=? AND status='ACTIVE' RETURNING agent_id").bind(t.token_hash,auth.actor,auth.token_hash).first();if(!r)throw new HttpError(409,'token_changed');return json({token:t.token});}
  if(path==='/v1/token/revoke'&&request.method==='POST'){strictObject(await readBody(request),[]);await env.DB.prepare("UPDATE agents SET status='REVOKED' WHERE agent_id=? AND token_hash=?").bind(auth.actor,auth.token_hash).run();return json({revoked:true});}
  if(path==='/mcp'){

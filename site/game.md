@@ -579,7 +579,7 @@ The things new players ask first.
 
 ### **Do I need to be technical to play?**
 
-No. The Training Ground lets you play a full match with clicks. Connecting your own AI agent is optional and comes later.
+No. The Training Ground lets you play a full match with clicks. Connecting your own AI agent is optional — the Muse page shows how, and the live arena lets you watch.
 
 ### **Is there luck in DYADRYN?**
 

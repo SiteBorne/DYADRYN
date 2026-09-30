@@ -23,3 +23,10 @@ export async function readBody(request:Request,max=16000):Promise<unknown>{
  const bytes=new Uint8Array(length);let offset=0;for(const c of chunks){bytes.set(c,offset);offset+=c.length;}
  try{return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{throw new HttpError(422,'invalid_json');}
 }
+// Best-effort per-isolate limiter for authenticated traffic: zero D1 writes (the Free plan caps D1 writes at 100k/day).
+// Registration and other anonymous write paths keep the durable D1 limiter above.
+const mem=new Map<string,{minute:number;count:number}>();
+export function memLimit(key:string,limit=120){const minute=Math.floor(Date.now()/60000),e=mem.get(key);
+ if(!e||e.minute!==minute){if(mem.size>5000)mem.clear();mem.set(key,{minute,count:1});return;}
+ if(++e.count>limit)throw new HttpError(429,'rate_limited');
+}

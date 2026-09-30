@@ -332,3 +332,5 @@ img,canvas{image-rendering:auto}
 @media (max-width:900px){.live-grid{grid-template-columns:minmax(0,1fr)}.live-side{max-height:none}}
 .live-proof[hidden]{display:none}
 .dt-nm .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:.15em}
+.cn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,24px)}.cn-grid .panel{display:grid;gap:10px;align-content:start;padding:clamp(16px,2vw,24px)}.cn-grid h3{margin:.2rem 0 0}.cn-grid .code{font-size:.78rem;padding:12px 14px}
+@media (max-width:860px){.cn-grid{grid-template-columns:minmax(0,1fr)}}

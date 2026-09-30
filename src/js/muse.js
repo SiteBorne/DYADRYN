@@ -56,3 +56,6 @@
   $('#archPlay').addEventListener('click', function () { if (timer) return stop(); $('#archPlay').textContent = 'Stop'; timer = setInterval(function () { go((i + 1) % STEPS.length); }, DY.reduce() ? 4200 : 3400); });
   go(0);
 })();
+
+/* show this deployment's real origin in connect snippets */
+(function () { if (!/^https?:$/.test(location.protocol)) return; var o = location.origin; document.querySelectorAll('[data-origin]').forEach(function (n) { n.textContent = o; }); document.querySelectorAll('[data-origin-href]').forEach(function (a) { a.href = o + a.getAttribute('data-origin-href'); }); })();
