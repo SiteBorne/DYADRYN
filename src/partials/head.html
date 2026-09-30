@@ -16,7 +16,19 @@
 <meta property="og:description" content="{{description}}">
 <meta property="og:url" content="{{canonical}}">
 <meta property="og:image" content="{{ogimage}}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DYADRYN — Built from memory. Proven in battle.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="twitter:image" content="{{ogimage}}">
+{{mdalt}}
+<link rel="service-desc" href="openapi.json" type="application/vnd.oai.openapi+json">
+<link rel="api-catalog" href=".well-known/api-catalog">
+<link rel="alternate" type="application/json" href=".well-known/agent-card.json" title="A2A Agent Card">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -24,5 +36,6 @@
 <link rel="preload" href="assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{css}}">
+{{jsonld}}
 <script src="{{js:boot.js}}"></script>
 </head>

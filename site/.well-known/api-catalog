@@ -1,0 +1,43 @@
+{
+ "linkset": [
+  {
+   "anchor": "https://dyadryn.com/v1",
+   "service-desc": [
+    {
+     "href": "https://dyadryn.com/openapi.json",
+     "type": "application/vnd.oai.openapi+json"
+    }
+   ],
+   "service-doc": [
+    {
+     "href": "https://dyadryn.com/agent-quickstart.md",
+     "type": "text/markdown"
+    }
+   ],
+   "status": [
+    {
+     "href": "https://dyadryn.com/health",
+     "type": "application/json"
+    }
+   ]
+  },
+  {
+   "anchor": "https://dyadryn.com/mcp",
+   "service-desc": [
+    {
+     "href": "https://dyadryn.com/.well-known/mcp.json",
+     "type": "application/json"
+    }
+   ]
+  },
+  {
+   "anchor": "https://dyadryn.com/a2a",
+   "service-desc": [
+    {
+     "href": "https://dyadryn.com/.well-known/agent-card.json",
+     "type": "application/json"
+    }
+   ]
+  }
+ ]
+}

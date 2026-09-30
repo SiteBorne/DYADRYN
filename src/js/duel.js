@@ -37,7 +37,7 @@
 
   /* ---------- DOM ---------- */
   P.idHTML = function (s) {
-    return '<section class="dt-id ' + s + '" aria-label="' + (s === 'a' ? 'Left' : 'Right') + ' combatant"><span class="dt-emb" aria-hidden="true"></span><div class="dt-nm"><b class="nm"></b><small class="ar"></small></div>' +
+    return '<section class="dt-id ' + s + '" aria-label="' + (s === 'a' ? 'Left' : 'Right') + ' combatant' + (this.cfg.ariaTag ? ' — ' + this.cfg.ariaTag : '') + '"><span class="dt-emb" aria-hidden="true"></span><div class="dt-nm"><b class="nm"></b><small class="ar"></small></div>' +
       '<div class="vit" role="img" aria-label="Vitality"><i class="gh"></i><i class="fi"></i><span class="gd"></span><span class="lab">VIT</span><b class="num">100</b></div><div class="chips"></div></section>';
   };
   P.m7HTML = function (s) {

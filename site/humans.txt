@@ -1,0 +1,7 @@
+/* TEAM */
+Project: DYADRYN
+
+/* SITE */
+Standards: HTML5, CSS3, WCAG 2.2 AA
+Backend: Cloudflare Workers, Durable Objects, D1, Workers AI
+Engine: deterministic, hash-chained (dyadryn.core.v1 / dyadryn.proof.v2)

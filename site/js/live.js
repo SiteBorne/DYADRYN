@@ -7,7 +7,7 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var cur = null, st, lobbyT = 0, ws = null, poll = 0;
   var say = function (h) { $('#liveStatus').innerHTML = h; };
-  st = new DY.Stage(host, { training: true, speed: 1.15, verifyHref: '#live-proof', onRoundEnd: function () { advance(); } });
+  st = new DY.Stage(host, { training: true, ariaTag: 'live match', speed: 1.15, verifyHref: '#live-proof', onRoundEnd: function () { advance(); } });
   DY.live = st;
 
   /* ---------- match → stage ---------- */

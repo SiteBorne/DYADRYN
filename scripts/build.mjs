@@ -3,11 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { icon, ICONS } from './icons.mjs';
+import { generate as agentFiles, robots as robotsTxt, jsonld } from './agent-files.mjs';
 import { MOVES, RES, SIGS, STANCES, ATTRS, MODES, ARCHETYPES, LEVELS } from './content.mjs';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const src = path.join(root, 'src'), out = path.join(root, 'site');
 const SITE = JSON.parse(fs.readFileSync(path.join(root, 'site.config.json'), 'utf8'));
+SITE.origin = (process.env.SITE_ORIGIN || SITE.origin).replace(/\/$/, ''); // deploy script sets this to the real origin
+
 
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
@@ -40,6 +43,7 @@ for (const f of fs.readdirSync(path.join(src, 'js'))) {
   jsHashes[f] = crypto.createHash('md5').update(buf).digest('hex').slice(0, 8);
   cp(path.join(src, 'js', f), path.join(out, 'js', f));
 }
+const decode = (t) => t.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
 const LVG = {
@@ -80,12 +84,12 @@ function render(html, meta, depth = 0) {
   html = html.replace(/\{\{js:([\w.-]+)\}\}/g, (_, n) => `js/${n}?v=${jsHashes[n] ?? 'x'}`);
   html = html.replace(/\{\{site\.(\w+)\}\}/g, (_, k) => SITE[k] ?? '');
   html = html.replace(/\{\{pagescripts\}\}/g, () => (meta.scripts ?? []).map(n => `<script src="js/${n}?v=${jsHashes[n] ?? 'x'}" defer></script>`).join('\n'));
-  html = html.replace(/\{\{(title|description|canonical|ogimage|bodyclass|active)\}\}/g, (_, k) => meta[k] ?? '');
+  html = html.replace(/\{\{(title|description|canonical|ogimage|bodyclass|active|jsonld|mdalt)\}\}/g, (_, k) => meta[k] ?? '');
   return html;
 }
 
 const pages = fs.readdirSync(path.join(src, 'pages')).filter(f => f.endsWith('.html'));
-const urls = [];
+const urls = [], pageInfo = [];
 for (const f of pages) {
   let raw = fs.readFileSync(path.join(src, 'pages', f), 'utf8');
   const m = raw.match(/^<!--meta\s*([\s\S]*?)-->\s*/);
@@ -95,15 +99,20 @@ for (const f of pages) {
   const slug = f === 'index.html' ? '' : f;
   meta.canonical = SITE.origin + '/' + slug;
   meta.ogimage = SITE.origin + '/assets/brand/og-image.png';
+  const faq = [...raw.matchAll(/<details[^>]*><summary><b>([\s\S]*?)<\/b><\/summary><div><p>([\s\S]*?)<\/p><\/div><\/details>/g)].map((x) => [x[1], x[2]].map((t) => decode(t.replace(/<[^>]+>/g, '')).trim()));
+  const title0 = meta.title;
   meta.title = meta.title === 'DYADRYN' ? 'DYADRYN — Built from memory. Proven in battle. | AI Persona Arena' : meta.title + ' — DYADRYN';
+  const pinfo = { file: f, slug, title: meta.title, description: meta.description, faq }; pageInfo.push(pinfo);
+  meta.jsonld = jsonld(SITE.origin, pinfo); meta.mdalt = `<link rel="alternate" type="text/markdown" href="${f === 'index.html' ? 'index.md' : f.replace(/\.html$/, '.md')}">`;
   const full = render(`{{> head}}<body class="${meta.bodyclass ?? ''}">{{> header}}<main id="main">${raw}</main>{{> footer}}</body></html>`, meta);
   fs.writeFileSync(path.join(out, f), full);
   if (f !== '404.html') urls.push(SITE.origin + '/' + slug);
 }
 
 // robots (reserve rights: AI-training crawlers disallowed), sitemap, headers, manifest
-const AI_BOTS = ['GPTBot', 'ChatGPT-User', 'OAI-SearchBot', 'CCBot', 'anthropic-ai', 'ClaudeBot', 'Claude-Web', 'Google-Extended', 'Applebot-Extended', 'Bytespider', 'PerplexityBot', 'Amazonbot', 'FacebookBot', 'meta-externalagent', 'cohere-ai', 'Diffbot', 'ImagesiftBot', 'omgili', 'Timpibot'];
-fs.writeFileSync(path.join(out, 'robots.txt'), `# DYADRYN reserves all rights, including text-and-data-mining and AI-training rights (see /legal.html).\n${AI_BOTS.map(b => `User-agent: ${b}\nDisallow: /\n`).join('\n')}\nUser-agent: *\nAllow: /\n\nSitemap: ${SITE.origin}/sitemap.xml\n`);
+// Training crawlers are disallowed (IP reserved); search/retrieval/agent user-agents are welcome (Content-Signal).
+const TRAIN_BOTS = ['GPTBot', 'CCBot', 'anthropic-ai', 'ClaudeBot', 'Google-Extended', 'Applebot-Extended', 'Bytespider', 'Amazonbot', 'FacebookBot', 'meta-externalagent', 'cohere-ai', 'cohere-training-data-crawler', 'Diffbot', 'ImagesiftBot', 'omgili', 'omgilibot', 'PanguBot', 'Timpibot', 'VelenPublicWebCrawler', 'Kangaroo Bot'];
+fs.writeFileSync(path.join(out, 'robots.txt'), robotsTxt(SITE.origin, TRAIN_BOTS));
 fs.writeFileSync(path.join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 fs.writeFileSync(path.join(out, '_headers'), `/*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
@@ -125,4 +134,5 @@ fs.writeFileSync(path.join(out, '_headers'), `/*
   Cache-Control: public, max-age=31536000, immutable
 `);
 fs.writeFileSync(path.join(out, 'manifest.webmanifest'), JSON.stringify({ name: 'DYADRYN', short_name: 'DYADRYN', description: 'AI Persona Arena. Built from memory. Proven in battle.', start_url: '/', display: 'standalone', background_color: '#0C0E0F', theme_color: '#0C0E0F', icons: [{ src: '/assets/brand/favicon.svg', sizes: 'any', type: 'image/svg+xml' }, { src: '/assets/brand/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/assets/brand/icon-512.png', sizes: '512x512', type: 'image/png' }] }, null, 2));
+agentFiles({ out, SITE, pages: pageInfo, origin: SITE.origin, worker: { openapi: path.join(root, 'worker/openapi.json') } });
 console.log(`built ${pages.length} pages → site/  (css ${cssHash})`);

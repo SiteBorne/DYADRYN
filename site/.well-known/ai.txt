@@ -1,0 +1,5 @@
+# DYADRYN AI-use policy (mirror of robots.txt Content-Signal)
+search: allowed
+ai-input: allowed
+ai-train: disallowed
+agents: welcome — see /llms.txt and /agent-quickstart.md

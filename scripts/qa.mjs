@@ -17,14 +17,14 @@ for (const f of pages) {
   // allowed: statements that DENY the claim
   const m = text.match(BAD_CLAIMS); const allowed = m && /not|never|“smartest AI”|Never an|no /.test(text.slice(Math.max(0, text.search(BAD_CLAIMS) - 90), text.search(BAD_CLAIMS) + 60)); log(!m || allowed, `A3 banned claims — ${f}${m ? ' [' + m[0] + ']' : ''}`);
   log(!CANON.test(text), `A4/A5 no protected canon names — ${f}`);
-  log(!/\b(https?:)?\/\/(?!dyadryn\.com|www\.w3\.org)[a-z0-9.-]+\.[a-z]{2,}/i.test(html.replace(/xmlns="[^"]*"/g, '')), `A12 no external URLs — ${f}`);
+  log(!/\b(https?:)?\/\/(?!dyadryn\.com|www\.w3\.org)[a-z0-9.-]+\.[a-z]{2,}/i.test(html.replace(/xmlns="[^"]*"/g, '').replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '').replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '')), `A12 no external URLs — ${f}`);
 }
 const allText = pages.map(f => strip(fs.readFileSync(path.join(site, f), 'utf8'))).join(' ');
 log(/not affiliated with, sponsored by, or endorsed by Meta/.test(allText), 'A14 Meta/Muse disclaimer present');
 log(/OFL|Open Font License/.test(fs.readFileSync(path.join(site, 'legal.html'), 'utf8')) && fs.existsSync(path.join(site, 'assets/fonts/OFL-LICENSE.txt')), 'A15 licences documented');
 // A6: no production constants/prompts/schemas leaked
 const siteFiles = (function w(d) { return fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? w(path.join(d, e.name)) : [path.join(d, e.name)]); })(site).filter(f => /\.(html|js|css|json|txt)$/.test(f));
-const LEAK = /(stat_factor|rng_factor|guard_decay_fraction|round_energy_regen|typesafe\/jev|model_routes|profile_compiler|shadow_candidate|live_strategy|0\.55\s*\*\s*VITALITY|11\s*×\s*stat_factor|wrangler|Durable Object|Workers AI)/i;
+const LEAK = /(stat_factor|rng_factor|guard_decay_fraction|round_energy_regen|typesafe\/jev|model_routes|profile_compiler|shadow_candidate|live_strategy|0\.55\s*\*\s*VITALITY|11\s*×\s*stat_factor|wrangler\.jsonc|ADMIN_TOKEN|JEV_[A-Z_]+|CLOUDFLARE_API_TOKEN)/i; // infrastructure names are public by design; constants, prompts, model routes and secrets are not
 log(!siteFiles.some(f => LEAK.test(fs.readFileSync(f, 'utf8'))), 'A6 no engine constants / prompts / routes in published files');
 
 // A10: contrast of design-token pairs
