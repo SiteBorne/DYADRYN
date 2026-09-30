@@ -1,7 +1,7 @@
 // health metrics for one ruleset variant: population tournament + bandit diagnostics
 import * as L from './lab.mjs';
-export async function health(id, overrides, N = 10) {
-  const E = await L.load(id, overrides);
+export async function health(id, overrides, N = 10, Epre) {
+  const E = Epre || await L.load(id, overrides);
   const pols = ['presser', 'turtle', 'reader', 'inherited0', 'inherited3', 'bandit'];
   const rows = [], win = {}, use = {};
   for (const pa of pols) for (const pb of pols) for (let k = 0; k < N; k++) {

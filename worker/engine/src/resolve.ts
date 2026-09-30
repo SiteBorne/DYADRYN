@@ -80,6 +80,15 @@ const isAggressive = (pattern: BattleAction | undefined, selected: ResolvedActio
   selected.action !== "STALL" &&
   (pattern?.action === "PRESS" ||
     (selected.action === "SIGNATURE" && selected.signatureId === "CONSTRAINT_COLLAPSE"));
+const OPEN_SIGNATURES = ["SECOND_ORDER_SIGHT", "STILLPOINT", "SWARM_REPAIR"];
+/** Open = lowered guard to do something other than fight (Trace, Recover, Adapt, non-damaging signatures): the cooperative move of the Accord.
+ *  Guard is deliberately neither: it is the safe outside option (an optional prisoner's dilemma, cf. Hauert et al. 2002). */
+const isOpen = (pattern: BattleAction | undefined, selected: ResolvedAction): boolean =>
+  selected.action !== "STALL" &&
+  !isAggressive(pattern, selected) &&
+  (selected.action === "SIGNATURE"
+    ? OPEN_SIGNATURES.includes(String(selected.signatureId))
+    : pattern?.action === "TRACE" || pattern?.action === "RECOVER" || pattern?.action === "ADAPT");
 /** Consecutive trailing rounds in which the agent initiated no attack. */
 function passiveRun(p: PlayerState): number {
   let n = 0;
@@ -408,7 +417,7 @@ function finish(
   e: Effect,
   taken: number,
   dealt: number,
-  v2?: { accord: number; reprisal: number; lead: number; standoff: boolean },
+  v2?: { accord: number; reprisal: number; lead: number; standoff: boolean; chip: number },
 ): PlayerState {
   const { actor: p, selected: a, pattern, d } = e;
   if (pattern?.action === "PRESS" && dealt >= 8) d.momentum += 1;
@@ -430,6 +439,7 @@ function finish(
     }
     if (v2.standoff) {
       d.drift += V2.stale.standoff_drift;
+      d.vitality -= v2.chip; // escalating mutual erosion: stalling together is never free
       d.notes.push("standoff");
     }
   }
@@ -545,17 +555,18 @@ export function resolveRound(
   }
   materialize(ea, eb, matchSeed, input.round);
   materialize(eb, ea, matchSeed, input.round);
-  let v2a: { accord: number; reprisal: number; lead: number; standoff: boolean } | undefined, v2b: typeof v2a;
+  let v2a: { accord: number; reprisal: number; lead: number; standoff: boolean; chip: number } | undefined, v2b: typeof v2a;
   if (V2) {
     const aggA = isAggressive(ea.pattern, ea.selected), aggB = isAggressive(eb.pattern, eb.selected);
+    const openA = isOpen(ea.pattern, ea.selected), openB = isOpen(eb.pattern, eb.selected);
     const both = actionA !== null && actionB !== null, streak = input.a.accord ?? 0;
-    // Accord: a repeated prisoner's dilemma. Holding back together pays both (R); striking a trusting opponent pays once (T)
-    // but triggers Reprisal (S becomes leverage); mutual aggression (P) pays neither. INFLUENCE sets the size of R and the bite of Reprisal.
+    // Accord: an optional, repeated prisoner's dilemma. Both Open pays both (R); striking a trusting Open opponent pays once (T)
+    // but triggers Reprisal; mutual aggression (P) pays neither; Guard opts out (no dividend, no exposure). INFLUENCE sets R and Reprisal.
     let next = streak, repA = Math.max(0, (input.a.reprisal ?? 0) - 1), repB = Math.max(0, (input.b.reprisal ?? 0) - 1);
-    if (both && aggA && !aggB && streak >= 1) { ea.raw *= 1 + V2.accord.betrayal_bonus; ea.d.notes.push("betrayal:a"); repB = V2.accord.reprisal_rounds; next = 0; }
-    else if (both && aggB && !aggA && streak >= 1) { eb.raw *= 1 + V2.accord.betrayal_bonus; eb.d.notes.push("betrayal:b"); repA = V2.accord.reprisal_rounds; next = 0; }
+    if (both && aggA && openB && streak >= 1) { ea.raw *= 1 + V2.accord.betrayal_bonus; ea.d.notes.push("betrayal:a"); repB = V2.accord.reprisal_rounds; next = 0; }
+    else if (both && aggB && openA && streak >= 1) { eb.raw *= 1 + V2.accord.betrayal_bonus; eb.d.notes.push("betrayal:b"); repA = V2.accord.reprisal_rounds; next = 0; }
     else if (aggA || aggB) next = 0;
-    else if (both) {
+    else if (both && openA && openB) {
       next = Math.min(V2.accord.cap, streak + 1);
       const trust = 0.5 + 0.5 * ((lev(effectiveStats(input.a).INFLUENCE) + lev(effectiveStats(input.b).INFLUENCE)) / 2);
       const k = (1 + V2.accord.streak_bonus * (next - 1)) * trust;
@@ -566,8 +577,9 @@ export function resolveRound(
     const pa = proofScore(input.a.resources), pb = proofScore(input.b.resources);
     const runA = aggA ? 0 : passiveRun(input.a) + 1, runB = aggB ? 0 : passiveRun(input.b) + 1;
     const standoff = both && runA >= V2.stale.standoff_rounds && runB >= V2.stale.standoff_rounds;
-    v2a = { accord: next, reprisal: repA, lead: pa - pb, standoff };
-    v2b = { accord: next, reprisal: repB, lead: pb - pa, standoff };
+    const chip = standoff ? V2.stale.standoff_chip * (Math.min(runA, runB) - V2.stale.standoff_rounds + 1) : 0;
+    v2a = { accord: next, reprisal: repA, lead: pa - pb, standoff, chip };
+    v2b = { accord: next, reprisal: repB, lead: pb - pa, standoff, chip };
   }
   const da = damage(ea, eb),
     db = damage(eb, ea);

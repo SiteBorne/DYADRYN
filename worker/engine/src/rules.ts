@@ -16,7 +16,7 @@ export interface V2Rules {
   accord: { cap: number; dividend_focus: number; dividend_energy: number; streak_bonus: number; betrayal_bonus: number; reprisal_rounds: number; reprisal_bonus: number };
   novelty: { window: number; bonus: number; counter_surprise: number };
   fatigue: { guard_decay: number; recover_decay: number; floor: number };
-  stale: { lead_min: number; drift: number; standoff_rounds: number; standoff_drift: number };
+  stale: { lead_min: number; drift: number; standoff_rounds: number; standoff_drift: number; standoff_chip: number };
   signature: { scale: number };
   exposure: { trace: number; adapt: number };
   insight: { press_bonus: number };
