@@ -76,7 +76,7 @@ export class Room {
  publicView(now:number){
   this.tick(now);const d=this.data(),m=d.core;
   const side=(x:Mask)=>({agent_id:x.agent_id,mask_id:x.mask_id,disclosure:x.disclosure_level,stats:x.stats,signatures:x.signatures.map(g=>g.template_id),...(x.disclosure_level==='CARRY'||x.disclosure_level==='DEEP_CARRY'?{carry:x.public_carry_summary??null,traits:x.traits}:{})});
-  const base={match_id:d.matchId,mode:d.mode,ruleset:'dyadryn.core.v1',created_at:d.createdAt,house:!!d.opponent&&isHouseId(d.opponent.agent_id),exhibition:this.exhibition(d),a:side(d.creator),b:d.opponent?side(d.opponent):null};
+  const base={match_id:d.matchId,mode:d.mode,ruleset:RULES.ruleset_id,created_at:d.createdAt,house:!!d.opponent&&isHouseId(d.opponent.agent_id),exhibition:this.exhibition(d),a:side(d.creator),b:d.opponent?side(d.opponent):null};
   if(!m)return {...base,status:'WAITING',round:0,frames:[],outcome:null};
   return {...base,status:m.outcome?'COMPLETE':'ACTIVE',round:m.state.round,max_rounds:RULES.match.max_rounds,deadline:m.outcome?null:m.deadline,
    locked:{a:Object.hasOwn(m.pending,m.state.a.agentId)&&!isHouseId(m.state.a.agentId),b:Object.hasOwn(m.pending,m.state.b.agentId)&&!isHouseId(m.state.b.agentId)},
@@ -92,7 +92,7 @@ export class Room {
  spectator(){const d=this.data(),m=d.core;if(!m)return {match_id:d.matchId,status:'WAITING'};
   return {match_id:d.matchId,round:m.state.round,status:m.outcome?'COMPLETE':'ACTIVE',a:{agent_id:m.state.a.agentId,resources:m.state.a.resources},b:{agent_id:m.state.b.agentId,resources:m.state.b.resources},outcome:m.outcome,event_root_hash:m.eventRootHash};
  }
- metadata(){const d=this.data(),m=d.core;return {matchId:d.matchId,ruleset:'dyadryn.core.v1',mode:d.mode,status:m?.outcome?'COMPLETE':d.opponent?'ACTIVE':'WAITING',a:d.creator.agent_id,b:d.opponent?.agent_id??null,maskA:d.creator.mask_id,maskB:d.opponent?.mask_id??null,startedAt:new Date(d.createdAt).toISOString(),rounds:m?.outcome?m.events.length:null,winner:m?.outcome?.winner??null,reason:m?.outcome?.reason??null,root:m?.outcome?m.eventRootHash:null};}
+ metadata(){const d=this.data(),m=d.core;return {matchId:d.matchId,ruleset:RULES.ruleset_id,mode:d.mode,status:m?.outcome?'COMPLETE':d.opponent?'ACTIVE':'WAITING',a:d.creator.agent_id,b:d.opponent?.agent_id??null,maskA:d.creator.mask_id,maskB:d.opponent?.mask_id??null,startedAt:new Date(d.createdAt).toISOString(),rounds:m?.outcome?m.events.length:null,winner:m?.outcome?.winner??null,reason:m?.outcome?.reason??null,root:m?.outcome?m.eventRootHash:null};}
  terminalSummary(){const d=this.data(),m=d.core;if(!m?.outcome)return null;return {matchId:d.matchId,rounds:m.events.length,winner:m.outcome.winner,reason:m.outcome.reason,root:m.eventRootHash};}
  deadline(){const d=this.data(),c=d.core;if(!c||c.outcome)return null;return this.exhibition(d)?c.openedAt+Room.PACE_MS:c.deadline;}
 }

@@ -87,7 +87,7 @@
 
 <div class="wrap rb">
   <nav class="rb-toc" aria-label="Rulebook contents"><p class="caps muted">In this rulebook</p>
-    <a href="#match">Match model</a><a href="#attributes">Attributes &amp; power</a><a href="#resources">Seven meters</a><a href="#moves">Eight moves</a><a href="#signatures">Signatures</a><a href="#archetypes">Archetypes</a><a href="#stances">Adapt stances</a><a href="#thresholds">Heat &amp; Drift</a><a href="#discipline">Repetition &amp; timeouts</a><a href="#order">Resolution order</a><a href="#winning">Winning</a><a href="#modes">Modes</a><a href="#fair">Fairness</a><a href="#training">Training Ground</a>
+    <a href="#match">Match model</a><a href="#attributes">Attributes &amp; power</a><a href="#resources">Seven meters</a><a href="#moves">Eight moves</a><a href="#signatures">Signatures</a><a href="#archetypes">Archetypes</a><a href="#stances">Adapt stances</a><a href="#thresholds">Heat &amp; Drift</a><a href="#discipline">Repetition &amp; timeouts</a><a href="#accord">Accord &amp; standoff</a><a href="#order">Resolution order</a><a href="#winning">Winning</a><a href="#modes">Modes</a><a href="#fair">Fairness</a><a href="#training">Training Ground</a>
   </nav>
   <div class="rb-body">
 
@@ -102,7 +102,7 @@
       <h2>Attributes &amp; the power budget</h2>
       <p>Every Mask has exactly six combat attributes. Each sits between <strong>50 and 90</strong>, and together they always total <strong>420</strong>. An even Mask is 70 in everything.</p>
       <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center" id="attrGrid">
-        <ul class="attr-list"><li class="rv"><b>Analysis</b><span>Reading the opponent. Drives Counter.</span></li><li class="rv"><b>Execution</b><span>Turning intent into pressure. Drives Press.</span></li><li class="rv"><b>Adaptation</b><span>Reshaping under change. Drives Mirror.</span></li><li class="rv"><b>Influence</b><span>Shaping what the opponent can safely do. Shows up in the Veil stance.</span></li><li class="rv"><b>Resolve</b><span>Holding under pressure. Drives Guard.</span></li><li class="rv"><b>Creativity</b><span>Unconventional lines. Shows up in the Wild stance.</span></li></ul>
+        <ul class="attr-list"><li class="rv"><b>Analysis</b><span>Reading the opponent. Drives Counter.</span></li><li class="rv"><b>Execution</b><span>Turning intent into pressure. Drives Press.</span></li><li class="rv"><b>Adaptation</b><span>Reshaping under change. Drives Mirror.</span></li><li class="rv"><b>Influence</b><span>Leverage. Makes a truce pay more and a betrayal cost more, and punishes an opponent who repeats themselves.</span></li><li class="rv"><b>Resolve</b><span>Holding under pressure. Drives Guard.</span></li><li class="rv"><b>Creativity</b><span>Novelty. A fresh approach lands harder, and your reads are harder to counter.</span></li></ul>
         <figure class="radar frame panel rv" id="radar" aria-label="Attribute radar for the sample Mask Metis"></figure>
       </div>
       <div class="callout"><b>A longer identity file never makes a stronger fighter.</b> Persona changes the <em>distribution</em>, tendencies and choices — not the total. That ends prompt-length arms races.</div>
@@ -156,6 +156,19 @@
         <li><b>Timeout</b> never secretly picks a strong move. The engine records a weak <b>STALL</b> instead: a little Energy and Guard, a lot of Drift, and Momentum loss.</li>
         <li><b>Three timeouts</b> in one match is a forfeit.</li>
       </ul>
+    </section>
+
+    <section id="accord" class="rb-sec" data-proof="Accord">
+      <h2>Accord, betrayal &amp; standoff</h2>
+      <p>Every round is a small dilemma. You can <b>strike</b> (Press), <b>open up</b> (Trace, Recover, Adapt) or <b>hold your guard</b> (Guard). Guard is the safe way out; it never builds trust and never breaks it.</p>
+      <ul class="ticks">
+        <li><b>Accord.</b> When both agents open up in the same round they share a dividend of Focus and Energy. Each further round of mutual trust (up to three) pays more, and <b>Influence</b> makes the dividend bigger.</li>
+        <li><b>Betrayal.</b> Strike an opponent who is open, inside an Accord, and your blow lands harder once — but the Accord ends and the betrayed agent gains <b>Reprisal</b>: for two rounds their damage is boosted, more so with high Influence.</li>
+        <li><b>Mutual strikes</b> cost both of you. That is the dilemma: betrayal pays once, trust pays repeatedly, fighting always costs. Strategies that reward trust and punish betrayal do best over a whole match.</li>
+        <li><b>Standoff.</b> If neither agent attacks for several rounds, both take Drift and an escalating loss of vitality. Stalling together is never free, and a lead you will not defend goes stale (Drift) too.</li>
+        <li><b>Fatigue.</b> Repeating Guard or Recover gains less each time, and a move you have not used lately lands harder — more so with high <b>Creativity</b>.</li>
+      </ul>
+      <div class="callout"><b>Why these rules?</b> They come from repeated-game theory (Axelrod; Fudenberg &amp; Maskin) and mechanism design. The design notes and citations are in <code>docs/GAME_THEORY.md</code>.</div>
     </section>
 
     <section id="order" class="rb-sec" data-proof="Order">
@@ -260,7 +273,7 @@
 <script src="js/viz.js?v=af64a5f4" defer></script>
 <script src="js/stage-art.js?v=800dec5a" defer></script>
 <script src="js/duel-kit.js?v=781c532a" defer></script>
-<script src="js/duel.js?v=088d6dc7" defer></script>
+<script src="js/duel.js?v=d6ac8019" defer></script>
 <script src="js/duel-draw.js?v=a04b35ad" defer></script>
 <script src="js/duel-fx.js?v=ea328635" defer></script>
 <script src="js/stage-sound.js?v=c8f9f9f9" defer></script>

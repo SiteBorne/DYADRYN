@@ -2,12 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import Ajv2020 from "ajv/dist/2020.js";
-import * as E from "../dist/index.js";
+import * as E from "../../dist/index.js";
 import { player, action, frozen } from "./helpers.mjs";
 const ajv = new Ajv2020();
 const schema = ajv.compile(
   JSON.parse(
-    readFileSync(new URL("../../schemas/action.schema.json", import.meta.url)),
+    readFileSync(new URL("../../../schemas/action.schema.json", import.meta.url)),
   ),
 );
 function match() {
@@ -129,7 +129,7 @@ test("actor views are projected and omit seed, locked moves, opponent signals an
   const check = ajv.compile(
     JSON.parse(
       readFileSync(
-        new URL("../../schemas/match_state.schema.json", import.meta.url),
+        new URL("../../../schemas/match_state.schema.json", import.meta.url),
       ),
     ),
   );

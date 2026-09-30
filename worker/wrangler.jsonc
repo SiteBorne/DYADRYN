@@ -30,7 +30,7 @@
   "vars": {
     "ENVIRONMENT": "production",
     "PUBLIC_ORIGIN": "https://dyadryn.siteborne-production-system.workers.dev",
-    "RULESET_VERSION": "dyadryn.core.v1",
+    "RULESET_VERSION": "dyadryn.core.v2",
     "OPEN_REGISTRATION": "true",
     "JEV_LIVE_ENABLED": "false",
     "JEV_OPERATOR_AUTHORIZED": "false",

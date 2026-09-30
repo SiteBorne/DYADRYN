@@ -13,7 +13,7 @@ import {cleanName,parseAvatar} from './identity.js';
 import {HOUSE_ARCHETYPES,isHouseArchetype,isHouseId,nearestArchetype} from './house.js';
 import {agentCard,a2aRpc} from './a2a.js';
 import {recapOf} from './recap.js';
-import {sha256,type Mode} from '../engine/src/index.js';
+import {RULES,sha256,type Mode} from '../engine/src/index.js';
 export {MatchRoom,EvidenceBudget};
 const VERSION='0.4.0';
 const SEC={'X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
@@ -79,7 +79,7 @@ async function dispatch(env:Env,actor:string,name:string,input:unknown):Promise<
   return stub.create(matchId,p,x.mode as Mode,arch);}
  if(name==='list_open_matches'){strictObject(input,[]);const l=await lobby(env);return {open:l.open.filter(m=>m.a.agent_id!==actor)};}
  if(name==='get_agent_record'){const x=strictObject(input,['agent_id']);const agent=id(x.agent_id);const record=await env.DB.prepare('SELECT agent_id,display_name,status,created_at FROM agents WHERE agent_id=?').bind(agent).first();const matches=await env.DB.prepare('SELECT match_id,mode,status,rounds,winner_agent_id,replay_root_hash FROM matches WHERE agent_a=? OR agent_b=? ORDER BY started_at DESC LIMIT 20').bind(agent,agent).all();return {agent:record,record:await recordOf(env,agent),matches:matches.results};}
- if(name==='get_rankings'){strictObject(input,[]);const r=await env.DB.prepare("SELECT subject_id,rating,rd,games FROM ratings WHERE subject_type='AGENT' AND ruleset_version='dyadryn.core.v1' ORDER BY rating DESC LIMIT 100").all();return {ruleset_version:'dyadryn.core.v1',ranked_enabled:false,entries:r.results,practice_record:await record(env)};}
+ if(name==='get_rankings'){strictObject(input,[]);const r=await env.DB.prepare("SELECT subject_id,rating,rd,games FROM ratings WHERE subject_type='AGENT' AND ruleset_version=? ORDER BY rating DESC LIMIT 100").bind(RULES.ruleset_id).all();return {ruleset_version:RULES.ruleset_id,ranked_enabled:false,entries:r.results,practice_record:await record(env)};}
  const x=strictObject(input,['match_id'],name==='join_match'?['mask_id']:name==='submit_action'?['envelope']:[]),matchId=id(x.match_id),stub=env.MATCH_ROOMS.getByName(matchId);
  if(name==='join_match'){const p=await mask(env,actor,id(x.mask_id));return stub.join(p);}
  if(name==='get_state')return stub.view(actor);
@@ -134,7 +134,7 @@ export default {async fetch(request:Request,env:Env,ctx:ExecutionContext):Promis
  const origin=request.headers.get('Origin');
  if(request.method==='OPTIONS')return new Response(null,{status:204,headers:CORS});
  if(origin&&origin!==url.origin&&origin!==env.PUBLIC_ORIGIN&&!(request.method==='GET'&&path.startsWith('/v1/public/')))throw new HttpError(403,'origin_forbidden');
- if(path==='/health'&&request.method==='GET')return json({service:'dyadryn',version:VERSION,ruleset:'dyadryn.core.v1',jev_live:env.JEV_LIVE_ENABLED==='true',recap_live:env.RECAP_LIVE_ENABLED==='true',ranked_enabled:false});
+ if(path==='/health'&&request.method==='GET')return json({service:'dyadryn',version:VERSION,ruleset:RULES.ruleset_id,jev_live:env.JEV_LIVE_ENABLED==='true',recap_live:env.RECAP_LIVE_ENABLED==='true',ranked_enabled:false});
  if(request.method==='GET'&&(path==='/.well-known/agent-card.json'||path==='/.well-known/agent.json'))return new Response(JSON.stringify(agentCard(o,tools,VERSION)),{headers:{'Content-Type':'application/json',...CORS,'Cache-Control':'public, max-age=300',...SEC}});
  if(request.method==='GET'&&path==='/.well-known/mcp.json')return new Response(JSON.stringify(mcpDescriptor(o)),{headers:{'Content-Type':'application/json',...CORS,'Cache-Control':'public, max-age=300',...SEC}});
 

@@ -7,7 +7,9 @@
     "rules:generate": "node scripts/generate-rules.mjs",
     "rules:check": "node scripts/generate-rules.mjs --check",
     "build": "npm run rules:check && tsc -p tsconfig.json",
-    "test": "npm run build && node dist/selftest.js && node --test tests/*.test.mjs",
+    "test:v1": "RULES_YAML=rules.v1.yaml node scripts/generate-rules.mjs && tsc -p tsconfig.json && node dist/selftest.js && node --test tests/v1/*.test.mjs; s=$?; node scripts/generate-rules.mjs && tsc -p tsconfig.json; exit $s",
+    "test:v2": "node scripts/generate-rules.mjs && tsc -p tsconfig.json && node dist/selftest.js && node --test tests/v2/*.test.mjs",
+    "test": "npm run test:v1 && npm run test:v2",
     "simulate": "npm run build && node scripts/simulate.mjs"
   },
   "devDependencies": {

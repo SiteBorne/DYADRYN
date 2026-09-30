@@ -202,9 +202,9 @@ v2:
   adapt:
     amount: 11.289
   stat_weight:
-    ANALYSIS: 0.951
-    EXECUTION: 1.3
-    ADAPTATION: 0.756
-    RESOLVE: 1.176
+    ANALYSIS: 1.902
+    EXECUTION: 0.2
+    ADAPTATION: 0.727
+    RESOLVE: 1.541
   influence:
-    read: 0.09
+    read: 0.17

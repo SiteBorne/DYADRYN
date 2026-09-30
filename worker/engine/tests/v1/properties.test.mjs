@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fc from "fast-check";
-import * as E from "../dist/index.js";
+import * as E from "../../dist/index.js";
 import { player, state, frozen, near, action } from "./helpers.mjs";
 const signatures = Object.keys(E.SIGNATURES);
 const boundedResources = fc.record({

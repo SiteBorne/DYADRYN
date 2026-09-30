@@ -176,7 +176,17 @@
     if (da.vitality > .5) out.push(n.a + ' recovered ' + R_(da.vitality) + ' vitality.'); if (db.vitality > .5) out.push(n.b + ' recovered ' + R_(db.vitality) + ' vitality.');
     if (!(da.vitality < -.5 || db.vitality < -.5)) out.push('No vitality was lost.');
     if (Rd.pre.a.r.heat < 70 && Rd.post.a.r.heat >= 70) out.push(n.a + ' is BRIGHT.'); if (Rd.pre.b.r.heat < 70 && Rd.post.b.r.heat >= 70) out.push(n.b + ' is BRIGHT.');
-    if (Rd.notes.length) out.push(Rd.notes.join(' ')); return out.join(' ');
+    var seen = {}, say = function (t) { if (!seen[t]) { seen[t] = 1; out.push(t); } };
+    (Rd.notes || []).forEach(function (t) {
+      var k = t.split(':'), w = k[1] === 'a' ? n.a : k[1] === 'b' ? n.b : '';
+      if (k[0] === 'accord') say('Accord ×' + k[1] + ': both held open and share a dividend.');
+      else if (k[0] === 'betrayal') say(w + ' struck a trusting opponent — betrayal.');
+      else if (k[0] === 'reprisal') say(w + ' retaliates.');
+      else if (t === 'stale_lead') say('A lead left undefended goes stale (Drift).');
+      else if (t === 'standoff') say('Standoff: stalling together costs both.');
+      else if (k[0] === 'trace' || k[0] === 'timeout') say(t.replace(/_/g, ' ').replace(':', ': '));
+    });
+    return out.join(' ');
   };
 
   /* ---------- match data ---------- */

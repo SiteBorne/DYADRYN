@@ -1,1121 +1,1055 @@
 {
-  "replay": {
-    "proof_format": "dyadryn.proof.v2",
-    "match_id": "frozen-proof-vector-v2",
-    "ruleset_version": "dyadryn.core.v1",
-    "mode": "MODEL_TRIAL",
-    "seed_commitments": {
-      "server": "ccaf84ee786fc02ffb0500a63f9f40c41434ccfb7596565acfef44fd9b269a23"
-    },
-    "seed_reveals": {
-      "server": "frozen-seed-v2"
-    },
-    "initial_state": {
-      "round": 1,
-      "a": {
-        "agentId": "A",
-        "stats": {
-          "ANALYSIS": 70,
-          "EXECUTION": 70,
-          "ADAPTATION": 70,
-          "INFLUENCE": 70,
-          "RESOLVE": 70,
-          "CREATIVITY": 70
-        },
-        "resources": {
-          "vitality": 100,
-          "energy": 100,
-          "focus": 20,
-          "heat": 0,
-          "momentum": 0,
-          "guard": 0,
-          "drift": 0
-        },
-        "signatures": [
-          "STILLPOINT",
-          "SECOND_ORDER_SIGHT"
-        ],
-        "insightStacks": 0,
-        "timeouts": 0,
-        "repetitionCount": 0,
-        "cooldowns": {}
-      },
-      "b": {
-        "agentId": "B",
-        "stats": {
-          "ANALYSIS": 70,
-          "EXECUTION": 70,
-          "ADAPTATION": 70,
-          "INFLUENCE": 70,
-          "RESOLVE": 70,
-          "CREATIVITY": 70
-        },
-        "resources": {
-          "vitality": 100,
-          "energy": 100,
-          "focus": 20,
-          "heat": 0,
-          "momentum": 0,
-          "guard": 0,
-          "drift": 0
-        },
-        "signatures": [
-          "STILLPOINT",
-          "SECOND_ORDER_SIGHT"
-        ],
-        "insightStacks": 0,
-        "timeouts": 0,
-        "repetitionCount": 0,
-        "cooldowns": {}
-      }
-    },
-    "events": [
-      {
-        "round": 1,
-        "previousHash": "b6ae666dc405a2e128317717dc17a689b254e077170bde22d154e678ed117682",
-        "preStateHash": "cb4b4d656a88d521bdbc24389c4d9f72a1d95cd829afe8e5dbfd932b1580bcde",
-        "postStateHash": "933235fb1dbb39863d1529affbffbc14c3431788a6c1aa425744a9598c0c4ea6",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "cc330cf63462d3666539150172ace0825884948cc4914ca7b0787d9386c07271"
-      },
-      {
-        "round": 2,
-        "previousHash": "cc330cf63462d3666539150172ace0825884948cc4914ca7b0787d9386c07271",
-        "preStateHash": "8f230b0998365029f2618acf314b8b3c059af59a59d8d7fff9a8cddcc76164e4",
-        "postStateHash": "bfb868862aff291ba291ea7fa8fcca1aa0794d756c578a1f9ddb6a74057fe4cd",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "905cb40b834a70dd2694190e2fc70c24e3c56d67a60182fd5558c638f674066d"
-      },
-      {
-        "round": 3,
-        "previousHash": "905cb40b834a70dd2694190e2fc70c24e3c56d67a60182fd5558c638f674066d",
-        "preStateHash": "e61c5449c74cc41bc9d25db5eee12ec94af921fadbf6620f808a863bd926eadd",
-        "postStateHash": "badd4e3336c8625ad816a853d86dd60152b151ab87406cf466a82bcb2205c776",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "3d5cb403f9c7b1234949e3cf98513c7b5fbf6d8afa2ee397bc0e732f8ae3f752"
-      },
-      {
-        "round": 4,
-        "previousHash": "3d5cb403f9c7b1234949e3cf98513c7b5fbf6d8afa2ee397bc0e732f8ae3f752",
-        "preStateHash": "ae034051f6488ae826079bf76483acbbc63b5107ca2f89aa03facbf9d1934e3b",
-        "postStateHash": "615370856923135359d626857956c1fae2f5428fa538471be201746e248d4379",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "21175ab1ed0fbe7aac76562186eba5f58bbe01954ed0563489611a3b5c434b23"
-      },
-      {
-        "round": 5,
-        "previousHash": "21175ab1ed0fbe7aac76562186eba5f58bbe01954ed0563489611a3b5c434b23",
-        "preStateHash": "af9744067e488454f8b258b21ff734c2ed858fbe04d25d03ddaaf9414046ce0a",
-        "postStateHash": "8954cad4550425e016f5f4dc301dd9d2af35bb08535a4f946920b1847aeac454",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "e6a717a93f237e440168e86e8901fa67d7848e3aa5dcc85e772b8cff991d1867"
-      },
-      {
-        "round": 6,
-        "previousHash": "e6a717a93f237e440168e86e8901fa67d7848e3aa5dcc85e772b8cff991d1867",
-        "preStateHash": "1fbb3238e7b00e2a85fc8d033e474a0e474b1a1cda9a51d564c65939b3cab5cf",
-        "postStateHash": "fb25625edf1e6101d10a161567f50d89e351981a3981f397a2e550d46d3218a0",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "74d063a6d75f6ef9a7f8ff79096da2d776cf4eebcfc4208afbdfd3ca258cb2a7"
-      },
-      {
-        "round": 7,
-        "previousHash": "74d063a6d75f6ef9a7f8ff79096da2d776cf4eebcfc4208afbdfd3ca258cb2a7",
-        "preStateHash": "8a915fc9c8f0a9aae1f10a8d0c19de2bd5b4f43b9884587610b37904cfd9a207",
-        "postStateHash": "978229e6e685ed88e375d3f73af4c52a47f12570c036e4c0ee338143df7e2585",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "1c19cce7178f911f1f32a1187a83c338d28b90286f834064d077be1d9f71ea39"
-      },
-      {
-        "round": 8,
-        "previousHash": "1c19cce7178f911f1f32a1187a83c338d28b90286f834064d077be1d9f71ea39",
-        "preStateHash": "99d68fe7ac8022d574bb880174afaf2640e314297d1bb45f00b19a1bfccdcb11",
-        "postStateHash": "1be32814515dd39300fa3b63298d3a3ceae9af03933d99a413f5756172ae96a9",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "9205d4ed480d93c97ece53fda3c596128c645ba3994b8df723eac87b68184d65"
-      },
-      {
-        "round": 9,
-        "previousHash": "9205d4ed480d93c97ece53fda3c596128c645ba3994b8df723eac87b68184d65",
-        "preStateHash": "d0c4dfb59cde78a369805b8d5cdc3d645d85227fdf81f86e97d5223b1b956867",
-        "postStateHash": "ca606ea1357431dea244771a10b385c54863f8571c5a9c8ad4621810a59e4fe7",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "1f2fd28e9af5dcb55d1cd17d6e7934e840d2c0b5eb88b9975879e6811c3418e5"
-      },
-      {
-        "round": 10,
-        "previousHash": "1f2fd28e9af5dcb55d1cd17d6e7934e840d2c0b5eb88b9975879e6811c3418e5",
-        "preStateHash": "66b46b044c1003bb70bb479fdd69d825063cd500e27350b7058c04907a3bb23d",
-        "postStateHash": "36ff4b23f1f4bba51a64d2b39a29f82d3b98d874e3c70c791eb85ba197a3ec4d",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "483cb797921abca3a0fc769142793ff3da881807fa3cc52e7efbc2a068ed2ad7"
-      },
-      {
-        "round": 11,
-        "previousHash": "483cb797921abca3a0fc769142793ff3da881807fa3cc52e7efbc2a068ed2ad7",
-        "preStateHash": "3b83352252a7fb80d10278746b5b160600b7245f4cc6abe180846b4f77b739ae",
-        "postStateHash": "c9e405dd074bb35a4c7d2dbfbd7c44e5fd0343a5c2544d835afb7d0343e04cb0",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "1593bfcc0236932d66351820b7edca16a4c3a694c976dd95f6f9af89a5ea82a7"
-      },
-      {
-        "round": 12,
-        "previousHash": "1593bfcc0236932d66351820b7edca16a4c3a694c976dd95f6f9af89a5ea82a7",
-        "preStateHash": "2134e106689cad52c79b5fa62ed0dc20092f3beb454ebe4521af01c90068acb3",
-        "postStateHash": "0cff055c64bf47412ee226171dcbbabdbba51147db1e1400d1dfb0379601df9c",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "3c0a48a4dc6165b756f1211e9a797a128c10016658075a20d7de7babd38ec799"
-      },
-      {
-        "round": 13,
-        "previousHash": "3c0a48a4dc6165b756f1211e9a797a128c10016658075a20d7de7babd38ec799",
-        "preStateHash": "631b5ba18313c8004cf2b08c00201fb52eee4243f7d079ac9f3a37c2a340aa34",
-        "postStateHash": "153b9598f9652ffb8a7f816a0aac9a9e6e5bc430bf02775d5e29f4850bcb100a",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "17558a143ce701f8d7f57b8d49929268b72f36796a8fbf38a99e655b3787e32d"
-      },
-      {
-        "round": 14,
-        "previousHash": "17558a143ce701f8d7f57b8d49929268b72f36796a8fbf38a99e655b3787e32d",
-        "preStateHash": "8c5f7d66eebfc1c1ddfa5654922963df26dcc7ba0cfe4c2190a3d7fdae6b7ef8",
-        "postStateHash": "0d2b364e2e1f43c89181ff93ef3ed713537fe05d4f1981eb1ee360494aa30766",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "5b60dd241f95083dd8764d7ed7467c45e328e9ae503ead9e1469f7c177ccb287"
-      },
-      {
-        "round": 15,
-        "previousHash": "5b60dd241f95083dd8764d7ed7467c45e328e9ae503ead9e1469f7c177ccb287",
-        "preStateHash": "cb3f4aa7cdbfe6c1bb7f334501f7da5a467f44b7e58976971c58f9eb6280d58b",
-        "postStateHash": "a134f8cf0eb056ed8257909abf1cd421f99fa7e615eedb2210d5111701526709",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "ec2a2ab0a1b1dea263c67ed61638b9791208f67c7469c92b6bca5210058ecf5f"
-      },
-      {
-        "round": 16,
-        "previousHash": "ec2a2ab0a1b1dea263c67ed61638b9791208f67c7469c92b6bca5210058ecf5f",
-        "preStateHash": "220675a12fd8ca644d823712c3f49d0389ac4e066e9c39abb19fa6f129cf72d8",
-        "postStateHash": "e966c3c5cfefbef8bd5521b5d1ac23d483904f2ae3059fb4154568b36c813c9d",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 5,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "0d8e3a5f8db53e79e37dd7572ab8f887e1f4749e59ed555651a8eb5c52676334"
-      },
-      {
-        "round": 17,
-        "previousHash": "0d8e3a5f8db53e79e37dd7572ab8f887e1f4749e59ed555651a8eb5c52676334",
-        "preStateHash": "9934c2f6b159265383a97afd78b345e9009a7abc34206b6380043f98fb310dad",
-        "postStateHash": "ca5fcb94524488296a0edfe86ade443998d8e66ec7efadd558789bac95c47ccb",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "05e48fe59a0319e7e7c05bd12f20cffee914c90a17fe7321ac13c3ec5a4cc48a"
-      },
-      {
-        "round": 18,
-        "previousHash": "05e48fe59a0319e7e7c05bd12f20cffee914c90a17fe7321ac13c3ec5a4cc48a",
-        "preStateHash": "3320b585290cec2b3e8a8bb60dd2343646ee18f2756f7cc3e7becc98cd356987",
-        "postStateHash": "c1fcd443f675ea5210e32590f559d76c8614a5fb2395c2280ca6bdd91e7e44dd",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "36df97cc9fee1fc875bbab23fbcf9455945e013eb892ccc1d514d19672c5387b"
-      },
-      {
-        "round": 19,
-        "previousHash": "36df97cc9fee1fc875bbab23fbcf9455945e013eb892ccc1d514d19672c5387b",
-        "preStateHash": "cefe2cfd866fe281eb6f89ec54ebb730eae4b818e5aabf2ec510b0fb4168a31f",
-        "postStateHash": "008d55b3667004ec5e0b75739ca3e0585ac3b8debbee77cbd5ca28fc33deaa8a",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "700f772d50a93ba20726bb30ed61523e3fe89744f224f22e91534c352dfc99f3"
-      },
-      {
-        "round": 20,
-        "previousHash": "700f772d50a93ba20726bb30ed61523e3fe89744f224f22e91534c352dfc99f3",
-        "preStateHash": "64704198af3501c593ab8badcf80b310e7620307f2b84f91e674a760bd7d635c",
-        "postStateHash": "66cfa016ce871eea95640e57651e6d36d919e8baefa31e4fb235b9f6b62b5359",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "43a1647edd54e706d322eb9a30861df583d40457f2ddea9794628c5cd5e0cb19"
-      },
-      {
-        "round": 21,
-        "previousHash": "43a1647edd54e706d322eb9a30861df583d40457f2ddea9794628c5cd5e0cb19",
-        "preStateHash": "f78aa51e8042bf713974fc634eb8498bf3ec16a8682e33f125f0914e290cbf57",
-        "postStateHash": "2c4823b230dadf46fa803f8a81440f177777bec6fac538e8cbb95ef25c1f6099",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "2312cea53e4fa9c98b7c5a7f2e248ad82aa165c07316bb833b5430244eddbead"
-      },
-      {
-        "round": 22,
-        "previousHash": "2312cea53e4fa9c98b7c5a7f2e248ad82aa165c07316bb833b5430244eddbead",
-        "preStateHash": "70ee4d3f799fca462cebf78b28d5a678d439f0566ab42f301b1bd83081990d34",
-        "postStateHash": "e61c916ec51809d7b6a82e8d9f2778f05e3140bcf0247349f67c93917ac9c770",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "6a495ebfbf0781a55e5f1c2209af65e7f68bdab613e04f79eee6374b58f51249"
-      },
-      {
-        "round": 23,
-        "previousHash": "6a495ebfbf0781a55e5f1c2209af65e7f68bdab613e04f79eee6374b58f51249",
-        "preStateHash": "44eb69a548feb73c334e67e2f055bfe528189186a324ed74146b86938ceb36c1",
-        "postStateHash": "3e5f363c6f3681ee596ed46ff24fdb5137453d98b98e04671b68619211fb2b72",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": null,
-        "hash": "790379e9f64fbc326c000002f76530ed1f77625656b1b28ff33009fafcd3198c"
-      },
-      {
-        "round": 24,
-        "previousHash": "790379e9f64fbc326c000002f76530ed1f77625656b1b28ff33009fafcd3198c",
-        "preStateHash": "044da81604d72cdc012140698754a1d6a50c75dc7cdd2b8f0259a4ff23eaae41",
-        "postStateHash": "344c814b60e2ce6ce90419006c5a7e39592b4e5d9bb41312662d999763502d69",
-        "actions": {
-          "a": {
-            "action": "RECOVER",
-            "intensity": 2
-          },
-          "b": {
-            "action": "RECOVER",
-            "intensity": 2
-          }
-        },
-        "deltas": {
-          "a": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          },
-          "b": {
-            "vitality": 0,
-            "energy": 0,
-            "focus": 0,
-            "heat": 0,
-            "momentum": 0,
-            "guard": 0,
-            "drift": 0,
-            "insightStacks": 0,
-            "notes": []
-          }
-        },
-        "notes": [],
-        "outcome": {
-          "winner": null,
-          "reason": "round_limit"
-        },
-        "hash": "4d1efcd9af71192f09de5205894ef782b6c45e4d0259d60d79a82ac55f9172cb"
-      }
-    ],
-    "terminal_result": {
-      "winner": null,
-      "reason": "round_limit"
-    },
-    "event_root_hash": "4d1efcd9af71192f09de5205894ef782b6c45e4d0259d60d79a82ac55f9172cb"
+ "ruleset": "dyadryn.core.v2",
+ "replay": {
+  "proof_format": "dyadryn.proof.v2",
+  "match_id": "frozen-vector-v2",
+  "ruleset_version": "dyadryn.core.v2",
+  "mode": "MODEL_TRIAL",
+  "seed_commitments": {
+   "server": "0ed1d3910faf195e328317614ecc24d227524a3233ad37ac55c180bbcfe12dd4"
   },
-  "expected": {
-    "verified": true,
-    "rounds": 24,
-    "state_hash": "344c814b60e2ce6ce90419006c5a7e39592b4e5d9bb41312662d999763502d69",
-    "replay_hash": "25af2adf01e9793f5187c04aef16cc839fb74465ef14ea24f6059e63ff5ae912"
-  }
+  "seed_reveals": {
+   "server": "frozen-vector-seed-dyadryn.core.v2"
+  },
+  "initial_state": {
+   "round": 1,
+   "a": {
+    "agentId": "A",
+    "stats": {
+     "ANALYSIS": 80,
+     "EXECUTION": 54,
+     "ADAPTATION": 72,
+     "INFLUENCE": 88,
+     "RESOLVE": 64,
+     "CREATIVITY": 62
+    },
+    "resources": {
+     "vitality": 100,
+     "energy": 100,
+     "focus": 20,
+     "heat": 0,
+     "momentum": 0,
+     "guard": 0,
+     "drift": 0
+    },
+    "signatures": [
+     "VEIL_STEP",
+     "BROKER_LOCK"
+    ],
+    "insightStacks": 0,
+    "timeouts": 0,
+    "repetitionCount": 0,
+    "cooldowns": {}
+   },
+   "b": {
+    "agentId": "B",
+    "stats": {
+     "ANALYSIS": 60,
+     "EXECUTION": 74,
+     "ADAPTATION": 84,
+     "INFLUENCE": 58,
+     "RESOLVE": 58,
+     "CREATIVITY": 86
+    },
+    "resources": {
+     "vitality": 100,
+     "energy": 100,
+     "focus": 20,
+     "heat": 0,
+     "momentum": 0,
+     "guard": 0,
+     "drift": 0
+    },
+    "signatures": [
+     "SWARM_REPAIR",
+     "CONSTRAINT_COLLAPSE"
+    ],
+    "insightStacks": 0,
+    "timeouts": 0,
+    "repetitionCount": 0,
+    "cooldowns": {}
+   }
+  },
+  "events": [
+   {
+    "round": 1,
+    "previousHash": "5de3e0d4cb8027be85ecba4a9de3f79cd2040a02143942fbc3f14996a9133ae3",
+    "preStateHash": "5140702ad985bc8f3ea26b6d8fb1abbf5c431dfcc0d657654eb9625784a5321b",
+    "postStateHash": "13aa52afd796d2e1616538fbebbd90fb3ebd3ff6a2b037a8eea7840425503d8f",
+    "actions": {
+     "a": {
+      "action": "RECOVER",
+      "intensity": 1
+     },
+     "b": {
+      "action": "RECOVER",
+      "intensity": 1
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": 0,
+      "focus": 10.178225000000001,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": [
+       "accord:1"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": 0,
+      "focus": 10.193224999999998,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": [
+       "accord:1"
+      ]
+     }
+    },
+    "notes": [
+     "accord:1",
+     "accord:1"
+    ],
+    "outcome": null,
+    "hash": "3cb7fcf0c5650523085add01ede9eeb22f2dbf138d20a540bb702008a66f2947"
+   },
+   {
+    "round": 2,
+    "previousHash": "3cb7fcf0c5650523085add01ede9eeb22f2dbf138d20a540bb702008a66f2947",
+    "preStateHash": "88bb052f1523bf020b37474c34a123af770a4dc12f00ebe05dfbe3e15db28f6a",
+    "postStateHash": "6916e5ecb264b9a61a2a463f7f90ab0013dac86f2b4827a8c31e05662b2bdf4d",
+    "actions": {
+     "a": {
+      "action": "ADAPT",
+      "intensity": 3,
+      "adaptStance": "WILD"
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 3,
+      "prediction": "RECOVER"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -5.569000000000003,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -15,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 7.44,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "0177a0972dccfb6f7726a1d62761c61159937736b206b6ca08934bf61614d2d3"
+   },
+   {
+    "round": 3,
+    "previousHash": "0177a0972dccfb6f7726a1d62761c61159937736b206b6ca08934bf61614d2d3",
+    "preStateHash": "60232d1a9c6c672bb7b98eec31a5482036071707ecdbc8786077555494a5ae86",
+    "postStateHash": "1b9ead8ce8494c7d7178d7fce1665ef94bb65ec9fe720bd42a2e1d11c9abee07",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 1
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "ADAPT"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -2.4309999999999974,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -8.712673857454178,
+      "energy": -1,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 7.44,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "8cb42aecf4d528bb6901a2a1faa03b8fa2dfebfc4a8e460526789132fffbf777"
+   },
+   {
+    "round": 4,
+    "previousHash": "8cb42aecf4d528bb6901a2a1faa03b8fa2dfebfc4a8e460526789132fffbf777",
+    "preStateHash": "9888200d9de20644a3cdf95f757d0805cc6f519de68e374e79aecee82c12b14f",
+    "postStateHash": "8fbcb55b7eee4f72f39a525ee1cde00e5633ae38704a5757cd480a86d84d9d71",
+    "actions": {
+     "a": {
+      "action": "GUARD",
+      "intensity": 2
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -2,
+      "focus": 4.0116529667500025,
+      "heat": -4.01165296675,
+      "momentum": 0,
+      "guard": 11.466423097554356,
+      "drift": 4,
+      "insightStacks": 0,
+      "notes": [
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -1,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 12.44,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [
+     "stale_lead"
+    ],
+    "outcome": null,
+    "hash": "316876d96f5daa9dbcdc52879c95ae5ca437bf01a89bda615963ff4e3d0adaee"
+   },
+   {
+    "round": 5,
+    "previousHash": "316876d96f5daa9dbcdc52879c95ae5ca437bf01a89bda615963ff4e3d0adaee",
+    "preStateHash": "c61eaf16550361588de1a2858c151b339692d08b2393f336af76c7661925f025",
+    "postStateHash": "094dbec24648f3ed92482e7775da77fe655b09820e55ac932dc07162dae7738d",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 3
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 3,
+      "prediction": "GUARD"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -12,
+      "focus": 0,
+      "heat": 12,
+      "momentum": 1,
+      "guard": -5.733211548777178,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -12.098864709153958,
+      "energy": -9,
+      "focus": 0,
+      "heat": 0,
+      "momentum": -1,
+      "guard": 0,
+      "drift": 12.440000000000005,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "473c9d632e633a115c20c75fdbfb59fe68497d3d1d15a98c537f51096bb03b5f"
+   },
+   {
+    "round": 6,
+    "previousHash": "473c9d632e633a115c20c75fdbfb59fe68497d3d1d15a98c537f51096bb03b5f",
+    "preStateHash": "bff6d0ed28a8730de198c4031819d745a80d9dc07968ff0e317d4b50fa3bb6c2",
+    "postStateHash": "68f85cb763a3c6e8fef93bfb640009d4893fe6b06c9f0a26718673b453ec9c17",
+    "actions": {
+     "a": {
+      "action": "SIGNATURE",
+      "intensity": 2,
+      "signatureId": "VEIL_STEP"
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 3,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": 6.005378000000007,
+      "focus": -32,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 28.809024225611417,
+      "drift": 4,
+      "insightStacks": 0,
+      "notes": [
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -9,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 12.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [
+     "stale_lead"
+    ],
+    "outcome": null,
+    "hash": "a2b838856e6308127273de47c127d54e000bf04d615453e04d084352191a70e7"
+   },
+   {
+    "round": 7,
+    "previousHash": "a2b838856e6308127273de47c127d54e000bf04d615453e04d084352191a70e7",
+    "preStateHash": "cdab1f559468be567758b665b4605f85bf3488ed1f5d3a0cf6450b143d50c66f",
+    "postStateHash": "49566baa5c76c16c4e8094451848322837d4c6c7783a18c7ed645c24990ac542",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 3
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "TRACE"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -12,
+      "focus": 0,
+      "heat": 12,
+      "momentum": 1,
+      "guard": -17.271117887194297,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -12.004388978522186,
+      "energy": -1,
+      "focus": 0,
+      "heat": 0,
+      "momentum": -1,
+      "guard": 0,
+      "drift": 12.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "6cc53328a2aedebc944eef82bac01d3521c56c8a0b2eaae2de760b79d4623626"
+   },
+   {
+    "round": 8,
+    "previousHash": "6cc53328a2aedebc944eef82bac01d3521c56c8a0b2eaae2de760b79d4623626",
+    "preStateHash": "d18c4b10fd88522664f3a21557e7c911cc4c61f570deec2e81d33d6bb4436dba",
+    "postStateHash": "a899766ca20b00034349284e05046297be67ba7bff30741263ab4e3cfd5e7096",
+    "actions": {
+     "a": {
+      "action": "GUARD",
+      "intensity": 3
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 2,
+      "prediction": "TRACE"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -5,
+      "focus": 4.006,
+      "heat": -4.006,
+      "momentum": 0,
+      "guard": 8.279761033902854,
+      "drift": 4,
+      "insightStacks": 0,
+      "notes": [
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -5,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 12.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [
+     "stale_lead"
+    ],
+    "outcome": null,
+    "hash": "8f8789db1b78307826d5703129f9fb3724d9f0a819c8574a62df0afacd5b0eda"
+   },
+   {
+    "round": 9,
+    "previousHash": "8f8789db1b78307826d5703129f9fb3724d9f0a819c8574a62df0afacd5b0eda",
+    "preStateHash": "f67d7870d3c69b06e5eb7da536522118c7adbe13c5998c7901078f2324acb269",
+    "postStateHash": "5625b09b936e2f5c1f578fec3be431cdae655ca6d81ae1a0274d35c6dd2ab56b",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 3
+     },
+     "b": {
+      "action": "ADAPT",
+      "intensity": 2,
+      "adaptStance": "FLUX"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -12,
+      "focus": 0,
+      "heat": 12,
+      "momentum": 0,
+      "guard": -12.775439460548576,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -14.555672920914972,
+      "energy": 0.4309999999999974,
+      "focus": 0,
+      "heat": 0,
+      "momentum": -1,
+      "guard": 0,
+      "drift": -7.634199999999993,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "f4e7e4c0b992e8ee37f0905f4535aded28b13586c0e9c6fb8db07a40b42f0238"
+   },
+   {
+    "round": 10,
+    "previousHash": "f4e7e4c0b992e8ee37f0905f4535aded28b13586c0e9c6fb8db07a40b42f0238",
+    "preStateHash": "4aa06b765049f8722c6411d586e24b2490290f00287b88383570bd778cf9fb83",
+    "postStateHash": "3afe96d6648f8f08c40fc2085e91b10833897c8f3ddd18024809fd1924015f19",
+    "actions": {
+     "a": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "ADAPT"
+     },
+     "b": {
+      "action": "MIRROR",
+      "intensity": 1
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -4.029194973709721,
+      "energy": -1,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": -12.775439460548576,
+      "drift": 11.440000000000001,
+      "insightStacks": 0,
+      "notes": [
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -4,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [
+     "stale_lead"
+    ],
+    "outcome": null,
+    "hash": "8f126baa2158e7d83a503be2aea930e75f0e2ba302bdda8b7188eb0ff341939d"
+   },
+   {
+    "round": 11,
+    "previousHash": "8f126baa2158e7d83a503be2aea930e75f0e2ba302bdda8b7188eb0ff341939d",
+    "preStateHash": "73949ccb00f9de4b900684406b84d60512816c1ac7288a3945cf289a8d70be77",
+    "postStateHash": "cc136ca4fca98ebda1d0fd79b7d48efd35686cdd61775362d8a448c90bf13c75",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 1
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "RECOVER"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -2,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -9.052258887322644,
+      "energy": -1,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 7.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "72bda2c402c1c027aeed8c4c7342b6689646ef9584cad50737400f0c1d094524"
+   },
+   {
+    "round": 12,
+    "previousHash": "72bda2c402c1c027aeed8c4c7342b6689646ef9584cad50737400f0c1d094524",
+    "preStateHash": "6a07ed2cbeaee6868efbbbd20a4f258af76feef6fd94ce14378e6be7d97e2eea",
+    "postStateHash": "1be45a44d373ffe84e30f7c68f1ea539d615cbbd57150a26313686f57e908445",
+    "actions": {
+     "a": {
+      "action": "ADAPT",
+      "intensity": 3,
+      "adaptStance": "HUNTER"
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 2,
+      "prediction": "MIRROR"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": 0.4309999999999974,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": -4.0120000000000005,
+      "insightStacks": 0,
+      "notes": [
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -5,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 7.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [
+     "stale_lead"
+    ],
+    "outcome": null,
+    "hash": "db29fcaba6a6b755ed3e8aac148fac13e3f08fffc2b8e1e5f193e0057af3de15"
+   },
+   {
+    "round": 13,
+    "previousHash": "db29fcaba6a6b755ed3e8aac148fac13e3f08fffc2b8e1e5f193e0057af3de15",
+    "preStateHash": "84d282f898fe001008d8dc34c881bf44f9946723b8ee798ab522906e4c5af28e",
+    "postStateHash": "e11c6edf272ef7ece38c04dfa17392cdbf44c5e732f89a541ec1466aa31328af",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 1
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 2,
+      "prediction": "ADAPT"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -2,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -9.251537842067172,
+      "energy": -5,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 12.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "c549651e290822465b1709ecd83c61b6610d4d8bad80f89e650dfa79786124c9"
+   },
+   {
+    "round": 14,
+    "previousHash": "c549651e290822465b1709ecd83c61b6610d4d8bad80f89e650dfa79786124c9",
+    "preStateHash": "ef336ffe4708d8c5f8e204436fe82ad4bb9e082616b87f0d4740539c7cdc2dc0",
+    "postStateHash": "4ab933e0c65215601bcb0cc96a1f8f4f1aa05b6241f41ef00791cea956bff05c",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 2
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -6.423789484531397,
+      "energy": -7,
+      "focus": 0,
+      "heat": 8,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -2.822449939285786,
+      "energy": -1,
+      "focus": 7.127250000000004,
+      "heat": 0,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 3.2342000000000013,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "402fe8a7e485571132bcf4406dff4757b4dd8e386e3e927b69d108f3b56aad7c"
+   },
+   {
+    "round": 15,
+    "previousHash": "402fe8a7e485571132bcf4406dff4757b4dd8e386e3e927b69d108f3b56aad7c",
+    "preStateHash": "78e6238c3ea4c8302bd11878a8033856165682c843eb500730db244d040a1222",
+    "postStateHash": "7c3affa011bb5cf867f0d111a595e4fcfacb80bff0826f8a2cb6f62f130e1f93",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 2
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -6.647335507037397,
+      "energy": -7,
+      "focus": 0,
+      "heat": 8,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 5,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -3.7708250888295254,
+      "energy": -1,
+      "focus": 7.127250000000004,
+      "heat": 0,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "705743bd02ad9652bed34780ce6c5fe508d02d8eadf24ebdaafd0e5a4650daee"
+   },
+   {
+    "round": 16,
+    "previousHash": "705743bd02ad9652bed34780ce6c5fe508d02d8eadf24ebdaafd0e5a4650daee",
+    "preStateHash": "de7b475469e89026a4836c55aaab8291046452125c59fa89e7ecdd0e63d97f17",
+    "postStateHash": "4b16ffb58cdcdba67b59d891c88c221a4df93e26b022b3aec035a5a3afdfe1b5",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 3
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 3,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -8.523457561003951,
+      "energy": -12,
+      "focus": 0,
+      "heat": 11.999999999999993,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 5,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -4.181344238876026,
+      "energy": -9,
+      "focus": 7.127250000000004,
+      "heat": 0,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "021bec8de62d408b12953341d057b58182e09a9123ddf212f54a3fb38bb903f5"
+   },
+   {
+    "round": 17,
+    "previousHash": "021bec8de62d408b12953341d057b58182e09a9123ddf212f54a3fb38bb903f5",
+    "preStateHash": "8aae0d9f2a8cf4197ec75558ce81417d01f7be3bf045b2966cc679e47f398e10",
+    "postStateHash": "6ae61c398e7956f0cf9057f9b952a7c22a0365ba4f600a84ed5e82316dd71332",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 1
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -7.094498491179706,
+      "energy": -2,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 4.9999999999999964,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -3.335922879286727,
+      "energy": -1,
+      "focus": 7.127250000000004,
+      "heat": 0,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "f9e1db1b61f8e408e71d92018d28ae0cef3be1e5dc93e8ffee03bfe5d25eebc0"
+   },
+   {
+    "round": 18,
+    "previousHash": "f9e1db1b61f8e408e71d92018d28ae0cef3be1e5dc93e8ffee03bfe5d25eebc0",
+    "preStateHash": "f32af3afe541654028f22319e595f58bc4d73bcd7bbe077020be5385da08ecec",
+    "postStateHash": "22b1e1f541f96cceeebe0210044cbcf81bec0df86ac01bb5f0e648c9487146fa",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 2
+     },
+     "b": {
+      "action": "SIGNATURE",
+      "intensity": 3,
+      "signatureId": "CONSTRAINT_COLLAPSE"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -20.441460261303348,
+      "energy": -7,
+      "focus": 0,
+      "heat": 8,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 5,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -9.773856473060986,
+      "energy": -16,
+      "focus": -32,
+      "heat": 10,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "580367515ce7afafd63562cdc66ed0d7ac33574ff047003021310e10ba5f9675"
+   },
+   {
+    "round": 19,
+    "previousHash": "580367515ce7afafd63562cdc66ed0d7ac33574ff047003021310e10ba5f9675",
+    "preStateHash": "655b0f1e05a231b6d40d89e79c96afbb88ebe6fbcdd8558ffff8158d3681a45a",
+    "postStateHash": "36e85b34e8d9aa915a868ac9c95d6b95b058557dcd6abbbe9a1b467fd97cc44c",
+    "actions": {
+     "a": {
+      "action": "RECOVER",
+      "intensity": 3
+     },
+     "b": {
+      "action": "RECOVER",
+      "intensity": 3
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": 38.410575,
+      "focus": 10.178225000000001,
+      "heat": -14.021,
+      "momentum": 0,
+      "guard": 0,
+      "drift": -6.015000000000001,
+      "insightStacks": 0,
+      "notes": [
+       "accord:1",
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": 38.496975,
+      "focus": 10.193224999999998,
+      "heat": -14.062999999999999,
+      "momentum": 0,
+      "guard": 0,
+      "drift": -10.045000000000002,
+      "insightStacks": 0,
+      "notes": [
+       "accord:1"
+      ]
+     }
+    },
+    "notes": [
+     "accord:1",
+     "stale_lead",
+     "accord:1"
+    ],
+    "outcome": null,
+    "hash": "220b83b6fc537de81b65652c1626967d9ae6207b2646de908b6e25491f357bfa"
+   },
+   {
+    "round": 20,
+    "previousHash": "220b83b6fc537de81b65652c1626967d9ae6207b2646de908b6e25491f357bfa",
+    "preStateHash": "cc737a6fa20c63d87835d8078287c5618f7ac253d91c9b4ac13f58a438705a17",
+    "postStateHash": "3c3b7d6e11c6b8debf1baabfbbd25c08eb6f00d4a54316b278bcd3d6633ed1b4",
+    "actions": {
+     "a": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "GUARD"
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 3,
+      "prediction": "TRACE"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -1,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 11.439999999999998,
+      "insightStacks": 0,
+      "notes": [
+       "stale_lead"
+      ]
+     },
+     "b": {
+      "vitality": 0,
+      "energy": -9,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 7.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [
+     "stale_lead"
+    ],
+    "outcome": null,
+    "hash": "e5a6c2ba63c4b71ca8bb5bb4f2afe763383727788d47c00c46cd68dfb7dd6d0d"
+   },
+   {
+    "round": 21,
+    "previousHash": "e5a6c2ba63c4b71ca8bb5bb4f2afe763383727788d47c00c46cd68dfb7dd6d0d",
+    "preStateHash": "6c8924d760421160fb27ed61d3ce7d8f4f3c823a6276d5a98be5e90aa3d03d41",
+    "postStateHash": "c999f85a538870add8713dbde3f9dcad273b8de08a9d3f04a161c9f98b1f86d5",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 3
+     },
+     "b": {
+      "action": "PRESS",
+      "intensity": 3
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": -10.495180343870842,
+      "energy": -12,
+      "focus": 0,
+      "heat": 12,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -10.44020418522584,
+      "energy": -12,
+      "focus": 0,
+      "heat": 12,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": {
+     "winner": "A",
+     "reason": "ko"
+    },
+    "hash": "488f01f01861f545a88febab8f52c82acbb71bc2fea02e2bc429385df095e8e9"
+   }
+  ],
+  "terminal_result": {
+   "winner": "A",
+   "reason": "ko"
+  },
+  "event_root_hash": "488f01f01861f545a88febab8f52c82acbb71bc2fea02e2bc429385df095e8e9"
+ },
+ "expected": {
+  "verified": true,
+  "rounds": 21,
+  "state_hash": "c999f85a538870add8713dbde3f9dcad273b8de08a9d3f04a161c9f98b1f86d5",
+  "replay_hash": "3ca9a43a34621e83fa27182b6bfdc119cfcaa8289c51daa8435e85a00ed7de88"
+ }
 }

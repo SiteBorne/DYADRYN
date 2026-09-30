@@ -43,13 +43,13 @@ test('local Worker integrates SQLite DO, D1 auth, REST, Jev off, restart and MCP
  await mf.dispose();mf=new Miniflare({...convertV4MiniflareOptions(options(path)),resourcePersistencePath:path,isolatedResourcePersistencePath:path,unsafeInspectDurableObjects:true});db=await mf.getD1Database('DB');
 
  for(let round=2;round<=24;round++){
- const view=(await req(mf,`/v1/matches/${id}/state`,ta)).body;
+ const view=(await req(mf,`/v1/matches/${id}/state`,ta)).body;if(view.status!=='ACTIVE')break;
  for(const actor of ['A','B']){const token=actor==='A'?ta:tb;
  const r=await req(mf,`/v1/matches/${id}/actions`,token,{match_id:id,actor_id:actor,round,state_hash:view.state_hash,client_nonce:'nonce-round-'+round,action:'RECOVER',intensity:2});assert.equal(r.status,202);}
  }
  const replay=(await req(mf,`/v1/matches/${id}/replay`,ta)).body;assert.equal(verifyReplay(replay).verified,true);
  assert.equal((await req(mf,`/v1/matches/${id}/verify`,ta)).body.verified,true);
- assert.equal((await req(mf,`/v1/matches/${id}/result`,ta)).body.reason,'round_limit');
+ assert.ok(['double_ko','round_limit'].includes((await req(mf,`/v1/matches/${id}/result`,ta)).body.reason),'mutual restraint ends by standoff erosion (v2) or the round limit');
  assert.ok(!/token_hash|SECRET|public_carry_summary/.test(JSON.stringify(replay)));
  const unauthorized=await req(mf,'/v1/agents',null,{agent_id:'C',display_name:'C'});
  assert.equal((await req(mf,`/v1/matches/${id}/replay`,unauthorized.body.token)).status,403);

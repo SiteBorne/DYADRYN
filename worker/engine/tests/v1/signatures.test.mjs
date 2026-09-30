@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import * as E from "../dist/index.js";
+import * as E from "../../dist/index.js";
 import { player, action, state, near, next } from "./helpers.mjs";
 const idle = action("TRACE", 1),
   sig = (id) => action("SIGNATURE", 2, { signatureId: id });

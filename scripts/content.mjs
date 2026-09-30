@@ -35,7 +35,7 @@ export const STANCES = [
 ];
 export const ATTRS = [
   ['Analysis', 'Reading the opponent. Drives Counter.'], ['Execution', 'Turning intent into pressure. Drives Press.'], ['Adaptation', 'Reshaping under change. Drives Mirror.'],
-  ['Influence', 'Shaping what the opponent can safely do. Shows up in the Veil stance.'], ['Resolve', 'Holding under pressure. Drives Guard.'], ['Creativity', 'Unconventional lines. Shows up in the Wild stance.']
+  ['Influence', 'Leverage. Makes a truce pay more and a betrayal cost more, and punishes an opponent who repeats themselves.'], ['Resolve', 'Holding under pressure. Drives Guard.'], ['Creativity', 'Novelty. A fresh approach lands harder, and your reads are harder to counter.']
 ];
 export const MODES = [
   { name: 'Masked Ranked', tag: 'Default ranked', desc: 'Normalized stats. Approved Mask only. Only public DYADRYN history may inform a strategy. No raw private memory from an opponent, ever.' },

@@ -445,7 +445,7 @@ The round joins a hash chain, so the whole match can be replayed and checked.
 
  In this rulebook
 
- Match modelAttributes & powerSeven metersEight movesSignaturesArchetypesAdapt stancesHeat & DriftRepetition & timeoutsResolution orderWinningModesFairnessTraining Ground
+ Match modelAttributes & powerSeven metersEight movesSignaturesArchetypesAdapt stancesHeat & DriftRepetition & timeoutsAccord & standoffResolution orderWinningModesFairnessTraining Ground
 
 ## Match model
 
@@ -462,9 +462,9 @@ The round joins a hash chain, so the whole match can be replayed and checked.
 - **Analysis**Reading the opponent. Drives Counter.
 - **Execution**Turning intent into pressure. Drives Press.
 - **Adaptation**Reshaping under change. Drives Mirror.
-- **Influence**Shaping what the opponent can safely do. Shows up in the Veil stance.
+- **Influence**Leverage. Makes a truce pay more and a betrayal cost more, and punishes an opponent who repeats themselves.
 - **Resolve**Holding under pressure. Drives Guard.
-- **Creativity**Unconventional lines. Shows up in the Wild stance.
+- **Creativity**Novelty. A fresh approach lands harder, and your reads are harder to counter.
 
  **A longer identity file never makes a stronger fighter.** Persona changes the _distribution_, tendencies and choices — not the total. That ends prompt-length arms races.
 
@@ -900,6 +900,22 @@ __**60**STRAINED**80**UNSTABLE
 - **Timeout** never secretly picks a strong move. The engine records a weak **STALL** instead: a little Energy and Guard, a lot of Drift, and Momentum loss.
 
 - **Three timeouts** in one match is a forfeit.
+
+## Accord, betrayal & standoff
+
+ Every round is a small dilemma. You can **strike** (Press), **open up** (Trace, Recover, Adapt) or **hold your guard** (Guard). Guard is the safe way out; it never builds trust and never breaks it.
+
+- **Accord.** When both agents open up in the same round they share a dividend of Focus and Energy. Each further round of mutual trust (up to three) pays more, and **Influence** makes the dividend bigger.
+
+- **Betrayal.** Strike an opponent who is open, inside an Accord, and your blow lands harder once — but the Accord ends and the betrayed agent gains **Reprisal**: for two rounds their damage is boosted, more so with high Influence.
+
+- **Mutual strikes** cost both of you. That is the dilemma: betrayal pays once, trust pays repeatedly, fighting always costs. Strategies that reward trust and punish betrayal do best over a whole match.
+
+- **Standoff.** If neither agent attacks for several rounds, both take Drift and an escalating loss of vitality. Stalling together is never free, and a lead you will not defend goes stale (Drift) too.
+
+- **Fatigue.** Repeating Guard or Recover gains less each time, and a move you have not used lately lands harder — more so with high **Creativity**.
+
+ **Why these rules?** They come from repeated-game theory (Axelrod; Fudenberg & Maskin) and mechanism design. The design notes and citations are in `docs/GAME_THEORY.md`.
 
 ## How a round resolves
 

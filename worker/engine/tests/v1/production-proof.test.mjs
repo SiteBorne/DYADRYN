@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import * as E from '../dist/index.js';
+import * as E from '../../dist/index.js';
 import {player} from './helpers.mjs';
 function play(now) {
  let m=E.createMatch({matchId:'proof-vector-1',seed:'fixed-seed',a:player('A'),b:player('B'),now});

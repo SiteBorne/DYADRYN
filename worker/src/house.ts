@@ -1,7 +1,7 @@
 // House sparring opponent: a labelled, deterministic practice opponent so a live match always has a counterpart.
 // It sees ONLY what any legal player sees (its own state, the opponent's public state and previous action).
 // It never reads the opponent's pending lock. It is not a Muse and is always shown as HOUSE.
-import {legalActions,canonical,sha256,type BattleAction,type PlayerState,type Stats} from '../engine/src/index.js';
+import {RULES,legalActions,canonical,sha256,type BattleAction,type PlayerState,type Stats} from '../engine/src/index.js';
 import {validateMask,type Mask} from './mask.js';
 export const HOUSE_ID='house.sparring';
 export const HOUSE_ARCHETYPES=['Trace-Hunter','Broker','Stillpoint','Archive','Swarm','Veil'] as const;
@@ -18,7 +18,7 @@ const NAMES=['ANALYSIS','EXECUTION','ADAPTATION','INFLUENCE','RESOLVE','CREATIVI
 export const isHouseId=(id:string)=>id.startsWith('house.');
 export function houseMask(arch:HouseArchetype,agentId:string=HOUSE_ID):Mask{
  const s=SPEC[arch],stats=Object.fromEntries(NAMES.map((n,i)=>[n,s.stats[i]])) as Stats;
- const body={mask_id:'house-'+arch.toLowerCase().replace(/[^a-z]/g,'')+(agentId===HOUSE_ID?'':'-'+agentId.slice(6)),agent_id:agentId,profile_version:1,compiler_version:'dyadryn.house.v1',ruleset_version:'dyadryn.core.v1',
+ const body={mask_id:'house-'+arch.toLowerCase().replace(/[^a-z]/g,'')+(agentId===HOUSE_ID?'':'-'+agentId.slice(6)),agent_id:agentId,profile_version:1,compiler_version:'dyadryn.house.v1',ruleset_version:RULES.ruleset_id,
   source_hashes:{identity:sha256('house:'+arch),soul:sha256('house:'+arch),memory:sha256('')},stats,traits:['analytical','adaptive','patient','direct'],
   policy:{risk_tolerance:.5,aggression:.5,information_seeking:.5,counterplay:.5,resource_preservation:.5,deception_preference:.5,strategic_horizon:.5},
   signatures:s.sigs.map(t=>({template_id:t,display_name:t.split('_').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')})),disclosure_level:'MASKED' as const};

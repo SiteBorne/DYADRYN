@@ -1,6 +1,6 @@
 // Generated from config/rules.v*.yaml (default rules.v2.yaml). Run npm run rules:generate.
 export const RULES = {
-  "ruleset_id": "dyadryn.core.v1",
+  "ruleset_id": "dyadryn.core.v2",
   "match": {
     "max_rounds": 24,
     "turn_timeout_seconds": 120,
@@ -75,9 +75,9 @@ export const RULES = {
         10
       ],
       "focus_gain": [
-        12,
-        18,
-        24
+        24.8,
+        37.2,
+        49.7
       ]
     },
     "PRESS": {
@@ -91,7 +91,7 @@ export const RULES = {
         8,
         12
       ],
-      "base_damage": 11
+      "base_damage": 9
     },
     "GUARD": {
       "energy": [
@@ -100,9 +100,9 @@ export const RULES = {
         11
       ],
       "guard_base": [
-        18,
-        24,
-        30
+        11,
+        14.7,
+        18.3
       ],
       "heat_delta": -4,
       "focus_delta": 4
@@ -113,13 +113,13 @@ export const RULES = {
         11,
         15
       ],
-      "return_base": 7,
-      "success_incoming_multiplier": 0.4,
-      "miss_drift": 6,
-      "miss_incoming_multiplier": 1.1
+      "return_base": 12.662,
+      "success_incoming_multiplier": 0.284,
+      "miss_drift": 7.44,
+      "miss_incoming_multiplier": 1.091
     },
     "ADAPT": {
-      "energy": 8,
+      "energy": 5.569,
       "duration_rounds": 3,
       "cooldown_after": 3,
       "drift_delta": -8
@@ -130,13 +130,13 @@ export const RULES = {
         14,
         18
       ],
-      "base_scale": 0.9
+      "base_scale": 1.271
     },
     "RECOVER": {
       "energy_gain": [
-        12,
-        18,
-        24
+        14.4,
+        21.6,
+        28.8
       ],
       "heat_delta": [
         -6,
@@ -156,8 +156,8 @@ export const RULES = {
       ]
     },
     "SIGNATURE": {
-      "default_focus_requirement": 30,
-      "default_focus_cost": 30,
+      "default_focus_requirement": 32,
+      "default_focus_cost": 32,
       "default_cooldown": 4
     }
   },
@@ -198,5 +198,70 @@ export const RULES = {
     "momentum_normalized": 0.05,
     "inverse_drift": 0.05
   },
-  "proof_score_draw_epsilon": 0.5
+  "proof_score_draw_epsilon": 0.5,
+  "v2": {
+    "accord": {
+      "cap": 3,
+      "dividend_focus": 6.566,
+      "dividend_energy": 4.53,
+      "streak_bonus": 0.5,
+      "betrayal_bonus": 0.15,
+      "reprisal_rounds": 2,
+      "reprisal_bonus": 0.3
+    },
+    "novelty": {
+      "window": 2,
+      "bonus": 0.005,
+      "counter_surprise": 0.5
+    },
+    "fatigue": {
+      "guard_decay": 0.9,
+      "recover_decay": 0.643,
+      "floor": 0.4
+    },
+    "stale": {
+      "lead_min": 3,
+      "drift": 4,
+      "standoff_rounds": 3,
+      "standoff_chip": 1.5,
+      "standoff_drift": 4
+    },
+    "signature": {
+      "scale": 2.297,
+      "per": {
+        "SECOND_ORDER_SIGHT": 1.558,
+        "CONSTRAINT_COLLAPSE": 0.729,
+        "COUNTERFACTUAL_SHIELD": 0.923,
+        "STILLPOINT": 0.969,
+        "BROKER_LOCK": 1.593,
+        "ARCHIVE_ECHO": 0.757,
+        "SWARM_REPAIR": 0.556,
+        "VEIL_STEP": 1.379
+      }
+    },
+    "veil": {
+      "evade": 0.8,
+      "guard": 10,
+      "energy": 6
+    },
+    "exposure": {
+      "trace": 1.278,
+      "adapt": 1.316
+    },
+    "insight": {
+      "press_bonus": 0.028
+    },
+    "adapt": {
+      "amount": 11.289
+    },
+    "stat_weight": {
+      "ANALYSIS": 1.902,
+      "EXECUTION": 0.2,
+      "ADAPTATION": 0.727,
+      "RESOLVE": 1.541
+    },
+    "influence": {
+      "read": 0.17
+    }
+  }
 } as const;

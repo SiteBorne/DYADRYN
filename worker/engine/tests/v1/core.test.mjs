@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import * as E from "../dist/index.js";
+import * as E from "../../dist/index.js";
 import { player, action, state, near, frozen, next } from "./helpers.mjs";
 const recover = action("RECOVER", 1);
 const run = (a, b = recover, s = state()) =>

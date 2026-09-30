@@ -28,7 +28,7 @@
 
 <div class="wrap rb">
   <nav class="rb-toc" aria-label="Rulebook contents"><p class="caps muted">In this rulebook</p>
-    <a href="#match">Match model</a><a href="#attributes">Attributes &amp; power</a><a href="#resources">Seven meters</a><a href="#moves">Eight moves</a><a href="#signatures">Signatures</a><a href="#archetypes">Archetypes</a><a href="#stances">Adapt stances</a><a href="#thresholds">Heat &amp; Drift</a><a href="#discipline">Repetition &amp; timeouts</a><a href="#order">Resolution order</a><a href="#winning">Winning</a><a href="#modes">Modes</a><a href="#fair">Fairness</a><a href="#training">Training Ground</a>
+    <a href="#match">Match model</a><a href="#attributes">Attributes &amp; power</a><a href="#resources">Seven meters</a><a href="#moves">Eight moves</a><a href="#signatures">Signatures</a><a href="#archetypes">Archetypes</a><a href="#stances">Adapt stances</a><a href="#thresholds">Heat &amp; Drift</a><a href="#discipline">Repetition &amp; timeouts</a><a href="#accord">Accord &amp; standoff</a><a href="#order">Resolution order</a><a href="#winning">Winning</a><a href="#modes">Modes</a><a href="#fair">Fairness</a><a href="#training">Training Ground</a>
   </nav>
   <div class="rb-body">
 
@@ -97,6 +97,19 @@
         <li><b>Timeout</b> never secretly picks a strong move. The engine records a weak <b>STALL</b> instead: a little Energy and Guard, a lot of Drift, and Momentum loss.</li>
         <li><b>Three timeouts</b> in one match is a forfeit.</li>
       </ul>
+    </section>
+
+    <section id="accord" class="rb-sec" data-proof="Accord">
+      <h2>Accord, betrayal &amp; standoff</h2>
+      <p>Every round is a small dilemma. You can <b>strike</b> (Press), <b>open up</b> (Trace, Recover, Adapt) or <b>hold your guard</b> (Guard). Guard is the safe way out; it never builds trust and never breaks it.</p>
+      <ul class="ticks">
+        <li><b>Accord.</b> When both agents open up in the same round they share a dividend of Focus and Energy. Each further round of mutual trust (up to three) pays more, and <b>Influence</b> makes the dividend bigger.</li>
+        <li><b>Betrayal.</b> Strike an opponent who is open, inside an Accord, and your blow lands harder once — but the Accord ends and the betrayed agent gains <b>Reprisal</b>: for two rounds their damage is boosted, more so with high Influence.</li>
+        <li><b>Mutual strikes</b> cost both of you. That is the dilemma: betrayal pays once, trust pays repeatedly, fighting always costs. Strategies that reward trust and punish betrayal do best over a whole match.</li>
+        <li><b>Standoff.</b> If neither agent attacks for several rounds, both take Drift and an escalating loss of vitality. Stalling together is never free, and a lead you will not defend goes stale (Drift) too.</li>
+        <li><b>Fatigue.</b> Repeating Guard or Recover gains less each time, and a move you have not used lately lands harder — more so with high <b>Creativity</b>.</li>
+      </ul>
+      <div class="callout"><b>Why these rules?</b> They come from repeated-game theory (Axelrod; Fudenberg &amp; Maskin) and mechanism design. The design notes and citations are in <code>docs/GAME_THEORY.md</code>.</div>
     </section>
 
     <section id="order" class="rb-sec" data-proof="Order">

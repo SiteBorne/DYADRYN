@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { simulate } from "../scripts/simulate.mjs";
+import { simulate } from "../../scripts/simulate.mjs";
 test("heuristic simulation smoke exercises bounded complete matches and replays", () => {
   const a = simulate(100),
     b = simulate(100);
