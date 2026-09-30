@@ -73,7 +73,7 @@
     var f = this.dom.frame.getBoundingClientRect(), w = Math.max(320, Math.round(f.width)), hh = Math.max(240, Math.round(f.height)); if (!f.width) return;
     var dpr = Math.min(2, window.devicePixelRatio || 1); this.W = w; this.H = hh; this.dpr = dpr; this.cv.width = Math.round(w * dpr); this.cv.height = Math.round(hh * dpr); this.cv.style.width = w + 'px'; this.cv.style.height = hh + 'px';
     this.bg = A.paintBackground(w * dpr * 1.25, hh * dpr); this.ht = A.halftoneOverlay(w * dpr, hh * dpr); this.grain = A.grainTile();
-    this.dom.frame.style.setProperty('--u', (hh / 640).toFixed(3));
+    this.dom.frame.style.setProperty('--u', cl(hh / 640, .9, 1.35).toFixed(3));
     this.R.a = this.rectOf(this.dom.seatA); this.R.b = this.rectOf(this.dom.seatB); this.R.ring = this.rectOf(this.dom.ring); this.layoutCards(); this.dirty = true;
   };
   P.actorHW = function (side) { var R = this.R[side]; return Math.min(R.w * .92, R.h * .78); };
