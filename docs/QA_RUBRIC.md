@@ -45,3 +45,8 @@ Sources: DYADRYN Brand Bible v1.1 §76 (Brand QA), DYADRYN Brand Release Gate, C
 - **C3 Characters:** six original archetype designs (`stage-chars.js`), drawn procedurally. They are not ASHEN characters and use no ASHEN names or the nine-dot symbol.
 - **C4 Pose coverage:** idle, strike, guard, trace, counter, adapt, mirror, recover, signature, hurt and cold states checked for both sides across all four matches, the Training Ground and 390px.
 - **C5 Motion safety:** reduced-motion disables shake, flashes and auto-cycling; sound is off by default; no state is colour-only.
+
+
+## E. Ruleset qualification (any change to `worker/config/rules.*.yaml` or the resolver)
+A ruleset change requires a new `ruleset_id`, a regenerated frozen vector (`worker/scripts/make-vector.mjs`), a fresh 10,000-match simulation, and the lab table in `docs/RULESET_V2_QUALIFICATION.md`:
+E1 regression digest with the new section removed equals the prior ruleset · E2 stage-game equilibrium entropy ≥ 2.3 bits and every action ≥ 4 % mass · E3 competent play 12–22 rounds · E4 no simple policy above 60 % · E5 lookahead edge ≥ 75 % · E6 action ablation < 50 % for each action · E7 prisoner's-dilemma ordering T > R > P > S and 2R > T + S · E8 reciprocator mirrors end before the round limit · E9 attribute point values within 1 pp · E10 signatures 45–55 % · E11 archetypes 45–55 % · E12 seat symmetry. Unmet gates are reported, never hidden.

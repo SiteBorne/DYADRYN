@@ -229,14 +229,14 @@ export const RULES = {
     "signature": {
       "scale": 2.297,
       "per": {
-        "SECOND_ORDER_SIGHT": 1.558,
-        "CONSTRAINT_COLLAPSE": 0.729,
-        "COUNTERFACTUAL_SHIELD": 0.923,
-        "STILLPOINT": 0.969,
-        "BROKER_LOCK": 1.593,
-        "ARCHIVE_ECHO": 0.757,
-        "SWARM_REPAIR": 0.556,
-        "VEIL_STEP": 1.379
+        "SECOND_ORDER_SIGHT": 2.315,
+        "CONSTRAINT_COLLAPSE": 0.659,
+        "COUNTERFACTUAL_SHIELD": 0.787,
+        "STILLPOINT": 0.783,
+        "BROKER_LOCK": 2.239,
+        "ARCHIVE_ECHO": 0.664,
+        "SWARM_REPAIR": 0.462,
+        "VEIL_STEP": 1.431
       }
     },
     "veil": {
@@ -252,16 +252,18 @@ export const RULES = {
       "press_bonus": 0.028
     },
     "adapt": {
-      "amount": 11.289
+      "amount": 11.289,
+      "focus": 11,
+      "guard": 9
     },
     "stat_weight": {
-      "ANALYSIS": 1.902,
+      "ANALYSIS": 2.5,
       "EXECUTION": 0.2,
-      "ADAPTATION": 0.727,
-      "RESOLVE": 1.541
+      "ADAPTATION": 0.433,
+      "RESOLVE": 0.731
     },
     "influence": {
-      "read": 0.17
+      "read": 0.138
     }
   }
 } as const;

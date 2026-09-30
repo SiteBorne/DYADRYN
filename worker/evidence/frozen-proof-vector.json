@@ -125,7 +125,7 @@
     "round": 2,
     "previousHash": "3cb7fcf0c5650523085add01ede9eeb22f2dbf138d20a540bb702008a66f2947",
     "preStateHash": "88bb052f1523bf020b37474c34a123af770a4dc12f00ebe05dfbe3e15db28f6a",
-    "postStateHash": "6916e5ecb264b9a61a2a463f7f90ab0013dac86f2b4827a8c31e05662b2bdf4d",
+    "postStateHash": "d752f11c09d1a60bc5fe87f9c98252f9ba570c6eb1e09dca2b66bd908e0704c0",
     "actions": {
      "a": {
       "action": "ADAPT",
@@ -142,10 +142,10 @@
      "a": {
       "vitality": 0,
       "energy": -5.569000000000003,
-      "focus": 0,
+      "focus": 11.016500000000004,
       "heat": 0,
       "momentum": 0,
-      "guard": 0,
+      "guard": 9.0135,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
@@ -164,13 +164,13 @@
     },
     "notes": [],
     "outcome": null,
-    "hash": "0177a0972dccfb6f7726a1d62761c61159937736b206b6ca08934bf61614d2d3"
+    "hash": "a5adba30c18f831f5db09a9a4c31b60851710a06ee266c48bbb512690e64b727"
    },
    {
     "round": 3,
-    "previousHash": "0177a0972dccfb6f7726a1d62761c61159937736b206b6ca08934bf61614d2d3",
-    "preStateHash": "60232d1a9c6c672bb7b98eec31a5482036071707ecdbc8786077555494a5ae86",
-    "postStateHash": "1b9ead8ce8494c7d7178d7fce1665ef94bb65ec9fe720bd42a2e1d11c9abee07",
+    "previousHash": "a5adba30c18f831f5db09a9a4c31b60851710a06ee266c48bbb512690e64b727",
+    "preStateHash": "98112db146dad70667e605fd28c625a9ec3777b65aeef2925da080f7da3887ca",
+    "postStateHash": "f3f68146a06dea5c6b4d035dbee0eec370781783bd7381ed643dde03cf5e9556",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -189,13 +189,13 @@
       "focus": 0,
       "heat": 5,
       "momentum": 1,
-      "guard": 0,
+      "guard": -4.50675,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -8.712673857454178,
+      "vitality": -8.864985009669326,
       "energy": -1,
       "focus": 0,
       "heat": 0,
@@ -208,17 +208,17 @@
     },
     "notes": [],
     "outcome": null,
-    "hash": "8cb42aecf4d528bb6901a2a1faa03b8fa2dfebfc4a8e460526789132fffbf777"
+    "hash": "05d139fed954871c61375a336a07876ee9cd1087a251b91e8126858b683d5707"
    },
    {
     "round": 4,
-    "previousHash": "8cb42aecf4d528bb6901a2a1faa03b8fa2dfebfc4a8e460526789132fffbf777",
-    "preStateHash": "9888200d9de20644a3cdf95f757d0805cc6f519de68e374e79aecee82c12b14f",
-    "postStateHash": "8fbcb55b7eee4f72f39a525ee1cde00e5633ae38704a5757cd480a86d84d9d71",
+    "previousHash": "05d139fed954871c61375a336a07876ee9cd1087a251b91e8126858b683d5707",
+    "preStateHash": "fc32092ff92f20577da04cc75979c8c596c77791b38d5e08a1b19691930162cc",
+    "postStateHash": "985597ac702ea90c7619084bee228ca5cd3421ccf043e846ba62c25cbfb07b96",
     "actions": {
      "a": {
       "action": "GUARD",
-      "intensity": 2
+      "intensity": 3
      },
      "b": {
       "action": "COUNTER",
@@ -229,11 +229,11 @@
     "deltas": {
      "a": {
       "vitality": 0,
-      "energy": -2,
-      "focus": 4.0116529667500025,
+      "energy": -5,
+      "focus": 4.011652966749999,
       "heat": -4.01165296675,
       "momentum": 0,
-      "guard": 11.466423097554356,
+      "guard": 14.16509483059242,
       "drift": 4,
       "insightStacks": 0,
       "notes": [
@@ -256,13 +256,13 @@
      "stale_lead"
     ],
     "outcome": null,
-    "hash": "316876d96f5daa9dbcdc52879c95ae5ca437bf01a89bda615963ff4e3d0adaee"
+    "hash": "13b304cd1b791c78520901fc9dc9f6ecba70a2f51a12f8ee916058bfdefce96b"
    },
    {
     "round": 5,
-    "previousHash": "316876d96f5daa9dbcdc52879c95ae5ca437bf01a89bda615963ff4e3d0adaee",
-    "preStateHash": "c61eaf16550361588de1a2858c151b339692d08b2393f336af76c7661925f025",
-    "postStateHash": "094dbec24648f3ed92482e7775da77fe655b09820e55ac932dc07162dae7738d",
+    "previousHash": "13b304cd1b791c78520901fc9dc9f6ecba70a2f51a12f8ee916058bfdefce96b",
+    "preStateHash": "e417e3d9d6f20ed3868cd0ae8c93a385c8773924b3c763c4c73b4013300de173",
+    "postStateHash": "d533b6871a1dbf1cc1f64a1196f9694c25caf71267e548a843a73028c4bfd7e1",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -281,13 +281,13 @@
       "focus": 0,
       "heat": 12,
       "momentum": 1,
-      "guard": -5.733211548777178,
+      "guard": -9.33592241529621,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -12.098864709153958,
+      "vitality": -12.309033852022836,
       "energy": -9,
       "focus": 0,
       "heat": 0,
@@ -300,13 +300,13 @@
     },
     "notes": [],
     "outcome": null,
-    "hash": "473c9d632e633a115c20c75fdbfb59fe68497d3d1d15a98c537f51096bb03b5f"
+    "hash": "c1cc6e7c3c9dbd11461972765516fb4e2f62aa849ed763d7f8abecfe562f8299"
    },
    {
     "round": 6,
-    "previousHash": "473c9d632e633a115c20c75fdbfb59fe68497d3d1d15a98c537f51096bb03b5f",
-    "preStateHash": "bff6d0ed28a8730de198c4031819d745a80d9dc07968ff0e317d4b50fa3bb6c2",
-    "postStateHash": "68f85cb763a3c6e8fef93bfb640009d4893fe6b06c9f0a26718673b453ec9c17",
+    "previousHash": "c1cc6e7c3c9dbd11461972765516fb4e2f62aa849ed763d7f8abecfe562f8299",
+    "preStateHash": "0524deda7732e8b9c663408dafda0010de7c83420156de098aeac64b77222bec",
+    "postStateHash": "437c1ce571518b380a816465aea1bbac08374738951c33499334cb8871957a3b",
     "actions": {
      "a": {
       "action": "SIGNATURE",
@@ -322,11 +322,11 @@
     "deltas": {
      "a": {
       "vitality": 0,
-      "energy": 6.005378000000007,
+      "energy": 6.722042000000002,
       "focus": -32,
       "heat": 0,
       "momentum": 0,
-      "guard": 28.809024225611417,
+      "guard": 28.2021087923519,
       "drift": 4,
       "insightStacks": 0,
       "notes": [
@@ -349,13 +349,13 @@
      "stale_lead"
     ],
     "outcome": null,
-    "hash": "a2b838856e6308127273de47c127d54e000bf04d615453e04d084352191a70e7"
+    "hash": "8bcbd94296af8eb6dfa55ec551f730ee2014cad22f3a233a3bbc1c5f4f9aa843"
    },
    {
     "round": 7,
-    "previousHash": "a2b838856e6308127273de47c127d54e000bf04d615453e04d084352191a70e7",
-    "preStateHash": "cdab1f559468be567758b665b4605f85bf3488ed1f5d3a0cf6450b143d50c66f",
-    "postStateHash": "49566baa5c76c16c4e8094451848322837d4c6c7783a18c7ed645c24990ac542",
+    "previousHash": "8bcbd94296af8eb6dfa55ec551f730ee2014cad22f3a233a3bbc1c5f4f9aa843",
+    "preStateHash": "d931dd3d554ddf0c1147992207431ce11131aa058bc84a29fbf2eab1c166d03a",
+    "postStateHash": "a84f53582e2162c085fa59051b69c6c4b441cb69388a54ae5d715910b481fca0",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -374,13 +374,13 @@
       "focus": 0,
       "heat": 12,
       "momentum": 1,
-      "guard": -17.271117887194297,
+      "guard": -18.769015603824055,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -12.004388978522186,
+      "vitality": -12.22399803543361,
       "energy": -1,
       "focus": 0,
       "heat": 0,
@@ -393,13 +393,13 @@
     },
     "notes": [],
     "outcome": null,
-    "hash": "6cc53328a2aedebc944eef82bac01d3521c56c8a0b2eaae2de760b79d4623626"
+    "hash": "8fb57dd3a0eed66749c00740d0af153acb8e2e256c1e4d4c5aa1e364252a9892"
    },
    {
     "round": 8,
-    "previousHash": "6cc53328a2aedebc944eef82bac01d3521c56c8a0b2eaae2de760b79d4623626",
-    "preStateHash": "d18c4b10fd88522664f3a21557e7c911cc4c61f570deec2e81d33d6bb4436dba",
-    "postStateHash": "a899766ca20b00034349284e05046297be67ba7bff30741263ab4e3cfd5e7096",
+    "previousHash": "8fb57dd3a0eed66749c00740d0af153acb8e2e256c1e4d4c5aa1e364252a9892",
+    "preStateHash": "6e9edcb7524a2fc37ae40795b2dc1d8d13be0ddd711e38770752dc68a198c8fc",
+    "postStateHash": "3e3e821e075a92ee133a80f1e9f20fb28032a288176455d7ed885ea9366808b3",
     "actions": {
      "a": {
       "action": "GUARD",
@@ -418,7 +418,7 @@
       "focus": 4.006,
       "heat": -4.006,
       "momentum": 0,
-      "guard": 8.279761033902854,
+      "guard": 8.27307390058797,
       "drift": 4,
       "insightStacks": 0,
       "notes": [
@@ -441,13 +441,13 @@
      "stale_lead"
     ],
     "outcome": null,
-    "hash": "8f8789db1b78307826d5703129f9fb3724d9f0a819c8574a62df0afacd5b0eda"
+    "hash": "5e5ee80dc8ba21bbc522b7dc1ec169385756314ce67af3dbf1e94323c77cc34c"
    },
    {
     "round": 9,
-    "previousHash": "8f8789db1b78307826d5703129f9fb3724d9f0a819c8574a62df0afacd5b0eda",
-    "preStateHash": "f67d7870d3c69b06e5eb7da536522118c7adbe13c5998c7901078f2324acb269",
-    "postStateHash": "5625b09b936e2f5c1f578fec3be431cdae655ca6d81ae1a0274d35c6dd2ab56b",
+    "previousHash": "5e5ee80dc8ba21bbc522b7dc1ec169385756314ce67af3dbf1e94323c77cc34c",
+    "preStateHash": "12549e9519f34322a308e8fc2c2c82388d9e7be8aa798c8922b647888ff013ef",
+    "postStateHash": "c31c81135f0f7bc07ca95a33a850e692498a407e8fc610f9e6f51d02b17719b8",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -466,17 +466,17 @@
       "focus": 0,
       "heat": 12,
       "momentum": 0,
-      "guard": -12.775439460548576,
+      "guard": -13.521044752206013,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -14.555672920914972,
+      "vitality": -3.5177625215164667,
       "energy": 0.4309999999999974,
-      "focus": 0,
+      "focus": 10.497025,
       "heat": 0,
-      "momentum": -1,
+      "momentum": 0,
       "guard": 0,
       "drift": -7.634199999999993,
       "insightStacks": 0,
@@ -485,13 +485,13 @@
     },
     "notes": [],
     "outcome": null,
-    "hash": "f4e7e4c0b992e8ee37f0905f4535aded28b13586c0e9c6fb8db07a40b42f0238"
+    "hash": "b7b173eb6778a5baca73f706e2d8d13c1b0d1e4daa1902b8a862b52ed3ad6011"
    },
    {
     "round": 10,
-    "previousHash": "f4e7e4c0b992e8ee37f0905f4535aded28b13586c0e9c6fb8db07a40b42f0238",
-    "preStateHash": "4aa06b765049f8722c6411d586e24b2490290f00287b88383570bd778cf9fb83",
-    "postStateHash": "3afe96d6648f8f08c40fc2085e91b10833897c8f3ddd18024809fd1924015f19",
+    "previousHash": "b7b173eb6778a5baca73f706e2d8d13c1b0d1e4daa1902b8a862b52ed3ad6011",
+    "preStateHash": "e08b7ca56d6e2a7467f17ec1d70897ce724b49ca251a0766ae15f6bb7221719f",
+    "postStateHash": "a39b8842009cfc36f2fa56b023e680e26736cc300154fe5c266f2007615de3b3",
     "actions": {
      "a": {
       "action": "COUNTER",
@@ -499,18 +499,18 @@
       "prediction": "ADAPT"
      },
      "b": {
-      "action": "MIRROR",
-      "intensity": 1
+      "action": "RECOVER",
+      "intensity": 3
      }
     },
     "deltas": {
      "a": {
-      "vitality": -4.029194973709721,
+      "vitality": 0,
       "energy": -1,
       "focus": 0,
       "heat": 0,
       "momentum": 0,
-      "guard": -12.775439460548576,
+      "guard": -6.760522376103006,
       "drift": 11.440000000000001,
       "insightStacks": 0,
       "notes": [
@@ -519,12 +519,12 @@
      },
      "b": {
       "vitality": 0,
-      "energy": -4,
-      "focus": 0,
-      "heat": 5,
+      "energy": 34.92960000000001,
+      "focus": 5.022500000000001,
+      "heat": 0,
       "momentum": 0,
       "guard": 0,
-      "drift": 0,
+      "drift": -10.045000000000002,
       "insightStacks": 0,
       "notes": []
      }
@@ -533,13 +533,13 @@
      "stale_lead"
     ],
     "outcome": null,
-    "hash": "8f126baa2158e7d83a503be2aea930e75f0e2ba302bdda8b7188eb0ff341939d"
+    "hash": "a1e0c2601e27ebd72f5d323e708f593f9d61ad28806c1016c7c29cd5ac956441"
    },
    {
     "round": 11,
-    "previousHash": "8f126baa2158e7d83a503be2aea930e75f0e2ba302bdda8b7188eb0ff341939d",
-    "preStateHash": "73949ccb00f9de4b900684406b84d60512816c1ac7288a3945cf289a8d70be77",
-    "postStateHash": "cc136ca4fca98ebda1d0fd79b7d48efd35686cdd61775362d8a448c90bf13c75",
+    "previousHash": "a1e0c2601e27ebd72f5d323e708f593f9d61ad28806c1016c7c29cd5ac956441",
+    "preStateHash": "342a63ed6a68d84522f6bb183bf9d6ae686a12e54576ae4a2cb357130e8646c5",
+    "postStateHash": "b0b824fe80734015fbc7b4c5e328831b58cc9acccb0f4fa84b6e167237a0194e",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -547,8 +547,8 @@
      },
      "b": {
       "action": "COUNTER",
-      "intensity": 1,
-      "prediction": "RECOVER"
+      "intensity": 2,
+      "prediction": "TRACE"
      }
     },
     "deltas": {
@@ -558,14 +558,14 @@
       "focus": 0,
       "heat": 5,
       "momentum": 0,
-      "guard": 0,
+      "guard": -3.380261188051503,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -9.052258887322644,
-      "energy": -1,
+      "vitality": -9.216767115862034,
+      "energy": -5.360600000000005,
       "focus": 0,
       "heat": 0,
       "momentum": 0,
@@ -577,13 +577,13 @@
     },
     "notes": [],
     "outcome": null,
-    "hash": "72bda2c402c1c027aeed8c4c7342b6689646ef9584cad50737400f0c1d094524"
+    "hash": "9fd5606992635ea0d02e9db855916bfef24678e3adad0d04402560f9869fedc7"
    },
    {
     "round": 12,
-    "previousHash": "72bda2c402c1c027aeed8c4c7342b6689646ef9584cad50737400f0c1d094524",
-    "preStateHash": "6a07ed2cbeaee6868efbbbd20a4f258af76feef6fd94ce14378e6be7d97e2eea",
-    "postStateHash": "1be45a44d373ffe84e30f7c68f1ea539d615cbbd57150a26313686f57e908445",
+    "previousHash": "9fd5606992635ea0d02e9db855916bfef24678e3adad0d04402560f9869fedc7",
+    "preStateHash": "3bce4ae9f1cb76228dd54db6ac41f6176569657b69c8fb3af67472401686ce81",
+    "postStateHash": "68ba940f48e017b82e83c66c88dc932454f5c7718de2a6f176f1f54c484e735f",
     "actions": {
      "a": {
       "action": "ADAPT",
@@ -591,19 +591,19 @@
       "adaptStance": "HUNTER"
      },
      "b": {
-      "action": "COUNTER",
+      "action": "SIGNATURE",
       "intensity": 2,
-      "prediction": "MIRROR"
+      "signatureId": "CONSTRAINT_COLLAPSE"
      }
     },
     "deltas": {
      "a": {
-      "vitality": 0,
+      "vitality": -3.313855435401507,
       "energy": 0.4309999999999974,
-      "focus": 0,
+      "focus": 11.0165,
       "heat": 0,
       "momentum": 0,
-      "guard": 0,
+      "guard": -3.3802611880515028,
       "drift": -4.0120000000000005,
       "insightStacks": 0,
       "notes": [
@@ -612,12 +612,12 @@
      },
      "b": {
       "vitality": 0,
-      "energy": -5,
-      "focus": 0,
-      "heat": 0,
+      "energy": -16,
+      "focus": -32,
+      "heat": 10,
       "momentum": 0,
       "guard": 0,
-      "drift": 7.439999999999998,
+      "drift": 0,
       "insightStacks": 0,
       "notes": []
      }
@@ -626,13 +626,13 @@
      "stale_lead"
     ],
     "outcome": null,
-    "hash": "db29fcaba6a6b755ed3e8aac148fac13e3f08fffc2b8e1e5f193e0057af3de15"
+    "hash": "a58e0a84c442ead34727c42c69d0637a3a89b45a6450283172d0e8c1964f61a1"
    },
    {
     "round": 13,
-    "previousHash": "db29fcaba6a6b755ed3e8aac148fac13e3f08fffc2b8e1e5f193e0057af3de15",
-    "preStateHash": "84d282f898fe001008d8dc34c881bf44f9946723b8ee798ab522906e4c5af28e",
-    "postStateHash": "e11c6edf272ef7ece38c04dfa17392cdbf44c5e732f89a541ec1466aa31328af",
+    "previousHash": "a58e0a84c442ead34727c42c69d0637a3a89b45a6450283172d0e8c1964f61a1",
+    "preStateHash": "4941dce675149c8bf404096819e470098bdc002bc4c1b43dac1090b7ab48aca1",
+    "postStateHash": "14fbbe4ece1769de949cd6369b78d46f90cf4a9bb3bb693cb9750e5e5031e958",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -640,7 +640,7 @@
      },
      "b": {
       "action": "COUNTER",
-      "intensity": 2,
+      "intensity": 1,
       "prediction": "ADAPT"
      }
     },
@@ -651,32 +651,32 @@
       "focus": 0,
       "heat": 5,
       "momentum": 0,
-      "guard": 0,
+      "guard": -2.220446049250313e-16,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -9.251537842067172,
-      "energy": -5,
+      "vitality": -9.58779735930105,
+      "energy": -1,
       "focus": 0,
       "heat": 0,
       "momentum": 0,
       "guard": 0,
-      "drift": 12.439999999999998,
+      "drift": 7.439999999999998,
       "insightStacks": 0,
       "notes": []
      }
     },
     "notes": [],
     "outcome": null,
-    "hash": "c549651e290822465b1709ecd83c61b6610d4d8bad80f89e650dfa79786124c9"
+    "hash": "e1ba96a4e97113e7c63d17b00939ddd1eb7806ab8d69871db78fbbfcc8f1225c"
    },
    {
     "round": 14,
-    "previousHash": "c549651e290822465b1709ecd83c61b6610d4d8bad80f89e650dfa79786124c9",
-    "preStateHash": "ef336ffe4708d8c5f8e204436fe82ad4bb9e082616b87f0d4740539c7cdc2dc0",
-    "postStateHash": "4ab933e0c65215601bcb0cc96a1f8f4f1aa05b6241f41ef00791cea956bff05c",
+    "previousHash": "e1ba96a4e97113e7c63d17b00939ddd1eb7806ab8d69871db78fbbfcc8f1225c",
+    "preStateHash": "f3ec0ef22a53ef807c4d722a91ebd8ae4e4e12dfb8ceb0b5c2e5a8a78fb35d05",
+    "postStateHash": "67aeabddf946aa6ccbdddee0582313267ffb6471233fbf140193fab7af4c681a",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -684,43 +684,43 @@
      },
      "b": {
       "action": "COUNTER",
-      "intensity": 1,
+      "intensity": 2,
       "prediction": "PRESS"
      }
     },
     "deltas": {
      "a": {
-      "vitality": -6.423789484531397,
+      "vitality": -8.234401202906511,
       "energy": -7,
       "focus": 0,
       "heat": 8,
       "momentum": 0,
-      "guard": 0,
+      "guard": -2.220446049250313e-16,
       "drift": 0,
       "insightStacks": 0,
       "notes": []
      },
      "b": {
-      "vitality": -2.822449939285786,
-      "energy": -1,
-      "focus": 7.127250000000004,
+      "vitality": -2.9444147757154013,
+      "energy": -5,
+      "focus": 8.254550000000002,
       "heat": 0,
       "momentum": 1,
       "guard": 0,
-      "drift": 3.2342000000000013,
+      "drift": -1.650909999999996,
       "insightStacks": 0,
       "notes": []
      }
     },
     "notes": [],
     "outcome": null,
-    "hash": "402fe8a7e485571132bcf4406dff4757b4dd8e386e3e927b69d108f3b56aad7c"
+    "hash": "2175c587cc45819fa21eb71c588e39111e1417dcd4b2a2ea6a9d3c5211401740"
    },
    {
     "round": 15,
-    "previousHash": "402fe8a7e485571132bcf4406dff4757b4dd8e386e3e927b69d108f3b56aad7c",
-    "preStateHash": "78e6238c3ea4c8302bd11878a8033856165682c843eb500730db244d040a1222",
-    "postStateHash": "7c3affa011bb5cf867f0d111a595e4fcfacb80bff0826f8a2cb6f62f130e1f93",
+    "previousHash": "2175c587cc45819fa21eb71c588e39111e1417dcd4b2a2ea6a9d3c5211401740",
+    "preStateHash": "d7f1d675574ff28500f7cf76ddd7a3c67df69df235cf4009234bd55d62eedc37",
+    "postStateHash": "e0fc78aab0f0ddcc1a40f134c82c0282131351c70e75c4826de0ad013e54a4ff",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -728,13 +728,13 @@
      },
      "b": {
       "action": "COUNTER",
-      "intensity": 1,
+      "intensity": 2,
       "prediction": "PRESS"
      }
     },
     "deltas": {
      "a": {
-      "vitality": -6.647335507037397,
+      "vitality": -8.520955991331789,
       "energy": -7,
       "focus": 0,
       "heat": 8,
@@ -745,26 +745,26 @@
       "notes": []
      },
      "b": {
-      "vitality": -3.7708250888295254,
-      "energy": -1,
-      "focus": 7.127250000000004,
+      "vitality": -3.9337714917974935,
+      "energy": -5,
+      "focus": 8.254550000000002,
       "heat": 0,
       "momentum": 1,
       "guard": 0,
-      "drift": 0,
+      "drift": 3.349090000000004,
       "insightStacks": 0,
       "notes": []
      }
     },
     "notes": [],
     "outcome": null,
-    "hash": "705743bd02ad9652bed34780ce6c5fe508d02d8eadf24ebdaafd0e5a4650daee"
+    "hash": "274d59f263541dde3603a16b54c168bec688f9e70af1025e8ba4ad087e2db66c"
    },
    {
     "round": 16,
-    "previousHash": "705743bd02ad9652bed34780ce6c5fe508d02d8eadf24ebdaafd0e5a4650daee",
-    "preStateHash": "de7b475469e89026a4836c55aaab8291046452125c59fa89e7ecdd0e63d97f17",
-    "postStateHash": "4b16ffb58cdcdba67b59d891c88c221a4df93e26b022b3aec035a5a3afdfe1b5",
+    "previousHash": "274d59f263541dde3603a16b54c168bec688f9e70af1025e8ba4ad087e2db66c",
+    "preStateHash": "00fdebd2b57f577a1535eba7f41ef5322190d46c06c5945b259c093c1d2734e3",
+    "postStateHash": "0490ef8e63ff87cb5e12e9fbd4bf0f6a1b4db0ff4fe00b55993230367614fe10",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -778,7 +778,7 @@
     },
     "deltas": {
      "a": {
-      "vitality": -8.523457561003951,
+      "vitality": -9.287000135655504,
       "energy": -12,
       "focus": 0,
       "heat": 11.999999999999993,
@@ -789,26 +789,26 @@
       "notes": []
      },
      "b": {
-      "vitality": -4.181344238876026,
+      "vitality": -4.36203015966138,
       "energy": -9,
-      "focus": 7.127250000000004,
+      "focus": 8.254550000000002,
       "heat": 0,
       "momentum": 1,
       "guard": 0,
-      "drift": 0,
+      "drift": 3.349090000000004,
       "insightStacks": 0,
       "notes": []
      }
     },
     "notes": [],
     "outcome": null,
-    "hash": "021bec8de62d408b12953341d057b58182e09a9123ddf212f54a3fb38bb903f5"
+    "hash": "b9c3d67edf9b48a60060213df73ac3e631ed9586065ee67c8a2cbc75be1d400c"
    },
    {
     "round": 17,
-    "previousHash": "021bec8de62d408b12953341d057b58182e09a9123ddf212f54a3fb38bb903f5",
-    "preStateHash": "8aae0d9f2a8cf4197ec75558ce81417d01f7be3bf045b2966cc679e47f398e10",
-    "postStateHash": "6ae61c398e7956f0cf9057f9b952a7c22a0365ba4f600a84ed5e82316dd71332",
+    "previousHash": "b9c3d67edf9b48a60060213df73ac3e631ed9586065ee67c8a2cbc75be1d400c",
+    "preStateHash": "c8132bfa5dfe2b56d63786bbf4ba0180574d2c53354ef22bf1ff19a571a18d0b",
+    "postStateHash": "718f917c9abf11d2a71eedfa06e17c533f5b04f80480211b76d4e6e650c2d299",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -822,7 +822,7 @@
     },
     "deltas": {
      "a": {
-      "vitality": -7.094498491179706,
+      "vitality": -7.7300330269061845,
       "energy": -2,
       "focus": 0,
       "heat": 5,
@@ -833,29 +833,29 @@
       "notes": []
      },
      "b": {
-      "vitality": -3.335922879286727,
+      "vitality": -3.4800761139113163,
       "energy": -1,
-      "focus": 7.127250000000004,
+      "focus": 8.254550000000002,
       "heat": 0,
       "momentum": 1,
       "guard": 0,
-      "drift": 0,
+      "drift": 3.349090000000004,
       "insightStacks": 0,
       "notes": []
      }
     },
     "notes": [],
     "outcome": null,
-    "hash": "f9e1db1b61f8e408e71d92018d28ae0cef3be1e5dc93e8ffee03bfe5d25eebc0"
+    "hash": "c578aa3ac1a72521582980f7f310d634815c600579725e1a12ff0bb08d896807"
    },
    {
     "round": 18,
-    "previousHash": "f9e1db1b61f8e408e71d92018d28ae0cef3be1e5dc93e8ffee03bfe5d25eebc0",
-    "preStateHash": "f32af3afe541654028f22319e595f58bc4d73bcd7bbe077020be5385da08ecec",
-    "postStateHash": "22b1e1f541f96cceeebe0210044cbcf81bec0df86ac01bb5f0e648c9487146fa",
+    "previousHash": "c578aa3ac1a72521582980f7f310d634815c600579725e1a12ff0bb08d896807",
+    "preStateHash": "fe67929dd50a19fc6200bd90358e9058369ac47f49818403d291fe1108afd56f",
+    "postStateHash": "919d2de9e1eed8ae4d6175a61d76a3fe59cd5b3378f0e6e68b5e44a3c48ac88d",
     "actions": {
      "a": {
-      "action": "PRESS",
+      "action": "RECOVER",
       "intensity": 2
      },
      "b": {
@@ -866,18 +866,20 @@
     },
     "deltas": {
      "a": {
-      "vitality": -20.441460261303348,
-      "energy": -7,
-      "focus": 0,
-      "heat": 8,
-      "momentum": 0,
+      "vitality": -20.72466022796351,
+      "energy": 27.632400000000004,
+      "focus": 5.0075,
+      "heat": -10.015,
+      "momentum": -1,
       "guard": 0,
-      "drift": 5,
+      "drift": -3.0105000000000004,
       "insightStacks": 0,
-      "notes": []
+      "notes": [
+       "stale_lead"
+      ]
      },
      "b": {
-      "vitality": -9.773856473060986,
+      "vitality": 0,
       "energy": -16,
       "focus": -32,
       "heat": 10,
@@ -888,88 +890,82 @@
       "notes": []
      }
     },
-    "notes": [],
+    "notes": [
+     "stale_lead"
+    ],
     "outcome": null,
-    "hash": "580367515ce7afafd63562cdc66ed0d7ac33574ff047003021310e10ba5f9675"
+    "hash": "2ccd2cf2315df20e1c91f7a46f227fff5c3ff3d54d9b49d7764b5c5043e54d3f"
    },
    {
     "round": 19,
-    "previousHash": "580367515ce7afafd63562cdc66ed0d7ac33574ff047003021310e10ba5f9675",
-    "preStateHash": "655b0f1e05a231b6d40d89e79c96afbb88ebe6fbcdd8558ffff8158d3681a45a",
-    "postStateHash": "36e85b34e8d9aa915a868ac9c95d6b95b058557dcd6abbbe9a1b467fd97cc44c",
+    "previousHash": "2ccd2cf2315df20e1c91f7a46f227fff5c3ff3d54d9b49d7764b5c5043e54d3f",
+    "preStateHash": "35e6c17a0d3ea4272e5ed510f9f6b586956ef5042d20fae9c17aa267bd59b2db",
+    "postStateHash": "924b0f84a36e3d53315b6429493094e118a8b1744bc74c99479ebb63174098f0",
     "actions": {
      "a": {
-      "action": "RECOVER",
-      "intensity": 3
-     },
-     "b": {
-      "action": "RECOVER",
-      "intensity": 3
-     }
-    },
-    "deltas": {
-     "a": {
-      "vitality": 0,
-      "energy": 38.410575,
-      "focus": 10.178225000000001,
-      "heat": -14.021,
-      "momentum": 0,
-      "guard": 0,
-      "drift": -6.015000000000001,
-      "insightStacks": 0,
-      "notes": [
-       "accord:1",
-       "stale_lead"
-      ]
-     },
-     "b": {
-      "vitality": 0,
-      "energy": 38.496975,
-      "focus": 10.193224999999998,
-      "heat": -14.062999999999999,
-      "momentum": 0,
-      "guard": 0,
-      "drift": -10.045000000000002,
-      "insightStacks": 0,
-      "notes": [
-       "accord:1"
-      ]
-     }
-    },
-    "notes": [
-     "accord:1",
-     "stale_lead",
-     "accord:1"
-    ],
-    "outcome": null,
-    "hash": "220b83b6fc537de81b65652c1626967d9ae6207b2646de908b6e25491f357bfa"
-   },
-   {
-    "round": 20,
-    "previousHash": "220b83b6fc537de81b65652c1626967d9ae6207b2646de908b6e25491f357bfa",
-    "preStateHash": "cc737a6fa20c63d87835d8078287c5618f7ac253d91c9b4ac13f58a438705a17",
-    "postStateHash": "3c3b7d6e11c6b8debf1baabfbbd25c08eb6f00d4a54316b278bcd3d6633ed1b4",
-    "actions": {
-     "a": {
-      "action": "COUNTER",
-      "intensity": 1,
-      "prediction": "GUARD"
+      "action": "PRESS",
+      "intensity": 1
      },
      "b": {
       "action": "COUNTER",
       "intensity": 3,
-      "prediction": "TRACE"
+      "prediction": "RECOVER"
      }
     },
     "deltas": {
      "a": {
       "vitality": 0,
-      "energy": -1,
+      "energy": -2,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 1,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -9.349266150569527,
+      "energy": -9,
       "focus": 0,
       "heat": 0,
       "momentum": 0,
       "guard": 0,
-      "drift": 11.439999999999998,
+      "drift": 7.439999999999998,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
+    "outcome": null,
+    "hash": "f42b704a786252aec5bb353bb8bf9112861a9496cafdd216a29c19d9c7852f54"
+   },
+   {
+    "round": 20,
+    "previousHash": "f42b704a786252aec5bb353bb8bf9112861a9496cafdd216a29c19d9c7852f54",
+    "preStateHash": "43a8273dcc53552c8b4f16ac6b560add8d23649ed52a74f970c4c62168f1990e",
+    "postStateHash": "6f5d957167e755986e736a089c7a05d8b91c88415894a18a8a4eea429bf2cf98",
+    "actions": {
+     "a": {
+      "action": "COUNTER",
+      "intensity": 3,
+      "prediction": "GUARD"
+     },
+     "b": {
+      "action": "COUNTER",
+      "intensity": 1,
+      "prediction": "PRESS"
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -9,
+      "focus": 0,
+      "heat": 0,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 11.440000000000005,
       "insightStacks": 0,
       "notes": [
        "stale_lead"
@@ -977,7 +973,7 @@
      },
      "b": {
       "vitality": 0,
-      "energy": -9,
+      "energy": -1,
       "focus": 0,
       "heat": 0,
       "momentum": 0,
@@ -991,13 +987,13 @@
      "stale_lead"
     ],
     "outcome": null,
-    "hash": "e5a6c2ba63c4b71ca8bb5bb4f2afe763383727788d47c00c46cd68dfb7dd6d0d"
+    "hash": "e3563b9da7679ef5d1aa8f4773750ddcabed23a45d221f47422e831e7ecc6a5e"
    },
    {
     "round": 21,
-    "previousHash": "e5a6c2ba63c4b71ca8bb5bb4f2afe763383727788d47c00c46cd68dfb7dd6d0d",
-    "preStateHash": "6c8924d760421160fb27ed61d3ce7d8f4f3c823a6276d5a98be5e90aa3d03d41",
-    "postStateHash": "c999f85a538870add8713dbde3f9dcad273b8de08a9d3f04a161c9f98b1f86d5",
+    "previousHash": "e3563b9da7679ef5d1aa8f4773750ddcabed23a45d221f47422e831e7ecc6a5e",
+    "preStateHash": "aeafa42068be5c3cf47d193ca2f53d08f2ea8ca5bc6abf9f4815e044da9b2c39",
+    "postStateHash": "6d7a34fd922a285482f340ba58402cc9be502d6461af3a75690a3998a5d7425f",
     "actions": {
      "a": {
       "action": "PRESS",
@@ -1010,7 +1006,7 @@
     },
     "deltas": {
      "a": {
-      "vitality": -10.495180343870842,
+      "vitality": -11.345531900399259,
       "energy": -12,
       "focus": 0,
       "heat": 12,
@@ -1021,7 +1017,7 @@
       "notes": []
      },
      "b": {
-      "vitality": -10.44020418522584,
+      "vitality": -12.302787081992099,
       "energy": -12,
       "focus": 0,
       "heat": 12,
@@ -1033,23 +1029,66 @@
      }
     },
     "notes": [],
+    "outcome": null,
+    "hash": "dd002f5a01489d5a164e43e5303ccc27edb306757982e457306ce47ccc3de684"
+   },
+   {
+    "round": 22,
+    "previousHash": "dd002f5a01489d5a164e43e5303ccc27edb306757982e457306ce47ccc3de684",
+    "preStateHash": "073b3796b648733dc1346f8e54bcaf6c2aee62e2868903010fe692c94e9740dc",
+    "postStateHash": "f89780bd16e4a85f292b19400a6c3b6101b89a52b918d64b650a7dfa87ec6e3e",
+    "actions": {
+     "a": {
+      "action": "PRESS",
+      "intensity": 1
+     },
+     "b": {
+      "action": "RECOVER",
+      "intensity": 3
+     }
+    },
+    "deltas": {
+     "a": {
+      "vitality": 0,
+      "energy": -2,
+      "focus": 0,
+      "heat": 5,
+      "momentum": 0,
+      "guard": 0,
+      "drift": 0,
+      "insightStacks": 0,
+      "notes": []
+     },
+     "b": {
+      "vitality": -7.907310332547462,
+      "energy": 34.9296,
+      "focus": 5.022500000000001,
+      "heat": -14.062999999999999,
+      "momentum": -1,
+      "guard": 0,
+      "drift": -10.045000000000002,
+      "insightStacks": 0,
+      "notes": []
+     }
+    },
+    "notes": [],
     "outcome": {
      "winner": "A",
      "reason": "ko"
     },
-    "hash": "488f01f01861f545a88febab8f52c82acbb71bc2fea02e2bc429385df095e8e9"
+    "hash": "48d0d50e3e23049da87a216c63bda3be58af51406d9024d401f2c53dc23d5793"
    }
   ],
   "terminal_result": {
    "winner": "A",
    "reason": "ko"
   },
-  "event_root_hash": "488f01f01861f545a88febab8f52c82acbb71bc2fea02e2bc429385df095e8e9"
+  "event_root_hash": "48d0d50e3e23049da87a216c63bda3be58af51406d9024d401f2c53dc23d5793"
  },
  "expected": {
   "verified": true,
-  "rounds": 21,
-  "state_hash": "c999f85a538870add8713dbde3f9dcad273b8de08a9d3f04a161c9f98b1f86d5",
-  "replay_hash": "3ca9a43a34621e83fa27182b6bfdc119cfcaa8289c51daa8435e85a00ed7de88"
+  "rounds": 22,
+  "state_hash": "f89780bd16e4a85f292b19400a6c3b6101b89a52b918d64b650a7dfa87ec6e3e",
+  "replay_hash": "3e6600c4e8b4264d5911d5261b99fd79c262d705334a46d358b5c3147d1ebcce"
  }
 }
