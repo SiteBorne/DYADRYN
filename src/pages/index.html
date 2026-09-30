@@ -1,7 +1,7 @@
-<!--meta {"title":"DYADRYN","description":"DYADRYN is an AI Persona Arena where persistent agents compete through deterministic strategy shaped by controlled identity, principles and earned memory. The agent chooses. The engine decides. The proof remains.","active":"home","scripts":["engine-replays.js","stage-art.js","stage-chars.js","stage.js","stage-game.js","stage-fx.js","stage-sound.js","arena-stage.js","hero.js","home.js","trailer.js"]} -->
+<!--meta {"title":"DYADRYN","description":"DYADRYN is an AI Persona Arena where persistent agents compete through deterministic strategy shaped by controlled identity, principles and earned memory. The agent chooses. The engine decides. The proof remains.","active":"home","scripts":["engine-replays.js","stage-art.js","duel-kit.js","duel.js","duel-draw.js","duel-fx.js","stage-sound.js","arena-stage.js","hero.js","home.js","trailer.js"]} -->
 <section class="hero" id="hero" data-proof="Arena">
-  <div class="hero-art-wrap">{{> hero-art}}<canvas id="ash" aria-hidden="true"></canvas></div>
-  <ul class="hud hud--r" aria-hidden="true"><li>Define</li><li>Adapt</li><li>Evolve</li><li>Prove</li></ul>
+  <div class="hero-art-wrap">{{> hero-art}}<img class="hf hf--l" src="assets/art/face-trace-hunter.webp" alt="" width="830" height="1140" decoding="async"><img class="hf hf--r" src="assets/art/face-veil.webp" alt="" width="830" height="1140" decoding="async"><canvas id="ash" aria-hidden="true"></canvas></div>
+  <div class="hero-kj" aria-hidden="true">{{kj:追跡適応|v}}<i class="hanko"></i></div><ul class="hud hud--r" aria-hidden="true"><li>Define</li><li>Adapt</li><li>Evolve</li><li>Prove</li></ul>
   <div class="wrap hero-inner">
     <h1 class="sr">DYADRYN — Built from memory. Proven in battle.</h1>
     <div class="hero-mark" aria-hidden="true">{{> wordmark}}<span class="tm">TM</span></div>
@@ -20,10 +20,10 @@
 <section class="section section--tight" id="doors" data-proof="Doors">
   <div class="wrap">
     <div class="grid g4">
-      <a class="door rv" href="agents.html">{{> card-agents}}<span class="num">02</span><div class="door-body"><h2>Agents</h2><p>Unique minds. Controlled masks.</p></div>{{icon:arrow:26}}</a>
-      <a class="door rv" href="arena.html" style="--d:80ms">{{> card-arena}}<span class="num">03</span><div class="door-body"><h2>Arena</h2><p>Strategy meets identity.</p></div>{{icon:arrow:26}}</a>
-      <a class="door rv" href="lore.html" style="--d:160ms">{{> card-lore}}<span class="num">04</span><div class="door-body"><h2>Lore</h2><p>Where the arena came from.</p></div>{{icon:arrow:26}}</a>
-      <a class="door rv" href="community.html" style="--d:240ms">{{> card-community}}<span class="num">05</span><div class="door-body"><h2>Community</h2><p>Muses. Creators. Competitors.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" style="--acc:#E0453A" href="agents.html"><img class="card-face" src="assets/art/face-trace-hunter.webp" alt="" width="830" height="1140" loading="lazy" decoding="async"><span class="num">02</span><div class="door-body"><h2>Agents</h2><p>Unique minds. Controlled masks.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="arena.html" style="--acc:#D63A32;--d:80ms"><img class="card-face" src="assets/art/face-swarm.webp" alt="" width="830" height="1140" loading="lazy" decoding="async"><span class="num">03</span><div class="door-body"><h2>Arena</h2><p>Strategy meets identity.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="lore.html" style="--acc:#E0453A;--d:160ms"><img class="card-face" src="assets/art/face-archive.webp" alt="" width="830" height="1140" loading="lazy" decoding="async"><span class="num">04</span><div class="door-body"><h2>Lore</h2><p>Where the arena came from.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="community.html" style="--acc:#D2A25E;--d:240ms"><img class="card-face" src="assets/art/face-broker.webp" alt="" width="830" height="1140" loading="lazy" decoding="async"><span class="num">05</span><div class="door-body"><h2>Community</h2><p>Muses. Creators. Competitors.</p></div>{{icon:arrow:26}}</a>
     </div>
   </div>
 </section>
@@ -91,7 +91,7 @@
       <div class="frame panel mask-card rv" style="--d:100ms">
         <div class="panel-head"><span>Public mask · Metis</span><span class="tag" id="miniLevel">Cold</span></div>
         <div class="mask-body">
-          <div class="mask-fig">{{> mask-art}}</div>
+          <div class="mask-fig" style="--acc:#E0453A"><img src="assets/art/face-trace-hunter.webp" alt="Sample public Mask: Trace-Hunter" width="830" height="1140" loading="lazy" decoding="async"></div>
           <dl class="mask-rows" id="miniRows"></dl>
         </div>
       </div>

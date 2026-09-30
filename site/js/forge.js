@@ -5,21 +5,14 @@
   var host = $('#archBtns'); if (!host) return;
   var LAB = ['Analysis', 'Execution', 'Adaptation', 'Influence', 'Resolve', 'Creativity'];
   var AXL = ['Risk tolerance', 'Aggression', 'Information seeking', 'Counterplay', 'Resource preservation', 'Deception (restrained)', 'Strategic horizon'];
-  var ARCH = [
-    { n: 'Trace-Hunter', b: 'Learns first. Punishes patterns later.', a: [84, 68, 82, 61, 75, 50], ax: [.4, .45, .9, .7, .6, .25, .8], t: ['analytical', 'patient', 'information-seeking', 'long-horizon'], s: ['Second-Order Sight', 'Counterfactual Shield'] },
-    { n: 'Broker', b: 'Trades in incentives, tempo and constrained choices.', a: [72, 62, 70, 90, 66, 60], ax: [.55, .5, .6, .55, .5, .6, .55], t: ['influence-oriented', 'opportunistic', 'adaptive', 'deceptive-with-restraint'], s: ['Broker Lock', 'Constraint Collapse'] },
-    { n: 'Stillpoint', b: 'Absorbs instability and turns pressure into control.', a: [66, 58, 74, 64, 90, 68], ax: [.25, .25, .5, .6, .85, .2, .7], t: ['resilient', 'protective', 'patient', 'resource-preserving'], s: ['Stillpoint', 'Counterfactual Shield'] },
-    { n: 'Archive', b: 'Draws on accumulated pattern and unusual carry.', a: [80, 56, 82, 70, 62, 70], ax: [.35, .3, .8, .65, .6, .3, .95], t: ['analytical', 'adaptive', 'creative', 'long-horizon'], s: ['Archive Echo', 'Second-Order Sight'] },
-    { n: 'Swarm', b: 'Distributed, adaptive, low-cost recomposition.', a: [60, 74, 84, 58, 58, 86], ax: [.7, .65, .5, .4, .35, .4, .4], t: ['adaptive', 'creative', 'volatile', 'opportunistic'], s: ['Swarm Repair', 'Constraint Collapse'] },
-    { n: 'Veil', b: 'Controls disclosure, feints and opponent modelling.', a: [80, 54, 72, 88, 64, 62], ax: [.5, .4, .85, .7, .55, .75, .6], t: ['influence-oriented', 'information-seeking', 'deceptive-with-restraint', 'patient'], s: ['Veil Step', 'Broker Lock'] }
-  ];
+  var ARCH = DY.ARCH.map(function (a) { return { n: a.name, b: a.line, a: a.a, ax: a.ax, t: a.t, s: a.s, k: a.k, kj: a.kj, acc: a.acc }; });
   var st = { a: 0, l: 0 };
-  host.innerHTML = ARCH.map(function (x, i) { return '<button type="button" class="arch-b" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><b>' + x.n + '</b><small>' + x.b + '</small></button>'; }).join('');
+  host.innerHTML = ARCH.map(function (x, i) { return '<button type="button" class="arch-b" style="--acc:' + x.acc + '" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><span class="ab-img" aria-hidden="true"><img src="assets/art/face-' + x.k + '.webp" alt="" width="830" height="1140" loading="lazy" decoding="async"></span><span class="ab-kj" aria-hidden="true">' + DY.KJ[x.kj] + '</span><b>' + x.n + '</b><small>' + x.b + '</small></button>'; }).join('');
   var levels = ['Cold', 'Masked', 'Carry', 'Deep carry'];
   function draw() {
     var x = ARCH[st.a], attrs = LAB.map(function (l, i) { return [l, x.a[i]]; });
     $$('.arch-b', host).forEach(function (b, i) { b.setAttribute('aria-pressed', i === st.a); });
-    $('#fName').textContent = x.n; $('#fBlurb').textContent = x.b; $('#fLevel').textContent = levels[st.l];
+    $('#fName').textContent = x.n; var mf = $('#maskFace'); if (mf) { mf.src = 'assets/art/face-' + x.k + '.webp'; mf.closest('.mask-fig').style.setProperty('--acc', x.acc); } $('#fBlurb').textContent = x.b; $('#fLevel').textContent = levels[st.l];
     $('#fTraits').innerHTML = x.t.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('');
     $('#fSigs').innerHTML = x.s.map(function (t) { return '<span class="tag tag--trace">' + t + '</span>'; }).join('');
     DY.radar($('#fRadar'), attrs, { label: x.n + ' attributes', caption: 'Dashed ring = even 70' });

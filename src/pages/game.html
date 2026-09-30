@@ -1,6 +1,6 @@
-<!--meta {"title":"The rules — how DYADRYN works","description":"Every DYADRYN rule that changes a choice: simultaneous locked turns, eight moves, seven meters, signatures, stances, heat and drift, win conditions and modes. Then play a training round in your browser.","active":"game","scripts":["teach.js","viz.js","stage-art.js","stage-chars.js","stage.js","stage-game.js","stage-fx.js","stage-sound.js","game.js","training.js"]} -->
+<!--meta {"title":"The rules — how DYADRYN works","description":"Every DYADRYN rule that changes a choice: simultaneous locked turns, eight moves, seven meters, signatures, stances, heat and drift, win conditions and modes. Then play a training round in your browser.","active":"game","scripts":["teach.js","viz.js","stage-art.js","duel-kit.js","duel.js","duel-draw.js","duel-fx.js","stage-sound.js","game.js","training.js"]} -->
 <header class="page-hero">
-  <div class="bg" aria-hidden="true">{{> card-arena}}</div>
+  <div class="bg" aria-hidden="true"><img class="pf pf--l" src="assets/art/face-broker.webp" alt="" width="830" height="1140" decoding="async"><img class="pf pf--r" src="assets/art/face-archive.webp" alt="" width="830" height="1140" decoding="async"></div><span class="ph-rail" aria-hidden="true"><span>Define</span><span>Adapt</span><span>Evolve</span><span>Ascend</span></span><span class="ph-side" aria-hidden="true">{{kj:理|v}}<i class="hanko"></i></span>
   <div class="wrap">
     <p class="crumbs"><a href="index.html">DYADRYN</a> / Game</p>
     <p class="eyebrow">The rulebook</p>
@@ -28,7 +28,7 @@
 
 <div class="wrap rb">
   <nav class="rb-toc" aria-label="Rulebook contents"><p class="caps muted">In this rulebook</p>
-    <a href="#match">Match model</a><a href="#attributes">Attributes &amp; power</a><a href="#resources">Seven meters</a><a href="#moves">Eight moves</a><a href="#signatures">Signatures</a><a href="#stances">Adapt stances</a><a href="#thresholds">Heat &amp; Drift</a><a href="#discipline">Repetition &amp; timeouts</a><a href="#order">Resolution order</a><a href="#winning">Winning</a><a href="#modes">Modes</a><a href="#fair">Fairness</a><a href="#training">Training Ground</a>
+    <a href="#match">Match model</a><a href="#attributes">Attributes &amp; power</a><a href="#resources">Seven meters</a><a href="#moves">Eight moves</a><a href="#signatures">Signatures</a><a href="#archetypes">Archetypes</a><a href="#stances">Adapt stances</a><a href="#thresholds">Heat &amp; Drift</a><a href="#discipline">Repetition &amp; timeouts</a><a href="#order">Resolution order</a><a href="#winning">Winning</a><a href="#modes">Modes</a><a href="#fair">Fairness</a><a href="#training">Training Ground</a>
   </nav>
   <div class="rb-body">
 
@@ -65,6 +65,14 @@
       <h2>Signatures</h2>
       <p>Each Mask carries two Signatures from this fixed list. The Mask can rename them, dress them in its own style, and explain them — but it can never change what they do. Each needs 30 Focus and then rests on a cooldown.</p>
       <ul class="sigs grid g2">{{gen:signatures}}</ul>
+    </section>
+
+    <section id="archetypes" class="rb-sec" data-proof="Archetypes">
+      <h2>Archetypes</h2>
+      <p class="lede">Six play-styles. Pick a feel, not a class.</p>
+      <p>An archetype is the <strong>tendency</strong> a Mask leans toward — how it likes to read, pressure, defend or hide. It is not a locked class and it never adds power: every Mask still totals <strong>420</strong>. You can play any move with any archetype; the archetype just decides which ones come naturally and which signatures it carries.</p>
+      <div class="ac-grid">{{gen:archetypes}}</div>
+      <div class="callout"><b>Not sure where to start?</b> Trace-Hunter teaches the read-and-counter rhythm of the whole game. Stillpoint is the gentlest first pick. Veil and Broker reward mind games once you know the basics.</div>
     </section>
 
     <section id="stances" class="rb-sec" data-proof="Stances">

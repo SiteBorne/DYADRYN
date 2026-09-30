@@ -1,5 +1,17 @@
-<!--meta {"title":"Not found","description":"This page is not part of the arena.","active":"","bodyclass":"nf"} -->
-<section class="page-hero" style="min-height:80vh;display:grid;align-content:center">
-  <div class="bg" aria-hidden="true">{{> card-lore}}</div>
-  <div class="wrap"><p class="eyebrow">Error 404</p><h1>Action denied by current state.</h1><p class="lede">This page isn’t part of the arena. Nothing was lost — the proof remains.</p><div class="btn-row" style="margin-top:1.6rem"><a class="btn btn--primary" href="index.html">Return to the arena {{icon:arrow:18}}</a><a class="btn btn--ghost" href="game.html">Read the rules</a></div></div>
+<!--meta {"title":"Not found","description":"This page is not part of the arena.","active":"","bodyclass":"nf","scripts":["stage-art.js","duel-kit.js","lost.js"]} -->
+<section class="lost" id="lost">
+  <canvas class="lost-cv" id="lostCv" aria-hidden="true"></canvas>
+  <div class="lost-kj" aria-hidden="true">{{kj:迷路|v}}</div>
+  <div class="wrap lost-in">
+    <p class="eyebrow">Error 404 · route not found</p>
+    <h1 class="lost-h"><span data-t="Action denied">Action denied</span><span data-t="by current state.">by current state.</span></h1>
+    <p class="lede">The rules only accept legal moves — and this address isn’t one. Nothing was lost: the proof remains.</p>
+    <ul class="lost-cards" aria-label="Legal moves from here">
+      <li><a class="lc" style="--c:#E0453A" href="index.html"><i aria-hidden="true">{{icon:press:30}}</i><b>Return to the arena</b><small>Attack · back to the start</small></a></li>
+      <li><a class="lc" style="--c:#6FA3FF" href="game.html"><i aria-hidden="true">{{icon:trace:30}}</i><b>Read the rules</b><small>Recon · learn the game</small></a></li>
+      <li><a class="lc" style="--c:#D2A25E" href="agents.html"><i aria-hidden="true">{{icon:mirror:30}}</i><b>Meet the masks</b><small>Copy · the six archetypes</small></a></li>
+      <li><a class="lc" style="--c:#8FB1BC" href="arena.html#verify"><i aria-hidden="true">{{icon:guard:30}}</i><b>Verify a proof</b><small>Defense · check a replay</small></a></li>
+    </ul>
+    <p class="lost-tip">Move your cursor. The masks are watching.</p>
+  </div>
 </section>

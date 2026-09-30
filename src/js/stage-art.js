@@ -107,25 +107,54 @@
     g.restore();
   }
   function fighterPath(g) { g.fill(CLOAK); }
+  /* ---- unified look: every combatant (mask art + body) is rendered to one buffer, then inked, rim-lit, bloomed and graded together ---- */
+  var BUF = {}, PAINT = null;
+  function buf(key, w, h) { var b = BUF[key]; if (!b) b = BUF[key] = document.createElement('canvas'); if (b.width !== w || b.height !== h) { b.width = w; b.height = h; } else b.getContext('2d').clearRect(0, 0, w, h); return b; }
+  function paintTex() { if (PAINT) return PAINT; var c = document.createElement('canvas'); c.width = c.height = 160; var x = c.getContext('2d'); var r = rngf(31); for (var i = 0; i < 900; i++) { var v = r() < .5 ? 0 : 255, len = 4 + r() * 22, a = r() * Math.PI; x.strokeStyle = 'rgba(' + v + ',' + v + ',' + v + ',' + (.05 + r() * .1) + ')'; x.lineWidth = .6 + r() * 1.6; x.beginPath(); var px = r() * 160, py = r() * 160; x.moveTo(px, py); x.lineTo(px + Math.cos(a) * len, py + Math.sin(a) * len); x.stroke(); } return PAINT = c; }
+  var LX0 = 240, LX1 = 240, LY0 = 480, LY1 = 56;
   function drawFighterRig(g, F, time) {
-    var P = F.pose, s = F.s, side = F.side, face = F.face, cold = F.cold || 0, CH = DY.StageChars;
-    g.save(); g.translate(F.x + P.dx * s, F.y + P.dy * s); g.scale(face * s * P.sx, s * P.sy); g.rotate(P.rot * face);
-    g.save(); g.scale(1, .16); g.fillStyle = 'rgba(0,0,0,.6)'; g.beginPath(); g.arc(0, 0, 84, 0, TAU); g.fill(); g.restore();
-    if (P.ghost > 0) { g.save(); g.globalAlpha = P.ghost * .3; g.translate(-30 * P.ghostDir, 0); CH.draw(g, F, time, { flat: side === 'a' ? C.oxide : C.cold }); g.restore(); }
+    var P = F.pose, s = F.s, side = F.side, face = F.face, cold = F.cold || 0, CH = DY.CelChars || DY.StageChars, kx = F.kx || 1;
+    var m = g.getTransform(), k = Math.hypot(m.a, m.b) || 1, q = cl(s * k, .8, 1.7), W = Math.ceil((LX0 + LX1) * q), H = Math.ceil((LY0 + LY1) * q), rot = P.rot * face;
+    // ground shadow (main canvas)
+    g.save(); g.translate(F.x + P.dx * s, F.y + P.dy * s); g.save(); g.scale(1, .16); g.fillStyle = 'rgba(0,0,0,.62)'; g.beginPath(); g.arc(0, 0, 84 * s, 0, TAU); g.fill(); g.restore(); g.restore();
+    var ch = buf(side + 'c', W, H), c = ch.getContext('2d'); c.imageSmoothingQuality = 'high';
+    c.save(); c.translate(LX0 * q, LY0 * q); c.scale(face * q * P.sx * kx, q * P.sy);
+    if (P.ghost > 0) { c.save(); c.globalAlpha = P.ghost * .3; c.translate(-30 * P.ghostDir, 0); CH.draw(c, F, time, { flat: side === 'a' ? C.oxide : C.cold, nostance: true }); c.restore(); }
     var drift = cl((F.res ? F.res.drift : 0) / 100, 0, 1), mis = (drift > .6 ? 6 : drift * 5) * (P.glitch ? 2 : 1);
-    if (mis > .5) { g.save(); g.translate(mis, -mis * .4); CH.draw(g, F, time, { flat: 'rgba(0,0,0,0)', stroke: side === 'a' ? 'rgba(184,92,50,.75)' : 'rgba(143,177,188,.75)', lw: 2.2 }); g.restore(); }
+    if (mis > .5) { c.save(); c.translate(mis, -mis * .4); CH.draw(c, F, time, { flat: 'rgba(0,0,0,0)', stroke: side === 'a' ? 'rgba(184,92,50,.75)' : 'rgba(143,177,188,.75)', lw: 2.2, nostance: true }); c.restore(); }
+    CH.draw(c, F, time);
+    if (P.flash > 0) { c.save(); c.globalAlpha = P.flash; CH.draw(c, F, time, { flat: C.paper, nostance: true }); c.restore(); }
+    c.restore();
+    // grade + painted texture, clipped to the combatant
+    c.save(); c.globalCompositeOperation = 'source-atop'; var gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, 'rgba(255,196,140,.08)'); gr.addColorStop(.6, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(20,30,70,.16)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+    c.globalCompositeOperation = 'source-atop'; c.globalAlpha = 1; c.globalAlpha = .45; c.fillStyle = c.createPattern(paintTex(), 'repeat'); c.fillRect(0, 0, W, H); c.restore();
+    // pass 2: ink outline around the whole silhouette (mask + body read as one drawing)
+    var ol = buf(side + 'o', W, H), o = ol.getContext('2d'), r = Math.max(1.6, 2.3 * q); for (var i = 0; i < 12; i++) { var an = i / 12 * TAU; o.drawImage(ch, Math.cos(an) * r, Math.sin(an) * r); } o.globalCompositeOperation = 'source-in'; o.fillStyle = '#060607'; o.fillRect(0, 0, W, H);
+    // pass 3: rim light (eclipse, upper toward centre) + archetype accent back-light
+    var rm = buf(side + 'r', W, H), rc = rm.getContext('2d'), dirx = side === 'a' ? -1 : 1, acc = (CH.ACC && CH.ACC[(F.arch && (CH.ALIAS[F.arch] || F.arch))]) || '#D63A32';
+    rc.drawImage(ch, 0, 0); rc.globalCompositeOperation = 'destination-out'; rc.drawImage(ch, dirx * 3.2 * q, 3.4 * q); rc.globalCompositeOperation = 'source-in'; rc.fillStyle = '#F6C58A'; rc.fillRect(0, 0, W, H);
+    var bk = buf(side + 'k', W, H), kc = bk.getContext('2d'); kc.drawImage(ch, 0, 0); kc.globalCompositeOperation = 'destination-out'; kc.drawImage(ch, -dirx * 3 * q, -2 * q); kc.globalCompositeOperation = 'source-in'; kc.fillStyle = acc; kc.fillRect(0, 0, W, H);
+    // pass 4: bloom of the bright/emissive parts
+    var bw = Math.max(8, W >> 2), bh = Math.max(8, H >> 2), bl = buf(side + 'b', bw, bh), bc = bl.getContext('2d'), haveF = 'filter' in bc; if (haveF) { bc.filter = 'brightness(1.25) contrast(1.9) saturate(1.5)'; bc.drawImage(ch, 0, 0, bw, bh); bc.filter = 'none'; }
+    // composite to the stage
+    g.save(); g.translate(F.x + P.dx * s, F.y + P.dy * s); g.rotate(rot); var sc = s / q, dx = -LX0 * q * sc, dy = -LY0 * q * sc, dw = W * sc, dh = H * sc;
     if (cold > 0 && 'filter' in g) g.filter = 'grayscale(' + cold + ') brightness(' + (1 - cold * .3) + ')';
+    g.drawImage(ol, dx, dy, dw, dh); g.drawImage(ch, dx, dy, dw, dh);
+    g.globalAlpha = .9; g.drawImage(rm, dx, dy, dw, dh); g.globalAlpha = .75; g.drawImage(bk, dx, dy, dw, dh); g.globalAlpha = 1;
+    if (haveF) { g.save(); g.globalCompositeOperation = 'lighter'; g.filter = 'blur(' + (7 * s) + 'px)' + (cold > 0 ? ' grayscale(' + cold + ')' : ''); g.globalAlpha = .55 * (1 - cold); g.drawImage(bl, dx, dy, dw, dh); g.restore(); }
+    if ('filter' in g) g.filter = 'none'; g.restore();
+    // heat halo + ring around the head (HUD-like, stays crisp)
     var J0 = CH.pose(F, time), heat = cl((F.res ? F.res.heat : 0) / 100, 0, 1), bright = heat >= .7;
-    g.save(); g.translate(J0.head[0] + 2, J0.head[1] - 4); g.lineWidth = 3; g.strokeStyle = 'rgba(216,208,190,.5)'; g.beginPath(); g.arc(0, 0, 54, .5 + P.ring, TAU - .5 + P.ring); g.stroke();
-    if (heat > .05) { g.lineWidth = bright ? 6 : 4; g.strokeStyle = bright ? C.amber : C.oxide; g.beginPath(); g.arc(0, 0, 54, .5 + P.ring, .5 + P.ring + Math.min(heat, 1) * (TAU - 1)); g.stroke(); }
-    if (bright) { g.save(); g.translate(3, -2); g.lineWidth = 1.6; g.strokeStyle = 'rgba(215,138,67,.8)'; g.beginPath(); g.arc(0, 0, 59, .5 + P.ring, TAU - .5 + P.ring); g.stroke(); g.restore(); } g.restore();
-    var J = CH.draw(g, F, time); if ('filter' in g) g.filter = 'none';
-    if (P.flash > 0) { g.save(); g.globalAlpha = P.flash; CH.draw(g, F, time, { flat: C.paper }); g.restore(); }
-    g.restore();
+    g.save(); g.translate(F.x + P.dx * s, F.y + P.dy * s); g.rotate(rot); g.scale(face * s * P.sx * kx, s * P.sy); g.translate(J0.head[0] + 2, J0.head[1] - 4);     if (heat > .05) { g.lineWidth = bright ? 6 : 4; g.strokeStyle = bright ? C.amber : C.oxide; g.beginPath(); g.arc(0, 0, 64, .5 + P.ring, .5 + P.ring + Math.min(heat, 1) * (TAU - 1)); g.stroke(); }
+    if (bright) { g.save(); g.translate(3, -2); g.lineWidth = 1.6; g.strokeStyle = 'rgba(215,138,67,.8)'; g.beginPath(); g.arc(0, 0, 69, .5 + P.ring, TAU - .5 + P.ring); g.stroke(); g.restore(); } g.restore();
+  }
+  function drawReflection(g, F) { // mirror of last frame's combatant, fading into the floor
+    var ch = BUF[F.side + 'c']; if (!ch) return; var P = F.pose, s = F.s, q = cl(s * (g.getTransform().a || 1), .8, 1.7), W = ch.width, H = ch.height, sc = s / q;
+    g.save(); g.translate(F.x + P.dx * s, F.y + 6); g.scale(1, -.92); g.globalAlpha = .17 * (1 - (F.cold || 0) * .6); g.drawImage(ch, -LX0 * q * sc, -(LY0 - 0) * q * sc + (P.dy * s) * 0, W * sc, H * sc); g.restore();
   }
   /* F: {side,x,y,s,face,pose,res,cold,name, t} */
   function drawFighter(g, F, time) {
-    if (DY.StageChars) return drawFighterRig(g, F, time);
+    if (DY.CelChars || DY.StageChars) return drawFighterRig(g, F, time);
     var P = F.pose, s = F.s, side = F.side, face = F.face;
     g.save(); g.translate(F.x + P.dx * s, F.y + P.dy * s); g.scale(face * s * P.sx, s * P.sy); g.rotate(P.rot * face * 1);
     var cold = F.cold || 0, breathe = Math.sin(time / 520 + (side === 'a' ? 0 : 2)) * (1 - cold) * 2;
@@ -202,5 +231,5 @@
     for (var i = 0; i < 256 * 256; i++) { var v = r(), k = i * 4, dark = v < .5; id.data[k] = dark ? 0 : 231; id.data[k + 1] = dark ? 0 : 222; id.data[k + 2] = dark ? 0 : 202; id.data[k + 3] = (dark ? (.5 - v) * 110 : (v - .5) * 60) | 0; }
     g.putImageData(id, 0, 0); return c;
   }
-  DY.StageArt = { grainTile: grainTile, C: C, E: E, cl: cl, rng: rngf, paintBackground: paintBackground, drawRing: drawRing, drawFighter: drawFighter, drawMask: drawMask, crescent: crescent, burst: burst, speedLines: speedLines, hLines: hLines, halftoneOverlay: halftoneOverlay, TAU: TAU, CLOAK: CLOAK };
+  DY.StageArt = { drawReflection: drawReflection, grainTile: grainTile, C: C, E: E, cl: cl, rng: rngf, paintBackground: paintBackground, drawRing: drawRing, drawFighter: drawFighter, drawMask: drawMask, crescent: crescent, burst: burst, speedLines: speedLines, hLines: hLines, halftoneOverlay: halftoneOverlay, TAU: TAU, CLOAK: CLOAK };
 })();
