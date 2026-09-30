@@ -1,42 +1,42 @@
 {
-  "ruleset": "dyadryn.core.v1",
+  "ruleset": "dyadryn.core.v2",
   "seedPrefix": "dyadryn-phase1-v1",
   "matches": 10000,
   "completed": 10000,
-  "rounds": 224295,
+  "rounds": 218563,
   "outcomes": {
     "forfeit": 104,
-    "round_limit": 7237,
-    "ko": 2603,
-    "double_ko": 56
+    "round_limit": 6857,
+    "ko": 2982,
+    "double_ko": 57
   },
   "actions": {
     "STALL": 312,
-    "COUNTER": 112177,
-    "PRESS": 123286,
-    "TRACE": 43995,
-    "SIGNATURE": 49915,
-    "ADAPT": 25624,
-    "RECOVER": 41881,
-    "GUARD": 45908,
-    "MIRROR": 5492
+    "COUNTER": 112265,
+    "PRESS": 126063,
+    "TRACE": 23755,
+    "SIGNATURE": 57390,
+    "RECOVER": 32448,
+    "ADAPT": 27070,
+    "MIRROR": 5928,
+    "GUARD": 51895
   },
   "signatures": {
-    "CONSTRAINT_COLLAPSE": 5513,
-    "BROKER_LOCK": 6776,
-    "ARCHIVE_ECHO": 5600,
-    "COUNTERFACTUAL_SHIELD": 7029,
-    "SECOND_ORDER_SIGHT": 6977,
-    "STILLPOINT": 5535,
-    "VEIL_STEP": 5736,
-    "SWARM_REPAIR": 6749
+    "ARCHIVE_ECHO": 5907,
+    "BROKER_LOCK": 7531,
+    "CONSTRAINT_COLLAPSE": 5584,
+    "COUNTERFACTUAL_SHIELD": 8125,
+    "SECOND_ORDER_SIGHT": 8836,
+    "STILLPOINT": 6989,
+    "VEIL_STEP": 6815,
+    "SWARM_REPAIR": 7603
   },
   "invariantFailures": 0,
   "engineFailures": 0,
   "replayDivergences": 0,
   "seatSwapDivergences": 0,
-  "digest": "570414a6464e7e4c31b9c62ab50621000d2ee690fe2c34bb02eb77118a2154b0",
-  "elapsedSeconds": 166.851,
-  "averageRounds": 22.4295,
+  "digest": "20fa464409e6267e0c1a88589f4b85ee61ca9515615af0d44c6b8558e33b5297",
+  "elapsedSeconds": 202.231,
+  "averageRounds": 21.8563,
   "balanceWarning": null
 }

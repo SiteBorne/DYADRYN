@@ -21,7 +21,7 @@ export interface V2Rules {
   veil: { evade: number; guard: number; energy: number };
   exposure: { trace: number; adapt: number };
   insight: { press_bonus: number };
-  adapt: { amount: number };
+  adapt: { amount: number; focus: number; guard: number };
   stat_weight: { ANALYSIS: number; EXECUTION: number; ADAPTATION: number; RESOLVE: number };
   influence: { read: number };
 }

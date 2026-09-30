@@ -298,7 +298,11 @@ function materialize(
         scale: f,
       };
       d.drift += RULES.actions.ADAPT.drift_delta * f;
-      if (V2) e.exposure = V2.exposure.adapt;
+      if (V2) {
+        e.exposure = V2.exposure.adapt;
+        d.focus += V2.adapt.focus * f;
+        d.guard += V2.adapt.guard * f;
+      }
       break;
     case "COUNTER": {
       e.counterHit =

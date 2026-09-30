@@ -201,6 +201,8 @@ v2:
     press_bonus: 0.028
   adapt:
     amount: 11.289
+    focus: 11
+    guard: 9
   stat_weight:
     ANALYSIS: 1.902
     EXECUTION: 0.2
