@@ -199,6 +199,108 @@
     "profile_hash": {
       "type": "string",
       "pattern": "^[a-f0-9]{64}$"
+    },
+    "derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "unit_cap",
+        "stat_cap",
+        "units",
+        "summary_hash",
+        "affinities"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "unit_cap": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1024
+        },
+        "stat_cap": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "units": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "identity",
+            "soul",
+            "memory"
+          ],
+          "properties": {
+            "identity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1024
+            },
+            "soul": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1024
+            },
+            "memory": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1024
+            }
+          }
+        },
+        "summary_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "affinities": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ANALYSIS",
+            "EXECUTION",
+            "ADAPTATION",
+            "INFLUENCE",
+            "RESOLVE",
+            "CREATIVITY"
+          ],
+          "properties": {
+            "ANALYSIS": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "EXECUTION": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "ADAPTATION": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "INFLUENCE": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "RESOLVE": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "CREATIVITY": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        }
+      }
     }
   }
 }

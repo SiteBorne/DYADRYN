@@ -12,7 +12,8 @@
     "check": "npm run lint && npm run test:engine && npm test",
     "lint": "eslint src engine/src",
     "dev": "npm run build && npm run bundle && node scripts/local-server.mjs",
-    "verify:release": "node scripts/verify-release.mjs"
+    "verify:release": "node scripts/verify-release.mjs",
+    "connector": "esbuild connector/muse-connect.ts --bundle --platform=node --format=esm --target=node20 --outfile=../src/assets/connect/muse-connect.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.31.0",

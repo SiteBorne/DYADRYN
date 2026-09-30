@@ -1,12 +1,13 @@
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import schema from '../schemas/battle_profile.schema.json' with {type:'json'};
+import {DERIVE,type Derivation} from './derive.js';
 import { RULES, SIGNATURES, assertStats, canonical, sha256, type Stats, type StatName } from '../engine/src/index.js';
 export const TRAITS=['analytical','adaptive','patient','counter-oriented','aggressive','resource-preserving','information-seeking','influence-oriented','resilient','creative','volatile','long-horizon','opportunistic','protective','deceptive-with-restraint','direct'];
 export interface Mask {
  mask_id:string;agent_id:string;profile_version:number;compiler_version:string;ruleset_version:string;
  source_hashes:{identity:string;soul:string;memory:string};stats:Stats;traits:string[];policy:Record<string,number>;
  signatures:{template_id:string;display_name:string}[];disclosure_level:'COLD'|'MASKED'|'CARRY'|'DEEP_CARRY';
- public_carry_summary?:string;profile_hash:string;
+ public_carry_summary?:string;derivation?:Derivation;profile_hash:string;
 }
 const check=new Ajv2020({strict:true,allErrors:false}).compile<Mask>(schema);
 export function validateMask(value:unknown):Mask {
@@ -47,5 +48,19 @@ export function compileMask(i:CompileInput):Mask {
  source_hashes:{identity:sha256(i.sources.identity),soul:sha256(i.sources.soul),memory:sha256(i.disclosure_level==='COLD'?'':i.sources.memory)},
  stats:normalizeStats(i.affinities),traits:[...i.traits],policy:{...i.policy},signatures:structuredClone(i.signatures),disclosure_level:i.disclosure_level,
  ...(i.disclosure_level!=='COLD'&&i.public_carry_summary?{public_carry_summary:i.public_carry_summary}:{})};
+ return validateMask({...body,profile_hash:sha256(canonical(body))});
+}
+
+// Server-side compilation from LOCAL derivation output: only hashes and affinities arrive, never raw Identity/Soul/Memory.
+export interface ProfileInput {
+ agent_id:string;mask_id:string;profile_version:number;disclosure_level:Mask['disclosure_level'];source_hashes:Mask['source_hashes'];
+ affinities:Stats;traits:string[];policy:Record<string,number>;signatures:Mask['signatures'];public_carry_summary?:string;derivation?:Derivation;
+}
+export function buildMask(i:ProfileInput):Mask {
+ if(i.derivation){const d=i.derivation;if(d.version!==DERIVE.version||d.unit_cap!==DERIVE.unit_cap||d.stat_cap!==DERIVE.stat_cap)throw new Error('invalid_derivation_version');
+  for(const k of RULES.stats.names)if(Math.abs(d.affinities[k]-i.affinities[k])>1e-4)throw new Error('invalid_derivation_mismatch');}
+ const body={mask_id:i.mask_id,agent_id:i.agent_id,profile_version:i.profile_version,compiler_version:i.derivation?'dyadryn.mask.v2':'dyadryn.mask.v1',ruleset_version:RULES.ruleset_id,
+ source_hashes:i.source_hashes,stats:normalizeStats(i.affinities),traits:[...i.traits],policy:{...i.policy},signatures:structuredClone(i.signatures),disclosure_level:i.disclosure_level,
+ ...(i.disclosure_level!=='COLD'&&i.public_carry_summary?{public_carry_summary:i.public_carry_summary}:{}),...(i.derivation?{derivation:structuredClone(i.derivation)}:{})};
  return validateMask({...body,profile_hash:sha256(canonical(body))});
 }

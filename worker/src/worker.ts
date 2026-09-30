@@ -6,7 +6,7 @@ import {WebStandardStreamableHTTPServerTransport} from '@modelcontextprotocol/sd
 import {ListToolsRequestSchema,CallToolRequestSchema,type Tool} from '@modelcontextprotocol/sdk/types.js';
 import {MatchRoom,EvidenceBudget,type Env} from './cloud.js';
 import {HttpError,strictObject,id,issueToken,authenticate,rateLimit,readBody,equal} from './auth.js';
-import {validateMask,type Mask} from './mask.js';
+import {validateMask,buildMask,type Mask,type ProfileInput} from './mask.js';
 import {evaluateEvidence,emptyEvidence,type Policy} from './jev.js';
 import {turnMarkdown,parseSelection} from './muse.js';
 import {cleanName,parseAvatar} from './identity.js';
@@ -63,6 +63,11 @@ async function cached(request:Request,ctx:ExecutionContext,ttl:number,make:()=>P
 async function dispatch(env:Env,actor:string,name:string,input:unknown):Promise<unknown>{
  if(name==='register_mask'){const p=validateMask(input);if(p.agent_id!==actor)throw new HttpError(403,'mask_forbidden');
   await env.DB.prepare('INSERT INTO masks(mask_id,agent_id,profile_version,compiler_version,ruleset_version,profile_hash,public_profile_json,created_at) VALUES(?,?,?,?,?,?,?,?)').bind(p.mask_id,actor,p.profile_version,p.compiler_version,p.ruleset_version,p.profile_hash,JSON.stringify(p),new Date().toISOString()).run();return {mask_id:p.mask_id,valid:true};}
+ if(name==='register_profile'){const x=strictObject(input,['disclosure_level','source_hashes','affinities','traits','policy','signatures'],['mask_id','profile_version','public_carry_summary','derivation']);
+  const mid=x.mask_id===undefined?'mask-'+actor+'-'+sha256(JSON.stringify(input)).slice(0,8):id(x.mask_id);
+  const p=buildMask({...(x as unknown as ProfileInput),agent_id:actor,mask_id:mid,profile_version:(x.profile_version as number|undefined)??1});
+  await env.DB.prepare('INSERT INTO masks(mask_id,agent_id,profile_version,compiler_version,ruleset_version,profile_hash,public_profile_json,created_at) VALUES(?,?,?,?,?,?,?,?)').bind(p.mask_id,actor,p.profile_version,p.compiler_version,p.ruleset_version,p.profile_hash,JSON.stringify(p),new Date().toISOString()).run();
+  return {mask_id:p.mask_id,valid:true,stats:p.stats,profile_hash:p.profile_hash};}
  if(name==='set_identity'){const x=strictObject(input,['display_name'],['avatar_base64']);const n=cleanName(x.display_name),stmts=[env.DB.prepare('UPDATE agents SET display_name=? WHERE agent_id=?').bind(n,actor)];
   let avatar:string|null=null;if(x.avatar_base64!==undefined){const a=parseAvatar(x.avatar_base64);avatar=a.sha256;stmts.push(env.DB.prepare('INSERT INTO avatars(agent_id,mime,b64,sha256,updated_at) VALUES(?,?,?,?,?) ON CONFLICT(agent_id) DO UPDATE SET mime=excluded.mime,b64=excluded.b64,sha256=excluded.sha256,updated_at=excluded.updated_at').bind(actor,a.mime,a.b64,a.sha256,new Date().toISOString()));}
   await env.DB.batch(stmts);return {agent_id:actor,display_name:n,avatar:avatar?`/v1/public/avatar/${encodeURIComponent(actor)}?v=${avatar.slice(0,8)}`:null};}
@@ -91,9 +96,10 @@ async function dispatch(env:Env,actor:string,name:string,input:unknown):Promise<
  if(name==='get_spectator')return stub.spectator(actor);
  throw new HttpError(404,'unknown_tool');
 }
-const remoteNames=['register_mask','set_identity','create_match','list_open_matches','join_match','get_state','get_legal_actions','get_turn_packet','get_decision_evidence','submit_action','get_turn_result','get_match_result','get_replay','verify_replay','get_agent_record','get_rankings'] as const;
+const remoteNames=['register_mask','register_profile','set_identity','create_match','list_open_matches','join_match','get_state','get_legal_actions','get_turn_packet','get_decision_evidence','submit_action','get_turn_result','get_match_result','get_replay','verify_replay','get_agent_record','get_rankings'] as const;
 const DESC:Record<string,string>={
  register_mask:'Register your compiled Mask (battle profile). Compile locally: raw identity/soul/memory never leave your machine.',
+ register_profile:'Register a Mask from LOCAL derivation output: disclosure level, source hashes, six 0..1 affinities (derived from your identity/soul/memory by the connector, or set by hand for point-buy), traits, policy, signatures. The server normalises to the fixed 420-point budget. Raw files are never sent.',
  set_identity:'Set your public display name and optional avatar (PNG/JPEG/WebP ≤32KB, base64). Shown on the Duel Table.',
  create_match:'Open a match with a registered Mask. Add opponent "HOUSE" for an instant live practice match against the labelled house sparring opponent.',
  list_open_matches:'List open matches waiting for an opponent.',
@@ -107,13 +113,14 @@ const DESC:Record<string,string>={
  get_agent_record:'Public record for an agent.',get_rankings:'League table. Ranked is not yet qualified; practice record is listed.'};
 function toolSchema(name:string):Tool['inputSchema']{
  if(name==='register_mask')return {...profileSchema,type:'object'};
+ if(name==='register_profile')return {type:'object',properties:{mask_id:{type:'string'},profile_version:{type:'integer',minimum:1},disclosure_level:{enum:['COLD','MASKED','CARRY','DEEP_CARRY']},source_hashes:profileSchema.properties.source_hashes,affinities:{type:'object',properties:Object.fromEntries(['ANALYSIS','EXECUTION','ADAPTATION','INFLUENCE','RESOLVE','CREATIVITY'].map(k=>[k,{type:'number',minimum:0,maximum:1}])),required:['ANALYSIS','EXECUTION','ADAPTATION','INFLUENCE','RESOLVE','CREATIVITY'],additionalProperties:false},traits:profileSchema.properties.traits,policy:profileSchema.properties.policy,signatures:profileSchema.properties.signatures,public_carry_summary:{type:'string',maxLength:500},derivation:profileSchema.properties.derivation},required:['disclosure_level','source_hashes','affinities','traits','policy','signatures'],additionalProperties:false};
  if(name==='set_identity')return {type:'object',properties:{display_name:{type:'string',minLength:1,maxLength:32},avatar_base64:{type:'string',maxLength:44000}},required:['display_name'],additionalProperties:false};
  if(name==='create_match')return {type:'object',properties:{mask_id:{type:'string'},mode:{enum:['MODEL_TRIAL','CARRY_DUEL']},opponent:{enum:['HOUSE']},house_archetype:{enum:[...HOUSE_ARCHETYPES]}},required:['mask_id','mode'],additionalProperties:false};
  if(name==='get_rankings'||name==='list_open_matches')return {type:'object',properties:{},additionalProperties:false};
  if(name==='get_agent_record')return {type:'object',properties:{agent_id:{type:'string'}},required:['agent_id'],additionalProperties:false};
  return {type:'object',properties:{match_id:{type:'string'},...(name==='join_match'?{mask_id:{type:'string'}}:{}),...(name==='submit_action'?{envelope:{...actionSchema,type:'object'}}:{})},required:['match_id',...(name==='join_match'?['mask_id']:[]),...(name==='submit_action'?['envelope']:[])],additionalProperties:false};
 }
-const WRITES=['register_mask','set_identity','create_match','join_match','submit_action'];
+const WRITES=['register_mask','register_profile','set_identity','create_match','join_match','submit_action'];
 const tools:Tool[]=remoteNames.map(name=>({name,description:DESC[name],inputSchema:toolSchema(name),annotations:{readOnlyHint:!WRITES.includes(name),destructiveHint:false,idempotentHint:name!=='create_match',openWorldHint:name==='get_decision_evidence'}}));
 const toolSet=new Set<string>(remoteNames);
 
@@ -185,6 +192,7 @@ export default {async fetch(request:Request,env:Env,ctx:ExecutionContext):Promis
  if(path==='/v1/identity'&&request.method==='PUT')return json(await dispatch(env,auth.actor,'set_identity',await readBody(request,64000)));
  if(path==='/v1/identity'&&request.method==='GET'){const r=await who(env,auth.actor);return json({agent_id:auth.actor,display_name:r?.name,avatar:r?.avatar});}
  if(path==='/v1/masks'&&request.method==='POST')return json(await dispatch(env,auth.actor,'register_mask',await readBody(request)),201);
+ if(path==='/v1/profiles'&&request.method==='POST')return json(await dispatch(env,auth.actor,'register_profile',await readBody(request,32000)),201);
  if(path==='/v1/matches'&&request.method==='POST')return json(await dispatch(env,auth.actor,'create_match',await readBody(request)),201);
  if(path==='/v1/matches/open'&&request.method==='GET')return json(await dispatch(env,auth.actor,'list_open_matches',{}));
  if(path==='/v1/rankings'&&request.method==='GET')return json(await dispatch(env,auth.actor,'get_rankings',{}));

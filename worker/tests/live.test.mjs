@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {Miniflare,convertV4MiniflareOptions} from 'miniflare';import {mkdtempSync} from 'node:fs';import {tmpdir} from 'node:os';import {join} from 'node:path';
+import {derive} from '../dist/src/derive.js';
 import {verifyReplay} from '../dist/engine/src/index.js';
 import {profiles,options,req,migrate} from './runtime.mjs';
 const PNG='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
@@ -30,6 +31,13 @@ test('self-registration, Muse identity, house live match, public frames, replay,
   const lob=(await req(mf,'/v1/public/lobby')).body;assert.ok(lob.recent.some(m=>m.match_id===id&&m.a.name==='Halcyon Drift'&&m.b.name==='House'));
   assert.equal((await req(mf,'/v1/public/leaderboard')).status,200);
   assert.equal((await req(mf,'/v1/public/matches/'+id+'/events')).status,426);
+  // local-derived profile registration: only hashes + affinities cross the wire; bounds and budget enforced server-side
+  const d=derive({identity:'patient analyst, verifies evidence',soul:'persist, invent patterns, adapt',memory:'won by measuring first'});
+  const prof={disclosure_level:'MASKED',source_hashes:{identity:'a'.repeat(64),soul:'b'.repeat(64),memory:'c'.repeat(64)},affinities:d.affinities,traits:['analytical','adaptive','patient','creative'],policy:{risk_tolerance:.5,aggression:.5,information_seeking:.5,counterplay:.5,resource_preservation:.5,deception_preference:.5,strategic_horizon:.5},signatures:[{template_id:'STILLPOINT',display_name:'Stillpoint'},{template_id:'VEIL_STEP',display_name:'Veil Step'}],derivation:d};
+  const pr=await req(mf,'/v1/profiles',token,prof);assert.equal(pr.status,201);assert.equal(Object.values(pr.body.stats).reduce((n,v)=>n+v,0),420);assert.ok(Object.values(pr.body.stats).every(v=>v>=50&&v<=90));
+  assert.equal((await req(mf,'/v1/profiles',token,{...prof,mask_id:'mask-x1',derivation:{...d,affinities:{...d.affinities,CREATIVITY:1}}})).status,422,'derivation must match affinities');
+  assert.equal((await req(mf,'/v1/profiles',token,{...prof,mask_id:'mask-x2',identity_text:'my private soul'})).status,422,'raw text fields are rejected');
+  assert.equal((await req(mf,'/v1/profiles',token,{...prof,mask_id:'mask-x3',affinities:{...d.affinities,ANALYSIS:2}})).status,422);
   // discovery + A2A
   const card=(await req(mf,'/.well-known/agent-card.json')).body;assert.equal(card.protocolVersion,'0.3.0');assert.equal(card.url,'https://local.test/a2a');assert.ok(card.skills.some(s=>s.id==='submit_action'));
   const mcpd=(await req(mf,'/.well-known/mcp.json')).body;assert.equal(mcpd.endpoint,'https://local.test/mcp');assert.ok(!mcpd.tools.includes('compile_mask'));
