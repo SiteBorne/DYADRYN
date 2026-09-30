@@ -259,7 +259,7 @@ function materialize(
     const recent = (p.history ?? []).slice(-V2.novelty.window).map((h) => h.action.action);
     if (!recent.includes(e.selected.action as never) && e.selected.action !== "SIGNATURE")
       e.scale *= 1 + V2.novelty.bonus * lev(effectiveStats(p).CREATIVITY);
-    if (e.selected.action === "SIGNATURE") e.scale *= V2.signature.scale;
+    if (e.selected.action === "SIGNATURE") e.scale *= V2.signature.scale * (V2.signature.per[String(e.selected.signatureId)] ?? 1);
   }
   const i = a.intensity - 1,
     s = effectiveStats(p),
@@ -362,6 +362,11 @@ function materialize(
           break;
         case "VEIL_STEP":
           e.scale *= 0.9;
+          if (V2) {
+            e.incomingDamage = V2.veil.evade;
+            d.guard += V2.veil.guard * f;
+            d.energy += V2.veil.energy * f;
+          }
           break;
         case "BROKER_LOCK":
           if (!repeatsBase(other)) d.focus += 8 * f;

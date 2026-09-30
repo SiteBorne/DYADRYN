@@ -59,9 +59,9 @@ actions:
       - 7
       - 10
     focus_gain:
-      - 24.4
-      - 36.6
-      - 48.8
+      - 24.8
+      - 37.2
+      - 49.7
   PRESS:
     energy:
       - 8
@@ -71,16 +71,16 @@ actions:
       - 5
       - 8
       - 12
-    base_damage: 9.116
+    base_damage: 9
   GUARD:
     energy:
       - 5
       - 8
       - 11
     guard_base:
-      - 10.2
-      - 13.6
-      - 16.9
+      - 11
+      - 14.7
+      - 18.3
     heat_delta: -4
     focus_delta: 4
   COUNTER:
@@ -88,12 +88,12 @@ actions:
       - 7
       - 11
       - 15
-    return_base: 14
-    success_incoming_multiplier: 0.224
-    miss_drift: 7.044
-    miss_incoming_multiplier: 1.075
+    return_base: 12.662
+    success_incoming_multiplier: 0.284
+    miss_drift: 7.44
+    miss_incoming_multiplier: 1.091
   ADAPT:
-    energy: 4.393
+    energy: 5.569
     duration_rounds: 3
     cooldown_after: 3
     drift_delta: -8
@@ -102,12 +102,12 @@ actions:
       - 10
       - 14
       - 18
-    base_scale: 1.181
+    base_scale: 1.271
   RECOVER:
     energy_gain:
-      - 14.3
-      - 21.5
-      - 28.7
+      - 14.4
+      - 21.6
+      - 28.8
     heat_delta:
       - -6
       - -10
@@ -159,19 +159,19 @@ proof_score_draw_epsilon: 0.5
 v2:
   accord:
     cap: 3
-    dividend_focus: 6.584
-    dividend_energy: 5.186
+    dividend_focus: 6.566
+    dividend_energy: 4.53
     streak_bonus: 0.5
     betrayal_bonus: 0.15
     reprisal_rounds: 2
     reprisal_bonus: 0.3
   novelty:
     window: 2
-    bonus: 0
+    bonus: 0.005
     counter_surprise: 0.5
   fatigue:
     guard_decay: 0.9
-    recover_decay: 0.596
+    recover_decay: 0.643
     floor: 0.4
   stale:
     lead_min: 3
@@ -180,18 +180,31 @@ v2:
     standoff_chip: 1.5
     standoff_drift: 4
   signature:
-    scale: 2.028
+    scale: 2.297
+    per:
+      SECOND_ORDER_SIGHT: 1.558
+      CONSTRAINT_COLLAPSE: 0.729
+      COUNTERFACTUAL_SHIELD: 0.923
+      STILLPOINT: 0.969
+      BROKER_LOCK: 1.593
+      ARCHIVE_ECHO: 0.757
+      SWARM_REPAIR: 0.556
+      VEIL_STEP: 1.379
+  veil:
+    evade: 0.8
+    guard: 10
+    energy: 6
   exposure:
-    trace: 1.288
-    adapt: 1.38
+    trace: 1.278
+    adapt: 1.316
   insight:
-    press_bonus: 0.025
+    press_bonus: 0.028
   adapt:
-    amount: 11.62
+    amount: 11.289
   stat_weight:
-    ANALYSIS: 0.828
-    EXECUTION: 1.238
-    ADAPTATION: 0.897
-    RESOLVE: 0.997
+    ANALYSIS: 0.951
+    EXECUTION: 1.3
+    ADAPTATION: 0.756
+    RESOLVE: 1.176
   influence:
-    read: 0.075
+    read: 0.09

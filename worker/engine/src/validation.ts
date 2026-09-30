@@ -209,7 +209,7 @@ export function assertPlayer(p: PlayerState): void {
       !Number.isFinite(p.activeAdapt.scale ?? 1) ||
       (p.activeAdapt.scale ?? 1) <= 0 ||
       (p.activeAdapt.scale ?? 1) >
-        Math.max(1, RULES.actions.MIRROR.base_scale * statFactor(RULES.stats.max)) * (V2 ? (1 + V2.novelty.bonus) * Math.max(1, V2.signature.scale) : 1))
+        Math.max(1, RULES.actions.MIRROR.base_scale * statFactor(RULES.stats.max)) * (V2 ? (1 + V2.novelty.bonus) * Math.max(1, V2.signature.scale) * Math.max(1, ...Object.values(V2.signature.per)) : 1))
   )
     throw new Error("invalid_adapt");
   if (p.activeAdapt !== undefined && Object.keys(p.activeAdapt).some(k => !["stance", "roundsRemaining", "scale"].includes(k))) throw new Error("unknown_adapt_field");

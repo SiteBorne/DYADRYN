@@ -17,7 +17,8 @@ export interface V2Rules {
   novelty: { window: number; bonus: number; counter_surprise: number };
   fatigue: { guard_decay: number; recover_decay: number; floor: number };
   stale: { lead_min: number; drift: number; standoff_rounds: number; standoff_drift: number; standoff_chip: number };
-  signature: { scale: number };
+  signature: { scale: number; per: Record<string, number> };
+  veil: { evade: number; guard: number; energy: number };
   exposure: { trace: number; adapt: number };
   insight: { press_bonus: number };
   adapt: { amount: number };
