@@ -1334,3 +1334,11 @@ html[data-motion=reduce] .arch .edge,html[data-motion=reduce] .arch .spark{anima
 .sf{overflow:visible;padding:0 .3em}.sf b{padding:0 .18em;white-space:nowrap}
 .dt-nm .nm{padding-right:.2em;overflow:visible}
 .door[href="agents.html"] .card-art{opacity:.25}
+
+/* doors v4: the supplied tile art, exactly; its own lettering replaces ours visually (text stays for screen readers) */
+.door{min-height:0;aspect-ratio:488/200;border:0;background:#0A090B;padding:0}
+.door::before,.door::after{display:none!important}
+.door .door-tile{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:0;transition:filter .3s,transform .6s var(--ease)}
+.door:hover .door-tile{filter:brightness(1.18) saturate(1.15);transform:scale(1.02)}
+.door .door-body,.door .num,.door>.i{position:absolute;clip:rect(0 0 0 0);width:1px;height:1px;overflow:hidden;opacity:0}
+.door:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
