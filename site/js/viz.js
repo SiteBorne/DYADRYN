@@ -21,4 +21,19 @@
     s += '<figcaption class="chart-legend">' + series.map(function (se) { return '<span><i class="' + (se.mk === 'c' ? '' : 'b') + '"></i>' + se.name + '</span>'; }).join('') + '<span>Vitality by round</span></figcaption>';
     host.innerHTML = s;
   };
+  /* radar: attrs [[label, value]], opts {min,max,label,caption} */
+  DY.radar = function (host, A, o) {
+    o = o || {}; var n = A.length, cx = 170, cy = 165, R = 118, min = o.min || 40, max = o.max || 90;
+    var pt = function (i, v) { var a = -Math.PI / 2 + i * 2 * Math.PI / n, r = R * (v - min) / (max - min); return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
+    var f = function (p) { return p.map(function (x) { return x.toFixed(1); }).join(','); };
+    var ring = function (v) { return A.map(function (_, i) { return f(pt(i, v)); }).join(' '); };
+    var total = A.reduce(function (s, a) { return s + a[1]; }, 0);
+    var s = '<svg viewBox="-70 8 480 336" role="img" aria-label="' + (o.label || 'Attributes') + ': ' + A.map(function (a) { return a[0].toLowerCase() + ' ' + a[1]; }).join(', ') + '. Total ' + total + '.">';
+    [50, 70, 90].forEach(function (v) { s += '<polygon points="' + ring(v) + '" fill="none" stroke="var(--line-2)" ' + (v === 70 ? 'stroke-dasharray="3 5"' : '') + '/>'; });
+    A.forEach(function (a, i) { var p = pt(i, max), q = pt(i, 104); s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="var(--line)"/><text x="' + q[0].toFixed(1) + '" y="' + (q[1] + 4).toFixed(1) + '" text-anchor="' + (Math.abs(q[0] - cx) < 8 ? 'middle' : q[0] > cx ? 'start' : 'end') + '" style="font:500 14px var(--f-mono);letter-spacing:.08em;fill:var(--text-2)">' + a[0].slice(0, 3).toUpperCase() + ' ' + a[1] + '</text>'; });
+    s += '<polygon points="' + A.map(function (a, i) { return f(pt(i, a[1])); }).join(' ') + '" fill="rgba(184,92,50,.22)" stroke="var(--oxide)" stroke-width="2" class="radar-shape"/>';
+    A.forEach(function (a, i) { var p = pt(i, a[1]); s += '<rect x="' + (p[0] - 3.5).toFixed(1) + '" y="' + (p[1] - 3.5).toFixed(1) + '" width="7" height="7" fill="var(--paper)" transform="rotate(45 ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ')"/>'; });
+    s += '</svg><figcaption class="caps muted" style="text-align:center;margin-top:.4rem">' + (o.caption || 'Dashed ring = even 70') + ' · total ' + total + '</figcaption>';
+    host.innerHTML = s;
+  };
 })();

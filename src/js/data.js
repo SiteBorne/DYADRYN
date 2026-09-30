@@ -2,25 +2,16 @@
 (function () {
   'use strict';
   var DY = window.DY = window.DY || {};
-  DY.MOVES = [
-    { k: 'TRACE', ico: 'trace', name: 'Trace', line: 'Learn first.', desc: 'Read your opponent. You gain Focus and one bounded tendency signal — “prefers high intensity”, “counter-oriented”. Never their private memory.', cost: 'Low', gain: 'Focus ▲ · one signal', risk: 'Costs tempo' },
-    { k: 'PRESS', ico: 'press', name: 'Press', line: 'Direct pressure.', desc: 'Your main attack. Damage hits Guard first, then Vitality. Strong hits build Momentum; every press builds Heat.', cost: 'Medium', gain: 'Damage · Momentum', risk: 'Heat ▲' },
-    { k: 'GUARD', ico: 'guard', name: 'Guard', line: 'Absorb and steady.', desc: 'Builds a Guard buffer that soaks damage before Vitality does, cools Heat a little and sharpens Focus. Guard halves at the start of each round.', cost: 'Low–medium', gain: 'Guard ▲ · Heat ▼', risk: 'Decays each round' },
-    { k: 'COUNTER', ico: 'counter', name: 'Counter', line: 'Name the move.', desc: 'Predict your opponent’s exact move. Right: their move is cut to 40%, you hit back and gain Focus and Momentum. Wrong: Drift rises and you take extra damage.', cost: 'Medium', gain: 'Read right: swing the round', risk: 'Read wrong: Drift ▲ · damage ▲' },
-    { k: 'ADAPT', ico: 'adapt', name: 'Adapt', line: 'Reshape, don’t grow.', desc: 'Shift strengths toward one of six stances for three rounds. Total power never rises — you trade one strength for another. Also lowers Drift.', cost: 'Low–medium', gain: 'Stance · Drift ▼', risk: 'Cooldown after' },
-    { k: 'MIRROR', ico: 'mirror', name: 'Mirror', line: 'Reuse their last move.', desc: 'Copy your opponent’s previous base move at reduced strength. Cannot copy Signature or Mirror. Only legal after they have moved.', cost: 'Medium–high', gain: 'Their best idea, yours', risk: 'Weaker than the original' },
-    { k: 'RECOVER', ico: 'recover', name: 'Recover', line: 'Trade safety for resources.', desc: 'Regain Energy, cool Heat, lower Drift and steady Focus. The price: you are exposed and take a little more damage this round.', cost: 'None (it pays you)', gain: 'Energy ▲ · Heat ▼ · Drift ▼', risk: 'Exposed this round' },
-    { k: 'SIGNATURE', ico: 'signature', name: 'Signature', line: 'Your Mask’s own move.', desc: 'One of two special moves your Mask carries, chosen from a fixed, fair list. Needs 30 Focus, then a cooldown. Names are cosmetic; the mechanics never change.', cost: 'Medium–high', gain: 'Template effect', risk: 'Focus spent · cooldown' }
-  ];
-  DY.RES = [
-    { k: 'vitality', name: 'Vitality', range: '0–100', def: 'Your health. At zero after a round, you are defeated.' },
-    { k: 'energy', name: 'Energy', range: '0–100', def: 'What moves cost. A little returns at the start of every round.' },
-    { k: 'focus', name: 'Focus', range: '0–100', def: 'Tactical clarity. Trace and successful Counters build it; Signatures spend it.' },
-    { k: 'heat', name: 'Heat', range: '0–100', def: 'Aggression leaves heat. At 70 you are BRIGHT: more pressure out, more damage in. At 90 it also builds Drift.' },
-    { k: 'momentum', name: 'Momentum', range: '−3 … +3', def: 'Each point adds a small bonus to your offense. Heavy hits taken can cost it.' },
-    { k: 'guard', name: 'Guard', range: '0–60', def: 'A buffer that absorbs damage first, then halves every round.' },
-    { k: 'drift', name: 'Drift', range: '0–100', def: 'Loss of coherence. At 60 your non-recovery moves weaken a little; at 80, more. Adapt and Recover lower it.' }
-  ];
+  DY.meters = function (host, s, hideHidden) {
+    var v = { vitality: [s.vit, Math.round(s.vit)], energy: [s.en, Math.round(s.en)], focus: [s.foc, Math.round(s.foc)], heat: [s.heat, Math.round(s.heat)], momentum: [(s.mom + 3) / 6 * 100, (s.mom > 0 ? '+' : '') + s.mom], guard: [s.guard / 60 * 100, Math.round(s.guard)], drift: [s.drift, Math.round(s.drift)] };
+    host.innerHTML = DY.RES.map(function (r) {
+      var hid = hideHidden && (r.k === 'energy' || r.k === 'focus');
+      if (hid) return '<div class="meter" data-k="' + r.k + '">' + DY.icon(r.k, 20) + '<span>' + r.name + '</span><div class="bar"><span class="withheld" style="min-height:1.6em;font-size:.66rem;width:100%">' + DY.icon('lock', 14) + 'Withheld by mask</span></div><b>–</b></div>';
+      var x = v[r.k]; var flag = (r.k === 'heat' && s.heat >= 70) ? ' <em class="flag">BRIGHT</em>' : (r.k === 'drift' && s.drift >= 60) ? ' <em class="flag">STRAINED</em>' : '';
+      return '<div class="meter" data-k="' + r.k + '">' + DY.icon(r.k, 20) + '<span>' + r.name + flag + '</span><div class="bar" role="img" aria-label="' + r.name + ' ' + x[1] + '"><i style="--v:' + x[0] + '%"></i></div><b>' + x[1] + '</b></div>';
+    }).join('');
+  };
+
   DY.icon = function (k, size) { var s = DY.icons && DY.icons[k] || ''; return size ? s.replace(/width="24" height="24"/, 'width="' + size + '" height="' + size + '"') : s; };
   DY.ATTR = [['ANALYSIS', 84], ['EXECUTION', 68], ['ADAPTATION', 82], ['INFLUENCE', 61], ['RESOLVE', 75], ['CREATIVITY', 50]];
 

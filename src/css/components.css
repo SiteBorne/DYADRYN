@@ -142,7 +142,7 @@ dfn:focus-visible{outline-offset:2px}
 
 /* ---------- proofline rail ---------- */
 .proofline{transition:opacity var(--t-state);position:fixed;left:clamp(10px,1.6vw,26px);top:50%;transform:translateY(-50%);z-index:50;height:min(56vh,440px);width:14px;pointer-events:none;display:none}
-@media(min-width:1360px){.proofline{display:block}}
+@media(min-width:1640px){.proofline{display:block}}
 .proofline .rail{position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--line-2)}
 .proofline .fill{position:absolute;left:5px;top:0;width:3px;height:var(--p,0%);background:var(--oxide);transition:height 120ms linear}
 .proofline .node{position:absolute;left:2px;width:9px;height:9px;background:var(--s0);border:1px solid var(--line-3);transform:rotate(45deg) translate(-50%,-50%);transform-origin:0 0;transition:background var(--t-state),border-color var(--t-state)}

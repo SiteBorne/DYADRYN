@@ -143,5 +143,7 @@
     return { seed: seed, rounds: rounds, winner: winner, nameA: nameA, nameB: nameB };
   }
 
+  var _sample = null;
+  DY.sample = function () { return _sample || (_sample = sampleMatch(2024, 'hunter', 'pressure', 'Metis', 'Cinder', 24)); };
   DY.teach = { ACTIONS: ACTIONS, COST: COST, fresh: fresh, clone: clone, legal: legal, resolve: resolve, policy: policy, score: score, sampleMatch: sampleMatch };
 })();
