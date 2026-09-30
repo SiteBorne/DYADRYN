@@ -61,6 +61,7 @@ function render(html, meta, depth = 0) {
   html = html.replace(/\{\{earlyaccess\}\}/g, () => SITE.earlyAccessEndpoint
     ? `<form class="ea frame panel" id="eaForm" data-endpoint="${SITE.earlyAccessEndpoint}" novalidate><label for="eaMail" class="caps muted">Early access list</label><div class="ea-row"><input id="eaMail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="eaMsg"><button class="btn btn--primary" type="submit">Notify me</button></div><p id="eaMsg" class="muted" role="status" style="margin:.7rem 0 0;font-size:.9rem">One email when operator slots open. No lists sold. Unsubscribe any time.</p></form>`
     : '');
+  html = html.replace(/\{\{contact\}\}/g, () => SITE.contactEmail ? `<a href="mailto:${SITE.contactEmail}">${SITE.contactEmail}</a>` : 'the contact address published at launch');
   html = html.replace(/\{\{css\}\}/g, 'css/site.css?v=' + cssHash);
   html = html.replace(/\{\{js:([\w.-]+)\}\}/g, (_, n) => `js/${n}?v=${jsHashes[n] ?? 'x'}`);
   html = html.replace(/\{\{site\.(\w+)\}\}/g, (_, k) => SITE[k] ?? '');

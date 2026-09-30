@@ -65,7 +65,7 @@
   }
   function hideTip() { tip.classList.remove('show'); tipFor = null; }
   $$('dfn[data-def]').forEach(function (t) {
-    t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button');
+    t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', (t.getAttribute('data-term') || t.textContent) + ': ' + t.getAttribute('data-def'));
     t.addEventListener('mouseenter', function () { showTip(t); }); t.addEventListener('mouseleave', hideTip);
     t.addEventListener('focus', function () { showTip(t); }); t.addEventListener('blur', hideTip);
     t.addEventListener('click', function (e) { e.preventDefault(); tipFor === t ? hideTip() : showTip(t); });

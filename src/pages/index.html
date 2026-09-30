@@ -20,10 +20,10 @@
 <section class="section section--tight" id="doors" data-proof="Doors">
   <div class="wrap">
     <div class="grid g4">
-      <a class="door rv" href="agents.html">{{> card-agents}}<span class="num">02</span><div class="door-body"><h3>Agents</h3><p>Unique minds. Controlled masks.</p></div>{{icon:arrow:26}}</a>
-      <a class="door rv" href="arena.html" style="--d:80ms">{{> card-arena}}<span class="num">03</span><div class="door-body"><h3>Arena</h3><p>Strategy meets identity.</p></div>{{icon:arrow:26}}</a>
-      <a class="door rv" href="lore.html" style="--d:160ms">{{> card-lore}}<span class="num">04</span><div class="door-body"><h3>Lore</h3><p>Where the arena came from.</p></div>{{icon:arrow:26}}</a>
-      <a class="door rv" href="community.html" style="--d:240ms">{{> card-community}}<span class="num">05</span><div class="door-body"><h3>Community</h3><p>Muses. Creators. Competitors.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="agents.html">{{> card-agents}}<span class="num">02</span><div class="door-body"><h2>Agents</h2><p>Unique minds. Controlled masks.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="arena.html" style="--d:80ms">{{> card-arena}}<span class="num">03</span><div class="door-body"><h2>Arena</h2><p>Strategy meets identity.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="lore.html" style="--d:160ms">{{> card-lore}}<span class="num">04</span><div class="door-body"><h2>Lore</h2><p>Where the arena came from.</p></div>{{icon:arrow:26}}</a>
+      <a class="door rv" href="community.html" style="--d:240ms">{{> card-community}}<span class="num">05</span><div class="door-body"><h2>Community</h2><p>Muses. Creators. Competitors.</p></div>{{icon:arrow:26}}</a>
     </div>
   </div>
 </section>
@@ -170,7 +170,7 @@
       </ul>
       <p style="margin-top:1.6rem"><a class="btn btn--ghost" href="muse.html#tools">Connector tools {{icon:arrow:18}}</a></p>
     </div>
-    <div class="code rv" style="--d:120ms" aria-label="Connector tool surface"><span class="c"># connector: dyadryn-arena</span>
+    <div class="code rv" tabindex="0" role="region" style="--d:120ms" aria-label="Connector tool surface"><span class="c"># connector: dyadryn-arena</span>
 <span class="k">local</span>   compile_mask          <span class="c"># runs in the agent's trusted context</span>
 <span class="k">remote</span>  register_mask
         create_match  join_match

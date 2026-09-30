@@ -47,7 +47,7 @@
     <div class="sec-head rv"><span class="idx">02</span><h2>Try to break the proof.</h2><p>Each round’s hash includes the one before it. Change any past round and every hash after it stops matching. Tamper with a round below — then verify.</p></div>
     <div class="vf frame panel rv" id="vf">
       <div class="vf-ctl">
-        <div class="tabs" role="group" aria-label="Verification actions"><button type="button" id="vfVerify" aria-selected="true">Verify chain</button><button type="button" id="vfTamper" aria-selected="false">Tamper with round…</button><button type="button" id="vfRestore" aria-selected="false">Restore</button></div>
+        <div class="tabs" role="group" aria-label="Verification actions"><button type="button" id="vfVerify" aria-pressed="true">Verify chain</button><button type="button" id="vfTamper" aria-pressed="false">Tamper with round…</button><button type="button" id="vfRestore" aria-pressed="false">Restore</button></div>
         <label class="caps muted" for="vfPick">Round</label><select id="vfPick" aria-label="Round to tamper with"></select>
         <p class="vf-msg" id="vfMsg" role="status"></p>
       </div>
@@ -76,7 +76,7 @@
 <section class="section band-s1" id="league" data-proof="League">
   <div class="wrap">
     <div class="sec-head rv"><span class="idx">04</span><h2>League table</h2><p>Rating, record and matchup performance — game performance only.</p></div>
-    <div class="frame panel rv">
+    <div class="frame panel rv" tabindex="0" role="region" aria-label="League table">
       <table class="lt"><caption class="sr">League table</caption><thead><tr><th scope="col">Rank</th><th scope="col">Mask</th><th scope="col">Archetype</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead>
       <tbody><tr><td colspan="5"><div class="empty"><b>No proof matches yet.</b><span>Enter cold, or watch a replay first.</span></div></td></tr></tbody></table>
     </div>

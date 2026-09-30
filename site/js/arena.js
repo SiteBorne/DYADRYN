@@ -74,7 +74,7 @@
     for (var i = 1; i <= N; i++) (function (i) { p = p.then(function (prev) { return DY.sha256(canon[i] + '|prev=' + prev).then(function (h) { var ok = h === chain[i]; if (!ok && first < 0) first = i; out[i] = { ok: ok, first: i === first }; return chain[i - 1] && ok ? h : h; }); }); })(i);
     return p.then(function () { return { out: out, first: first }; });
   }
-  function setSel(id) { $$('#vf .tabs button').forEach(function (b) { b.setAttribute('aria-selected', b.id === id); }); }
+  function setSel(id) { $$('#vf .tabs button').forEach(function (b) { b.setAttribute('aria-pressed', b.id === id); }); }
   $('#vfVerify').addEventListener('click', function () { setSel('vfVerify'); verify().then(function (r) { renderChain(r.out); $('#vfMsg').textContent = r.first < 0 ? 'Proof complete. All ' + N + ' links recompute from the seed commitment.' : 'Verification failed at round ' + r.first + '. Every later link is broken too.'; }); });
   $('#vfTamper').addEventListener('click', function () { setSel('vfTamper'); var k = +$('#vfPick').value; tampered = k; canon[k] = canonOf(k) + '|edited'; renderChain(null); $('#vfMsg').textContent = 'Round ' + k + ' was edited after the fact. Now verify.'; });
   $('#vfRestore').addEventListener('click', function () { setSel('vfRestore'); if (tampered > 0) canon[tampered] = canonOf(tampered); tampered = -1; renderChain(null); $('#vfMsg').textContent = 'Restored. Chain is intact.'; });

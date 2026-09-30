@@ -8,7 +8,7 @@
 .hero-inner{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:calc(var(--header-h) + 24px);padding-bottom:110px}
 .hero-mark{position:relative;width:clamp(290px,54vw,780px);color:var(--bone);margin-bottom:clamp(10px,1.8vw,22px)}
 .hero-mark .wordmark{width:100%;height:auto;filter:drop-shadow(0 2px 24px rgba(0,0,0,.65))}
-.hero-mark .tm{position:absolute;right:-1.4em;top:0;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;color:var(--text-3)}
+.hero-mark .tm{position:absolute;right:0;top:-1.6em;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;color:var(--text-3)}
 .hero-mark::before,.hero-mark::after{content:"";position:absolute;left:50%;width:1px;height:clamp(40px,6vw,84px);background:linear-gradient(var(--amber),transparent)}
 .hero-mark::before{bottom:calc(100% + 6px);transform:scaleY(-1)}
 .hero-mark::after{display:none}
@@ -51,3 +51,11 @@
 html[data-motion="reduce"] .clouds-drift,html[data-motion="reduce"] .ring-spin,html[data-motion="reduce"] .ring-spin-r,html[data-motion="reduce"] .debris,html[data-motion="reduce"] .hero-foot .line::after,html[data-motion="reduce"] #ash{animation:none}
 html[data-motion="reduce"] #ash{display:none}
 @media(prefers-reduced-motion:reduce){.clouds-drift,.ring-spin,.ring-spin-r,.debris,.hero-foot .line::after{animation:none}#ash{display:none}}
+
+@media(max-width:560px){
+  .hero::after{background:linear-gradient(180deg,rgba(12,14,15,.5) 0,rgba(12,14,15,.55) 55%,rgba(12,14,15,.9) 88%,var(--s0) 100%)}
+  .hero-mark{width:min(92vw,420px)}
+  .hero-hint{display:none}
+  .hero-foot{justify-content:center}
+  .hero-new{color:var(--text)}
+}
