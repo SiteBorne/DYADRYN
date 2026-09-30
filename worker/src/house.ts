@@ -15,9 +15,10 @@ const SPEC:Record<HouseArchetype,{stats:[number,number,number,number,number,numb
  Veil:{stats:[80,54,72,88,64,62],sigs:['VEIL_STEP','BROKER_LOCK'],style:1}
 };
 const NAMES=['ANALYSIS','EXECUTION','ADAPTATION','INFLUENCE','RESOLVE','CREATIVITY'] as const;
-export function houseMask(arch:HouseArchetype):Mask{
+export const isHouseId=(id:string)=>id.startsWith('house.');
+export function houseMask(arch:HouseArchetype,agentId:string=HOUSE_ID):Mask{
  const s=SPEC[arch],stats=Object.fromEntries(NAMES.map((n,i)=>[n,s.stats[i]])) as Stats;
- const body={mask_id:'house-'+arch.toLowerCase().replace(/[^a-z]/g,''),agent_id:HOUSE_ID,profile_version:1,compiler_version:'dyadryn.house.v1',ruleset_version:'dyadryn.core.v1',
+ const body={mask_id:'house-'+arch.toLowerCase().replace(/[^a-z]/g,'')+(agentId===HOUSE_ID?'':'-'+agentId.slice(6)),agent_id:agentId,profile_version:1,compiler_version:'dyadryn.house.v1',ruleset_version:'dyadryn.core.v1',
   source_hashes:{identity:sha256('house:'+arch),soul:sha256('house:'+arch),memory:sha256('')},stats,traits:['analytical','adaptive','patient','direct'],
   policy:{risk_tolerance:.5,aggression:.5,information_seeking:.5,counterplay:.5,resource_preservation:.5,deception_preference:.5,strategic_horizon:.5},
   signatures:s.sigs.map(t=>({template_id:t,display_name:t.split('_').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ')})),disclosure_level:'MASKED' as const};
@@ -34,7 +35,7 @@ export function houseChoose(self:PlayerState,opp:PlayerState,matchId:string,roun
  if(preferred==='COUNTER'&&pool.length){const p=pool.filter(a=>a.prediction===opp.previousAction?.action);if(p.length)c=p;}
  return c[Math.floor(rand()*c.length)];
 }
-export const houseStyleOfMask=(maskId:string)=>{const a=HOUSE_ARCHETYPES.find(x=>'house-'+x.toLowerCase().replace(/[^a-z]/g,'')===maskId);return a?SPEC[a].style:0;};
+export const houseStyleOfMask=(maskId:string)=>{const a=HOUSE_ARCHETYPES.find(x=>maskId.startsWith('house-'+x.toLowerCase().replace(/[^a-z]/g,'')));return a?SPEC[a].style:0;};
 // Nearest reference archetype for a stat line (public, cosmetic: picks the portrait/colour family, never affects rules).
 export function nearestArchetype(stats:Record<string,number>):HouseArchetype{
  let best:HouseArchetype='Stillpoint',bd=Infinity;

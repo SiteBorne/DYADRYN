@@ -315,3 +315,20 @@ img,canvas{image-rendering:auto}
 .road li.now{outline:2px solid #7FD18A}.road span{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-2)}.road .now span{color:#7FD18A}
 .road b{font-family:var(--f-display);font-style:italic;font-size:1.15rem;color:var(--paper)}.road em{font-style:normal;font-size:.94rem;color:var(--text)}
 @media print{.sp,.totop,.site-header,#lostCv{display:none!important}body{background:#fff;color:#000}}
+
+/* live arena */
+.live-grid{display:grid;grid-template-columns:minmax(240px,300px) minmax(0,1fr);gap:clamp(14px,2vw,26px);align-items:start}
+.live-side{padding:14px;max-height:min(78vh,760px);overflow:auto;display:grid;gap:10px;align-content:start}
+.live-act{display:grid;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--line-2)}.live-act small{font-size:.8rem}
+.live-side h3.caps{margin:10px 0 2px;font-size:.78rem;letter-spacing:.14em;color:var(--dim)}
+.lm{display:grid;grid-template-columns:28px minmax(0,1fr) 28px;gap:8px;align-items:center;width:100%;padding:8px 10px;background:#0E0C10;border:1px solid var(--line-2);color:var(--paper);text-align:left;cursor:pointer;font:inherit;transition:border-color .15s,transform .15s}
+.lm:hover,.lm:focus-visible{border-color:var(--oxide);transform:translateX(2px)}.lm[aria-current=true]{border-color:var(--oxide);box-shadow:inset 3px 0 0 var(--oxide)}
+.lm img,.lm .lm-k{width:28px;height:28px;object-fit:cover;border:1px solid var(--line-3);background:#0B090C;display:grid;place-items:center}
+.lm .lm-n{display:grid;gap:1px;min-width:0;font-size:.92rem;line-height:1.25}.lm .lm-n b{font-weight:600;overflow-wrap:anywhere}.lm .lm-n em{font-style:normal;color:var(--dim);font-size:.78rem}.lm .lm-n small{color:var(--dim);font-size:.78rem}
+.lm[data-st=ACTIVE] .lm-n small{color:var(--oxide)}
+.lm-e{margin:0;font-size:.9rem}
+.live-status{margin:0 0 10px;font-size:.95rem;line-height:1.5;min-height:1.5em}.live-status b{font-weight:600}
+.live-proof{margin-top:12px;display:grid;gap:8px;justify-items:start}
+@media (max-width:900px){.live-grid{grid-template-columns:minmax(0,1fr)}.live-side{max-height:none}}
+.live-proof[hidden]{display:none}
+.dt-nm .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:.15em}

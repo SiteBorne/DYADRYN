@@ -1,6 +1,6 @@
-import {createMatch,createPlayer,lockAction,resolveLockedRound,matchView,canonical,sha256,exportReplay,verifyReplay,verifyLocalHistory,RULES,stateHash,validateAction,roundStart,type LocalMatch,type Mode,type ActionEnvelope} from '../engine/src/index.js';
+import {createMatch,createPlayer,lockAction,resolveLockedRound,matchView,canonical,sha256,exportReplay,verifyReplay,verifyLocalHistory,RULES,stateHash,validateAction,roundStart,type LocalMatch,type Mode,proofScore,type ActionEnvelope,type BattleAction} from '../engine/src/index.js';
 import {validateMask,type Mask} from './mask.js';
-import {HOUSE_ID,houseMask,houseChoose,houseStyleOfMask,isHouseArchetype} from './house.js';
+import {HOUSE_ID,isHouseId,houseMask,houseChoose,houseStyleOfMask,isHouseArchetype} from './house.js';
 import {framesOf} from './frames.js';
 export interface Receipt {accepted:true;match_id:string;round:number;actor_id:string;client_nonce:string;state_hash:string;}
 export interface RoomData {
@@ -25,7 +25,16 @@ export class Room {
   d.opponent=p;d.core=createMatch({matchId:d.matchId,seed:d.seed,a:createPlayer(d.creator.agent_id,d.creator.stats,d.creator.signatures.map(s=>s.template_id)),b:createPlayer(p.agent_id,p.stats,p.signatures.map(s=>s.template_id)),mode:d.mode,now});
   d.core=this.withHouse(d,d.core,now);this.store.write(d);return {match_id:d.matchId,status:'ACTIVE'};
  }
- tick(now:number){const d=this.data();if(!d.core||d.core.outcome||now<d.core.deadline)return;
+ exhibition(d:RoomData){return !!d.opponent&&isHouseId(d.creator.agent_id)&&isHouseId(d.opponent.agent_id);}
+ static readonly PACE_MS=4500;
+ createExhibition(matchId:string,a:string,b:string,now:number,seed:string){
+  if(!isHouseArchetype(a)||!isHouseArchetype(b))throw new Error('invalid_house_archetype');
+  this.create(matchId,houseMask(a,'house.a'),now,'MODEL_TRIAL',seed);return this.join(houseMask(b,'house.b'),now);
+ }
+ tick(now:number){const d=this.data();
+  // Exhibition (house vs house) is paced so spectators can follow it live: both house sides lock once the round has been open PACE_MS.
+  if(d.core&&!d.core.outcome&&this.exhibition(d)&&now>=d.core.openedAt+Room.PACE_MS){const locked=this.withHouse(d,d.core,now,true);const next=resolveLockedRound(locked,now);d.core=next??locked;this.store.write(d);return;}
+  if(!d.core||d.core.outcome||now<d.core.deadline)return;
   // One STALL round per actual host deadline; late alarms never invent missed rounds.
   const next=resolveLockedRound(d.core,now);if(next){d.core=this.withHouse(d,next,now);this.store.write(d);}
  }
@@ -45,25 +54,33 @@ export class Room {
  }
  joinHouse(arch:string,now:number){if(!isHouseArchetype(arch))throw new Error('invalid_house_archetype');return this.join(houseMask(arch),now);}
  // The house locks its move the moment a round opens, from public information only (never the opponent's pending lock).
- private withHouse(d:RoomData,core:LocalMatch,now:number):LocalMatch{
-  if(d.opponent?.agent_id!==HOUSE_ID||core.outcome||Object.hasOwn(core.pending,HOUSE_ID))return core;
-  const self=core.state.a.agentId===HOUSE_ID?core.state.a:core.state.b,opp=self===core.state.a?core.state.b:core.state.a;
-  const a=houseChoose(self,opp,d.matchId,core.state.round,houseStyleOfMask(d.opponent.mask_id));
-  const env={match_id:d.matchId,actor_id:HOUSE_ID,round:core.state.round,state_hash:stateHash(core),client_nonce:`house-${core.state.round}-${sha256(d.matchId).slice(0,8)}`,action:a.action,intensity:a.intensity,
+ private withHouse(d:RoomData,core:LocalMatch,now:number,force=false):LocalMatch{
+  if(core.outcome||!d.opponent)return core;
+  if(this.exhibition(d)&&!force)return core;
+  let next=core;
+  for(const hid of [core.state.a.agentId,core.state.b.agentId]){
+   if(!isHouseId(hid)||Object.hasOwn(next.pending,hid))continue;
+   const self=next.state.a.agentId===hid?next.state.a:next.state.b,opp=self===next.state.a?next.state.b:next.state.a,mk=hid===d.creator.agent_id?d.creator:d.opponent;
+   next=this.lockHouse(d,next,hid,houseChoose(self,opp,d.matchId,next.state.round,houseStyleOfMask(mk.mask_id)),now);
+  }
+  return next;
+ }
+ private lockHouse(d:RoomData,core:LocalMatch,hid:string,a:BattleAction,now:number):LocalMatch{
+  const env={match_id:d.matchId,actor_id:hid,round:core.state.round,state_hash:stateHash(core),client_nonce:`house-${core.state.round}-${sha256(d.matchId).slice(0,8)}`,action:a.action,intensity:a.intensity,
    ...(a.prediction?{prediction:a.prediction}:{}),...(a.adaptStance?{adapt_stance:a.adaptStance}:{}),...(a.signatureId?{signature_id:a.signatureId}:{})};
   const next=lockAction(core,env,now);
-  d.receipts[canonical([HOUSE_ID,env.client_nonce])]={digest:sha256(canonical(env)),receipt:{accepted:true,match_id:d.matchId,round:env.round,actor_id:HOUSE_ID,client_nonce:env.client_nonce,state_hash:env.state_hash}};
+  d.receipts[canonical([hid,env.client_nonce])]={digest:sha256(canonical(env)),receipt:{accepted:true,match_id:d.matchId,round:env.round,actor_id:hid,client_nonce:env.client_nonce,state_hash:env.state_hash}};
   return next;
  }
  // Spectator-safe projection: resolved rounds only, never the seed or either side's pending lock contents.
  publicView(now:number){
   this.tick(now);const d=this.data(),m=d.core;
   const side=(x:Mask)=>({agent_id:x.agent_id,mask_id:x.mask_id,disclosure:x.disclosure_level,stats:x.stats,signatures:x.signatures.map(g=>g.template_id),...(x.disclosure_level==='CARRY'||x.disclosure_level==='DEEP_CARRY'?{carry:x.public_carry_summary??null,traits:x.traits}:{})});
-  const base={match_id:d.matchId,mode:d.mode,ruleset:'dyadryn.core.v1',created_at:d.createdAt,house:d.opponent?.agent_id===HOUSE_ID,a:side(d.creator),b:d.opponent?side(d.opponent):null};
+  const base={match_id:d.matchId,mode:d.mode,ruleset:'dyadryn.core.v1',created_at:d.createdAt,house:!!d.opponent&&isHouseId(d.opponent.agent_id),exhibition:this.exhibition(d),a:side(d.creator),b:d.opponent?side(d.opponent):null};
   if(!m)return {...base,status:'WAITING',round:0,frames:[],outcome:null};
   return {...base,status:m.outcome?'COMPLETE':'ACTIVE',round:m.state.round,max_rounds:RULES.match.max_rounds,deadline:m.outcome?null:m.deadline,
-   locked:{a:Object.hasOwn(m.pending,m.state.a.agentId)&&m.state.a.agentId!==HOUSE_ID,b:Object.hasOwn(m.pending,m.state.b.agentId)&&m.state.b.agentId!==HOUSE_ID},
-   seed_commitment:m.seedCommitment,outcome:m.outcome,event_root_hash:m.eventRootHash,frames:framesOf(m)};
+   locked:{a:Object.hasOwn(m.pending,m.state.a.agentId)&&!isHouseId(m.state.a.agentId),b:Object.hasOwn(m.pending,m.state.b.agentId)&&!isHouseId(m.state.b.agentId)},
+   seed_commitment:m.seedCommitment,outcome:m.outcome,event_root_hash:m.eventRootHash,scores:m.outcome?{a:proofScore(m.state.a.resources),b:proofScore(m.state.b.resources)}:null,frames:framesOf(m)};
  }
  publicReplay(){const d=this.data();if(!d.core?.outcome)throw new Error('replay_not_terminal');return exportReplay(d.core);}
  result(actor:string,now:number){const d=this.data();this.authorize(d,actor);this.tick(now);return this.data().core?.outcome??null;}
@@ -77,7 +94,7 @@ export class Room {
  }
  metadata(){const d=this.data(),m=d.core;return {matchId:d.matchId,ruleset:'dyadryn.core.v1',mode:d.mode,status:m?.outcome?'COMPLETE':d.opponent?'ACTIVE':'WAITING',a:d.creator.agent_id,b:d.opponent?.agent_id??null,maskA:d.creator.mask_id,maskB:d.opponent?.mask_id??null,startedAt:new Date(d.createdAt).toISOString(),rounds:m?.outcome?m.events.length:null,winner:m?.outcome?.winner??null,reason:m?.outcome?.reason??null,root:m?.outcome?m.eventRootHash:null};}
  terminalSummary(){const d=this.data(),m=d.core;if(!m?.outcome)return null;return {matchId:d.matchId,rounds:m.events.length,winner:m.outcome.winner,reason:m.outcome.reason,root:m.eventRootHash};}
- deadline(){return this.data().core?.outcome?null:this.data().core?.deadline??null;}
+ deadline(){const d=this.data(),c=d.core;if(!c||c.outcome)return null;return this.exhibition(d)?c.openedAt+Room.PACE_MS:c.deadline;}
 }
 
 // Treat restored storage as untrusted. Reconcile it before serving or advancing any state.

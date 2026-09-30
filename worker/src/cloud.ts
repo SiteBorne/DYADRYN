@@ -30,6 +30,7 @@ export class MatchRoom extends DurableObject<Env>{
   }
  }
  async create(id:string,p:Mask,mode:Mode,house?:string){const r=this.room.create(id,p,Date.now(),mode,crypto.randomUUID()+crypto.randomUUID());if(house){this.room.joinHouse(house,Date.now());await this.schedule();return {...r,status:'ACTIVE',opponent:'HOUSE'};}await this.schedule();return r;}
+ async createExhibition(id:string,a:string,b:string){const r=this.room.createExhibition(id,a,b,Date.now(),crypto.randomUUID()+crypto.randomUUID());await this.schedule();return r;}
  async publicView(){const r=this.room.publicView(Date.now());await this.schedule();return r;}
  publicReplay(){return this.room.publicReplay();}
  publicVerify(){return verifyReplay(this.room.publicReplay());}

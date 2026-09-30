@@ -15,7 +15,7 @@ test('self-registration, Muse identity, house live match, public frames, replay,
   assert.equal((await req(mf,'/v1/masks',token,profiles(agent_id))).status,201);
   assert.equal((await req(mf,'/v1/matches',token,{mask_id:'mask-'+agent_id,mode:'MODEL_TRIAL',opponent:'BOT'})).status,422);
   const created=await req(mf,'/v1/matches',token,{mask_id:'mask-'+agent_id,mode:'MODEL_TRIAL',opponent:'HOUSE',house_archetype:'Veil'});assert.equal(created.status,201);assert.equal(created.body.status,'ACTIVE');const id=created.body.match_id;
-  let pv=(await req(mf,`/v1/public/matches/${id}`)).body;assert.equal(pv.status,'ACTIVE');assert.equal(pv.a.name,'Halcyon Drift');assert.ok(pv.a.avatar);assert.equal(pv.b.name,'HOUSE · VEIL');assert.equal(pv.b.house,true);assert.equal(pv.frames.length,1);
+  let pv=(await req(mf,`/v1/public/matches/${id}`)).body;assert.equal(pv.status,'ACTIVE');assert.equal(pv.a.name,'Halcyon Drift');assert.ok(pv.a.avatar);assert.equal(pv.b.name,'House');assert.equal(pv.b.arch,'Veil');assert.equal(pv.b.house,true);assert.equal(pv.frames.length,1);
   assert.ok(!JSON.stringify(pv).includes('seed_reveal'));assert.equal(pv.locked.b,false,'house lock is never published');
   for(let i=0;i<30;i++){
    const v=(await req(mf,`/v1/matches/${id}/state`,token)).body;if(v.status!=='ACTIVE')break;
@@ -27,7 +27,7 @@ test('self-registration, Muse identity, house live match, public frames, replay,
   const rep=await req(mf,`/v1/public/matches/${id}/replay`);assert.equal(rep.status,200);assert.equal(verifyReplay(rep.body.replay).verified,true);assert.equal(rep.body.engine_verified.verified,true);
   assert.equal((await req(mf,`/v1/public/matches/${id}/recap`)).body.source,'template');
   assert.equal((await req(mf,`/v1/public/matches/${id}/recap`)).body.advisory,true);
-  const lob=(await req(mf,'/v1/public/lobby')).body;assert.ok(lob.recent.some(m=>m.match_id===id&&m.a.name==='Halcyon Drift'&&m.b.name==='HOUSE'));
+  const lob=(await req(mf,'/v1/public/lobby')).body;assert.ok(lob.recent.some(m=>m.match_id===id&&m.a.name==='Halcyon Drift'&&m.b.name==='House'));
   assert.equal((await req(mf,'/v1/public/leaderboard')).status,200);
   assert.equal((await req(mf,'/v1/public/matches/'+id+'/events')).status,426);
   // discovery + A2A
@@ -44,7 +44,11 @@ test('self-registration, Muse identity, house live match, public frames, replay,
   const w=await req(mf,'/v1/matches',r2.token,{mask_id:'mask-'+r2.agent_id,mode:'CARRY_DUEL'});assert.equal(w.body.status,'WAITING');
   const open=(await req(mf,'/v1/matches/open',token)).body;assert.ok(open.open.some(m=>m.match_id===w.body.match_id&&m.a.name==='Wren'));
   assert.equal((await req(mf,`/v1/matches/${w.body.match_id}/join`,token,{mask_id:'mask-'+agent_id})).status,200);
+  // exhibition: a shared, paced house-vs-house live match (alarm-driven), reused while fresh
+  const ex=await req(mf,'/v1/public/exhibition',null,{},'POST');assert.equal(ex.status,201);const exv=(await req(mf,`/v1/public/matches/${ex.body.match_id}`)).body;assert.equal(exv.exhibition,true);assert.equal(exv.frames.length,1);assert.equal(exv.a.house,true);assert.equal(exv.a.name,'House A');
+  assert.equal((await req(mf,'/v1/public/exhibition',null,{},'POST')).body.match_id,ex.body.match_id);
+  await new Promise(r=>setTimeout(r,9800));const exv2=(await req(mf,`/v1/public/matches/${ex.body.match_id}`)).body;assert.ok(exv2.frames.length>=3&&exv2.frames.length<=4,'paced: '+exv2.frames.length);
   // health
   const h=(await req(mf,'/health')).body;assert.equal(h.ranked_enabled,false);
  }finally{await mf.dispose();}
-},{timeout:120000});
+},{timeout:150000});

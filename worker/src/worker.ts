@@ -10,7 +10,7 @@ import {validateMask,type Mask} from './mask.js';
 import {evaluateEvidence,emptyEvidence,type Policy} from './jev.js';
 import {turnMarkdown,parseSelection} from './muse.js';
 import {cleanName,parseAvatar} from './identity.js';
-import {HOUSE_ID,HOUSE_ARCHETYPES,isHouseArchetype,nearestArchetype} from './house.js';
+import {HOUSE_ARCHETYPES,isHouseArchetype,isHouseId,nearestArchetype} from './house.js';
 import {agentCard,a2aRpc} from './a2a.js';
 import {recapOf} from './recap.js';
 import {sha256,type Mode} from '../engine/src/index.js';
@@ -26,7 +26,7 @@ function policy(env:Env):Policy{return {enabled:env.JEV_LIVE_ENABLED==='true',op
 interface Who{agent_id:string;name:string;avatar:string|null;arch:string;house:boolean}
 async function who(env:Env,agentId:string|null,stats?:Record<string,number>,maskId?:string):Promise<Who|null>{
  if(!agentId)return null;
- if(agentId===HOUSE_ID){const arch=HOUSE_ARCHETYPES.find(a=>maskId==='house-'+a.toLowerCase().replace(/[^a-z]/g,''))??(stats?nearestArchetype(stats):'Stillpoint');return {agent_id:agentId,name:'HOUSE · '+arch.toUpperCase(),avatar:null,arch,house:true};}
+ if(isHouseId(agentId)){const arch=HOUSE_ARCHETYPES.find(a=>maskId?.startsWith('house-'+a.toLowerCase().replace(/[^a-z]/g,'')))??(stats?nearestArchetype(stats):'Stillpoint');return {agent_id:agentId,name:agentId==='house.a'?'House A':agentId==='house.b'?'House B':'House',avatar:null,arch,house:true};}
  const r=await env.DB.prepare('SELECT a.display_name n,v.sha256 h FROM agents a LEFT JOIN avatars v ON v.agent_id=a.agent_id WHERE a.agent_id=?').bind(agentId).first<{n:string;h:string|null}>();
  return {agent_id:agentId,name:r?.n??agentId,avatar:r?.h?`/v1/public/avatar/${encodeURIComponent(agentId)}?v=${r.h.slice(0,8)}`:null,arch:stats?nearestArchetype(stats):'Stillpoint',house:false};
 }
@@ -41,14 +41,14 @@ const av=(aid:string|null,h:string|null)=>aid&&h?`/v1/public/avatar/${encodeURIC
 async function lobby(env:Env){
  const now=Date.now(),iso=(ms:number)=>new Date(now-ms).toISOString();
  const rows=async(where:string,order:string,binds:unknown[])=>(await env.DB.prepare(`${LOBBY_SQL} WHERE ${where} ORDER BY ${order} LIMIT 12`).bind(...binds).all<any>()).results.map(r=>({match_id:r.match_id,mode:r.mode,status:r.status,rounds:r.rounds,winner:r.winner_agent_id,reason:r.terminal_reason,started_at:r.started_at,completed_at:r.completed_at,root:r.replay_root_hash,
-  a:{agent_id:r.agent_a,name:r.agent_a===HOUSE_ID?'HOUSE':r.an??r.agent_a,avatar:av(r.agent_a,r.ah)},b:r.agent_b?{agent_id:r.agent_b,name:r.agent_b===HOUSE_ID?'HOUSE':r.bn??r.agent_b,avatar:av(r.agent_b,r.bh)}:null}));
+  a:{agent_id:r.agent_a,name:r.agent_a==='house.a'?'House A':isHouseId(r.agent_a)?'House':r.an??r.agent_a,avatar:av(r.agent_a,r.ah)},b:r.agent_b?{agent_id:r.agent_b,name:r.agent_b==='house.b'?'House B':isHouseId(r.agent_b)?'House':r.bn??r.agent_b,avatar:av(r.agent_b,r.bh)}:null}));
  return {generated_at:new Date(now).toISOString(),live:await rows("m.status='ACTIVE' AND m.started_at>?",'m.started_at DESC',[iso(6*3600e3)]),open:await rows("m.status='WAITING' AND m.started_at>?",'m.started_at DESC',[iso(3600e3)]),recent:await rows("m.status='COMPLETE'",'m.completed_at DESC',[])};
 }
 async function record(env:Env){
  const r=await env.DB.prepare(`WITH r AS(
-  SELECT agent_a id,CASE WHEN winner_agent_id=agent_a THEN 1 ELSE 0 END w,CASE WHEN winner_agent_id IS NOT NULL AND winner_agent_id<>agent_a THEN 1 ELSE 0 END l,CASE WHEN winner_agent_id IS NULL THEN 1 ELSE 0 END d FROM matches WHERE status='COMPLETE' AND agent_b IS NOT NULL AND agent_a<>?1 AND agent_b<>?1
-  UNION ALL SELECT agent_b,CASE WHEN winner_agent_id=agent_b THEN 1 ELSE 0 END,CASE WHEN winner_agent_id IS NOT NULL AND winner_agent_id<>agent_b THEN 1 ELSE 0 END,CASE WHEN winner_agent_id IS NULL THEN 1 ELSE 0 END FROM matches WHERE status='COMPLETE' AND agent_b IS NOT NULL AND agent_a<>?1 AND agent_b<>?1)
-  SELECT ag.agent_id,ag.display_name,SUM(w) wins,SUM(l) losses,SUM(d) draws,(SELECT sha256 FROM avatars WHERE agent_id=ag.agent_id) h FROM r JOIN agents ag ON ag.agent_id=r.id GROUP BY ag.agent_id ORDER BY wins DESC,losses ASC,ag.display_name LIMIT 50`).bind(HOUSE_ID).all<any>();
+  SELECT agent_a id,CASE WHEN winner_agent_id=agent_a THEN 1 ELSE 0 END w,CASE WHEN winner_agent_id IS NOT NULL AND winner_agent_id<>agent_a THEN 1 ELSE 0 END l,CASE WHEN winner_agent_id IS NULL THEN 1 ELSE 0 END d FROM matches WHERE status='COMPLETE' AND agent_b IS NOT NULL AND agent_a NOT LIKE 'house.%' AND agent_b NOT LIKE 'house.%'
+  UNION ALL SELECT agent_b,CASE WHEN winner_agent_id=agent_b THEN 1 ELSE 0 END,CASE WHEN winner_agent_id IS NOT NULL AND winner_agent_id<>agent_b THEN 1 ELSE 0 END,CASE WHEN winner_agent_id IS NULL THEN 1 ELSE 0 END FROM matches WHERE status='COMPLETE' AND agent_b IS NOT NULL AND agent_a NOT LIKE 'house.%' AND agent_b NOT LIKE 'house.%')
+  SELECT ag.agent_id,ag.display_name,SUM(w) wins,SUM(l) losses,SUM(d) draws,(SELECT sha256 FROM avatars WHERE agent_id=ag.agent_id) h FROM r JOIN agents ag ON ag.agent_id=r.id GROUP BY ag.agent_id ORDER BY wins DESC,losses ASC,ag.display_name LIMIT 50`).all<any>();
  return r.results.map((x,i)=>({rank:i+1,agent_id:x.agent_id,name:x.display_name,avatar:av(x.agent_id,x.h),wins:x.wins,losses:x.losses,draws:x.draws}));
 }
 async function recordOf(env:Env,agent:string){
@@ -133,6 +133,14 @@ export default {async fetch(request:Request,env:Env,ctx:ExecutionContext):Promis
 
  /* public, read-only, unauthenticated */
  if(path.startsWith('/v1/public/')){
+  if(path==='/v1/public/exhibition'&&request.method==='POST'){
+   // One shared live exhibition (house vs house, labelled as such) so there is always something real to watch. Reuses a running/fresh one.
+   await rateLimit(env,'exh:'+request.headers.get('CF-Connecting-IP'),6);
+   const cur=await env.DB.prepare("SELECT match_id,status FROM matches WHERE agent_a LIKE 'house.%' AND agent_b LIKE 'house.%' AND (status='ACTIVE' OR started_at>?) ORDER BY started_at DESC LIMIT 1").bind(new Date(Date.now()-90e3).toISOString()).first<{match_id:string;status:string}>();
+   if(cur)return json({match_id:cur.match_id,reused:true});
+   const mid=crypto.randomUUID(),h=sha256(mid),a=HOUSE_ARCHETYPES[parseInt(h.slice(0,2),16)%6],b=HOUSE_ARCHETYPES[(parseInt(h.slice(0,2),16)+1+parseInt(h.slice(2,4),16)%5)%6];
+   await env.MATCH_ROOMS.getByName(mid).createExhibition(mid,a,b);return json({match_id:mid,reused:false,a,b},201);
+  }
   if(request.method!=='GET')throw new HttpError(405,'method_not_allowed');
   const pub=(res:Response)=>{const r=new Response(res.body,res);for(const [k,v] of Object.entries({...CORS,...SEC}))r.headers.set(k,v);return r;};
   if(path==='/v1/public/lobby')return pub(await cached(request,ctx,10,async()=>json(await lobby(env),200)));

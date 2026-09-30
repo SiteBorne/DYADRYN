@@ -145,3 +145,4 @@ html[data-motion=reduce] .m u::after,html[data-motion=reduce] .m.flag,html[data-
 .dt-card .art .cost i{width:8px;height:8px}
 .dt-card .tx b{font-style:normal}
 .dt-card .ty{padding-right:calc(var(--cw)*.09);clip-path:none}.dt-card .tx{overflow-wrap:anywhere}
+.dt-emb .dt-av{width:100%;height:100%;object-fit:cover;transform:skewX(10deg) scale(1.22);image-rendering:auto}.dt-id.b .dt-emb .dt-av{transform:skewX(-10deg) scale(1.22)}.dt-emb{overflow:hidden}

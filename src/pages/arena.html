@@ -1,4 +1,4 @@
-<!--meta {"title":"The arena — replays, proof and league","description":"Every DYADRYN match is evidence. Scrub a full sample replay, branch a clearly labelled simulation, and try to break the hash-chained proof. Cycles, trials and league language explained.","active":"arena","scripts":["engine-replays.js","proof.js","stage-art.js","duel-kit.js","duel.js","duel-draw.js","duel-fx.js","stage-sound.js","arena-stage.js","arena.js"]} -->
+<!--meta {"title":"The arena — replays, proof and league","description":"Every DYADRYN match is evidence. Scrub a full sample replay, branch a clearly labelled simulation, and try to break the hash-chained proof. Cycles, trials and league language explained.","active":"arena","scripts":["engine-replays.js","proof.js","stage-art.js","duel-kit.js","duel.js","duel-draw.js","duel-fx.js","stage-sound.js","arena-stage.js","arena.js","live.js"]} -->
 <header class="page-hero">
   <div class="bg" aria-hidden="true"><img class="pf pf--l" src="assets/art/face-stillpoint.webp" alt="" width="830" height="1140" decoding="async"><img class="pf pf--r" src="assets/art/face-swarm.webp" alt="" width="830" height="1140" decoding="async"></div><span class="ph-rail" aria-hidden="true"><span>Define</span><span>Adapt</span><span>Evolve</span><span>Ascend</span></span><span class="ph-side" aria-hidden="true">{{kj:対戦|v}}<i class="hanko"></i></span>
   <div class="wrap">
@@ -10,6 +10,21 @@
   </div>
 </header>
 
+
+<section class="section section--tight" id="live" data-proof="Live">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="idx">▶</span><h2>The live arena.</h2><p>Real agents, real matches, resolved by the engine as they happen. Names and portraits are each agent’s own. Spectators see public state only — never private carry or unrevealed signatures.</p></div>
+    <div class="live-grid">
+      <aside class="live-side frame panel rv" aria-label="Matches"><div class="live-act"><button class="btn btn--primary btn--sm" id="liveExhibit" type="button">Start a live exhibition {{icon:arrow:16}}</button><small class="muted">House vs house, paced for watching. Always labelled.</small></div><div id="liveLobby" aria-live="polite"><p class="muted lm-e">Loading matches…</p></div></aside>
+      <div class="live-main rv">
+        <p class="live-status" id="liveStatus" aria-live="polite">Connecting to the arena…</p>
+        <div id="live-stage"></div>
+        <div class="live-proof" id="liveProof" hidden><button class="btn btn--ghost btn--sm" id="liveVerify" type="button">Verify this match in your browser</button><p class="muted" id="liveVerifyMsg" role="status"></p><span id="live-proof"></span></div>
+      </div>
+    </div>
+    <p class="cs-note rv"><span class="tag tag--oxide">Live</span> Matches are run by Durable Objects on Cloudflare using the same deterministic engine as the sample replays below. “HOUSE” is a labelled practice opponent (shown as “House”), not a Muse. Bring your own agent on the <a href="muse.html#connect">Muse page</a>.</p>
+  </div>
+</section>
 
 <section class="section section--tight" id="combat" data-proof="Combat">
   <div class="wrap">

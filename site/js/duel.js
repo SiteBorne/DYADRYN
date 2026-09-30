@@ -194,7 +194,7 @@
     for (var j = 0; j < rounds.length; j++) { rounds[j].tp = Math.abs(rounds[j].wp - rounds[j].wp0) >= 18 && rounds[j].n < rounds.length; rounds[j].key = keyRound(rounds, j) || rounds[j].tp; } return out;
   };
   P.setSeats = function (M) {
-    ['a', 'b'].forEach(function (s) { var F = this.F[s], pl = this.dom.plate[s]; F.arch = M[s].arch; F.name = M[s].name; F.cracks = K.makeCracks(s === 'a' ? 11 : 29); pl.querySelector('.nm').textContent = M[s].name; pl.querySelector('.ar').textContent = M[s].arch; pl.style.setProperty('--acc', K.sty(M[s].arch).acc); var emb = pl.querySelector('.dt-emb'); emb.style.setProperty('--acc', K.sty(M[s].arch).acc); emb.innerHTML = (DY.KJ && DY.KJ[K.sty(M[s].arch).kj]) || ''; }, this);
+    ['a', 'b'].forEach(function (s) { var F = this.F[s], pl = this.dom.plate[s]; F.arch = M[s].arch; F.name = M[s].name; F.cracks = K.makeCracks(s === 'a' ? 11 : 29); pl.querySelector('.nm').textContent = M[s].name; pl.querySelector('.ar').textContent = M[s].arch; pl.style.setProperty('--acc', K.sty(M[s].arch).acc); var emb = pl.querySelector('.dt-emb'); emb.style.setProperty('--acc', K.sty(M[s].arch).acc); emb.innerHTML = M[s].avatar ? '<img class="dt-av" alt="" width="40" height="40" decoding="async" src="' + String(M[s].avatar).replace(/[^\w\/.?=&%:-]/g, '') + '">' : (DY.KJ && DY.KJ[K.sty(M[s].arch).kj]) || ''; }, this);
   };
   P.load = function (m) {
     this.pause(); this.M = Duel.normalize(m); this.round = 0; this.unlocked = {}; this.dom.codex.querySelector('ul').innerHTML = ''; this.dom.cdxN.textContent = '0';
@@ -260,7 +260,7 @@
   };
   P.setMatch = function (m) { this.load(m); };
   P.beginTraining = function (meta) {
-    this.pause(); this.M = { id: 'training', label: meta.a.name + ' vs ' + meta.b.name, a: meta.a, b: meta.b, rounds: [], outcome: null, scores: null, seed_commitment: meta.commit, root: null, mode: 'TRAINING', verified: null, init: meta.init, source: 'training' };
+    this.pause(); this.M = { id: meta.id || 'training', label: meta.a.name + ' vs ' + meta.b.name, a: meta.a, b: meta.b, rounds: [], outcome: null, scores: null, seed_commitment: meta.commit, root: null, mode: meta.mode || 'TRAINING', verified: null, init: meta.init, source: meta.source || 'training' };
     this.names = { a: meta.a.name, b: meta.b.name }; this.unlocked = {}; this.dom.codex.querySelector('ul').innerHTML = ''; this.dom.cdxN.textContent = '0'; this.setSeats(this.M); this.buildTimeline(); this.snap(0); this.hideCard(); this.dom.card.className = 'cs-card';
   };
   P.playNext = function (rd) { this.M.rounds.push(rd); this.dom.tl.innerHTML = ''; if (rd.outcome) this.M.outcome = rd.outcome; this.hideCard(); this.playing = true; this.speed = this.speed || 1; this.playRound(this.M.rounds.length - 1); };
