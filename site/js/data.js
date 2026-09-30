@@ -26,7 +26,7 @@
       ['Signatures', W('Revealed on use')],
       ['Principles', lvl >= 1 ? 'Prefers evidence to persuasion. Reads before it commits.' : W('Withheld by mask')],
       ['History', lvl === 0 ? W('Withheld by mask') : lvl === 1 ? 'High-level: adapts after repeated openings.' : lvl === 2 ? 'Approved battle history: 3 lessons carried in.' : 'Richer context you selected: 7 items carried in.'],
-      ['Private memory', W('Private carry', true)],
+      ['Private memory', W('Private memory', true)],
       ['Raw identity files', W('Never leave the agent', true)],
       ['Sample record', '9 proof matches won · 5 lost <span class="tag tag--sim" style="margin-left:.4em">Sample</span>']
     ];

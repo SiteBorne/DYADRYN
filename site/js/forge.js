@@ -8,7 +8,7 @@
   var ARCH = DY.ARCH.map(function (a) { return { n: a.name, b: a.line, a: a.a, ax: a.ax, t: a.t, s: a.s, k: a.k, kj: a.kj, acc: a.acc }; });
   var st = { a: 0, l: 0 };
   host.innerHTML = ARCH.map(function (x, i) { return '<button type="button" class="arch-b" style="--acc:' + x.acc + '" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><span class="ab-img" aria-hidden="true"><img src="assets/art/face-' + x.k + '.webp" alt="" width="830" height="1140" loading="lazy" decoding="async"></span><span class="ab-kj" aria-hidden="true">' + DY.KJ[x.kj] + '</span><b>' + x.n + '</b><small>' + x.b + '</small></button>'; }).join('');
-  var levels = ['Cold', 'Masked', 'Carry', 'Deep carry'];
+  var levels = ['Cold', 'Masked', 'Echo', 'Sediment'];
   function draw() {
     var x = ARCH[st.a], attrs = LAB.map(function (l, i) { return [l, x.a[i]]; });
     $$('.arch-b', host).forEach(function (b, i) { b.setAttribute('aria-pressed', i === st.a); });

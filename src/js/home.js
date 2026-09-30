@@ -60,7 +60,7 @@
   /* ---------- 04 · mask preview ---------- */
   var rows = $('#miniRows');
   if (rows) {
-    var names = ['Cold', 'Masked', 'Carry', 'Deep carry'];
+    var names = ['Cold', 'Masked', 'Echo', 'Sediment'];
     var draw = function (l) { rows.innerHTML = DY.maskRows(l).map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join(''); $('#miniLevel').textContent = names[l]; };
     $$('#discMini input').forEach(function (i) { i.addEventListener('change', function () { draw(+i.value); }); });
     draw(0);

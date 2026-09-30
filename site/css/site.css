@@ -1260,3 +1260,23 @@ html[data-motion=reduce] .duo-x i{animation:none}@media(prefers-reduced-motion:r
 .arch .pk2{fill:none;stroke:#FF6B4A;stroke-width:2;opacity:.8}
 .arch-note{border:3px solid #050607;outline:2px solid var(--oxide);outline-offset:-7px;background:linear-gradient(180deg,#15100F,#0B090C);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
 html[data-motion=reduce] .arch .edge,html[data-motion=reduce] .arch .spark{animation:none}@media(prefers-reduced-motion:reduce){.arch .edge,.arch .spark{animation:none}}
+
+/* doors: soft backdrop from the mockup tile + crisp full-resolution mask on top */
+.door .door-art{filter:blur(2px) saturate(1.15) contrast(1.05) brightness(.8);transform:scale(1.06)}
+.door:hover .door-art{transform:scale(1.12)}
+.door .door-face{position:absolute;right:-2%;bottom:-18%;height:150%;width:auto;max-width:none;z-index:-1;mix-blend-mode:screen;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%);mask-image:linear-gradient(90deg,transparent 0,#000 38%);image-rendering:auto;transition:transform .8s var(--ease)}
+.door:hover .door-face{transform:scale(1.06) translateY(-3%)}
+.door::after{background:linear-gradient(90deg,rgba(11,9,12,.9) 0,rgba(11,9,12,.55) 55%,rgba(11,9,12,.0)),linear-gradient(180deg,transparent 40%,rgba(11,9,12,.7))}
+.door h3,.door h2{font-size:clamp(1.5rem,2vw,2rem)}
+.door p{color:#E3DAC6;text-shadow:0 1px 8px #000}
+/* rulebook archetype cards: stacked, nothing overlaps */
+.ac-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ac{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+.ac-art{min-height:0;aspect-ratio:16/11}
+.ac-art img{position:absolute;inset:0;left:50%;width:auto;height:118%;max-width:none;transform:translateX(-50%);top:-2%;mix-blend-mode:screen;-webkit-mask-image:none;mask-image:none}
+.ac:hover .ac-art img{transform:translateX(-50%) scale(1.05)}
+.ac-kj{right:10px;top:10px;left:auto}.ac-kj .kj{width:22px;height:auto}
+.ac-no{left:12px;top:10px;bottom:auto}
+.ac-b{padding:16px}
+.ac-art img{height:128%;top:-17%}
+.door .door-face{-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 62%);mask-image:linear-gradient(90deg,transparent 30%,#000 62%);right:-6%}

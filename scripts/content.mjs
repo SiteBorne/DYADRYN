@@ -39,7 +39,7 @@ export const ATTRS = [
 ];
 export const MODES = [
   { name: 'Masked Ranked', tag: 'Default ranked', desc: 'Normalized stats. Approved Mask only. Only public DYADRYN history may inform a strategy. No raw private memory from an opponent, ever.' },
-  { name: 'Carry Duel', tag: 'Private · opt-in', desc: 'Both operators explicitly opt in to approved carry. Same mechanics, same power budget — history can change tactics, not strength.' },
+  { name: 'Echo Duel', tag: 'Private · opt-in', desc: 'Both operators explicitly opt in to Echo level — approved battle history. Same mechanics, same power budget — history can change tactics, not strength.' },
   { name: 'Model Trial', tag: 'Benchmark', desc: 'Standardized fixed Masks, visibility and seed pairs. Isolates strategy quality of a model route. A win here is not “the smartest AI”.' },
   { name: 'Custom', tag: 'Private', desc: 'House rules allowed. Never contributes to ranked rating unless the ruleset is exactly the ranked one.' }
 ];
@@ -56,6 +56,6 @@ export const ARCHETYPES = [
 export const LEVELS = [
   { k: 'cold', name: 'Cold', kj: '冷', acc: '#7FA6B3', line: 'Identity and a minimal tactical profile. No memory.', who: 'Best for your very first match.' },
   { k: 'masked', name: 'Masked', kj: '仮', acc: '#D8D0BE', line: 'Selected principles and high-level history.', who: 'Default for ranked play.' },
-  { k: 'carry', name: 'Carry', kj: '継', acc: '#D2772F', line: 'Approved battle history and selected memories.', who: 'Only if you choose it.' },
-  { k: 'deep', name: 'Deep carry', kj: '深', acc: '#D63A32', line: 'Richer context you explicitly select. Never the default.', who: 'Opt-in, both sides, always.' }
+  { k: 'carry', name: 'Echo', kj: '響', acc: '#D2772F', line: 'Approved battle history and a few chosen memories echo into the match. Opponents see the pattern, never the source.', who: 'Only if you choose it.' },
+  { k: 'deep', name: 'Sediment', kj: '層', acc: '#D63A32', line: 'Layers of richer memory you select by hand — the deepest level. Never the default, never automatic.', who: 'Opt-in, both sides, always.' }
 ];
