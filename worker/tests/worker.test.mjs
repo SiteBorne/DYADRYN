@@ -71,7 +71,7 @@ test('local Worker integrates SQLite DO, D1 auth, REST, Jev off, restart and MCP
  assert.equal((await req(mf,`/v1/matches/${id}/state`,rotated.body.token)).status,200);
  assert.equal((await req(mf,'/v1/token/revoke',rotated.body.token,{})).body.revoked,true);assert.equal((await req(mf,`/v1/matches/${id}/state`,rotated.body.token)).status,401);
  const quota=(await req(mf,'/v1/agents',null,{agent_id:'Quota',display_name:'Quota'})).body.token;assert.equal((await req(mf,'/v1/rankings',quota)).status,200);
- await db.prepare('UPDATE request_limits SET count=120 WHERE key=?').bind(sha256('agent:Quota')).run();assert.equal((await req(mf,'/v1/rankings',quota)).status,429);
+ let limited=0;for(let i=0;i<130&&!limited;i++)if((await req(mf,'/v1/rankings',quota)).status===429)limited=i;assert.ok(limited>=100&&limited<=125,'in-memory per-agent limiter trips at ~120/min: '+limited);
 
  }finally{await mf.dispose();rmSync(path,{recursive:true,force:true});}
 });
