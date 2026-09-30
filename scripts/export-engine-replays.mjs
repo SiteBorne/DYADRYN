@@ -24,11 +24,15 @@ const CARDS = [
 ];
 const mk = (id, arch) => E.createPlayer(id, Object.fromEntries(NAMES.map((n, i) => [n, ARCH[arch].a[i]])), ARCH[arch].s);
 const env = (m, id, a) => ({ match_id: m.matchId, round: m.state.round, actor_id: id, state_hash: E.stateHash(m), client_nonce: `nonce-${id}-${m.state.round}`, action: a.action, intensity: a.intensity, ...(a.prediction ? { prediction: a.prediction } : {}), ...(a.adaptStance ? { adapt_stance: a.adaptStance } : {}), ...(a.signatureId ? { signature_id: a.signatureId } : {}) });
+// Win chance for player A: logistic on the public proof-score lead, slope fitted per round bucket on 32k held-out states
+// (Brier 0.124 vs 0.246 for a coin flip; see docs/ENGINE_BACKTEST.md). Computed here, at build time, so no engine constants ship.
+const WP_K = [[1, 3, 0.13], [4, 6, 0.145], [7, 10, 0.15], [11, 15, 0.165], [16, 99, 0.23]];
+const winChance = (st, round) => { const k = WP_K.find(([lo, hi]) => round >= lo && round <= hi)[2]; return Math.round(1e3 / (1 + Math.exp(-k * (E.proofScore(st.a.resources) - E.proofScore(st.b.resources))))) / 10; };
 const slim = (p) => ({ r: p.resources, ins: p.insightStacks, sg: p.revealedSignals ?? [], adapt: p.activeAdapt ? { stance: p.activeAdapt.stance, left: p.activeAdapt.roundsRemaining } : null, cd: Object.fromEntries(Object.entries(p.cooldowns).filter(([, v]) => v > 0)), sig: p.signatures });
 function play(card, seedIx) {
   const seed = `dyadryn-site-${card.id}-${seedIx}`, rand = E.xorshift32(E.fnv1a32(seed));
   let m = E.createMatch({ matchId: `${card.id}-${String(seedIx).padStart(4, '0')}`, seed, a: mk('A', card.a[1]), b: mk('B', card.b[1]), now: 0, mode: 'MODEL_TRIAL' });
-  const frames = [{ round: 0, post: { a: slim(m.state.a), b: slim(m.state.b) } }];
+  const frames = [{ round: 0, wp: 50, post: { a: slim(m.state.a), b: slim(m.state.b) } }];
   while (!m.outcome) {
     const pre = structuredClone(m.state);
     const a = SIM.choose(m.state.a, m.state.b, rand, card.a[2]), b = SIM.choose(m.state.b, m.state.a, rand, card.b[2]);
@@ -42,7 +46,7 @@ function play(card, seedIx) {
       const rr = E.resolveRound(pre, c, b, seed);
       alts.push({ act: c, post: { a: rr.a.resources, b: rr.b.resources }, outcome: rr.outcome });
     }
-    frames.push({ round: ev.round, actions: ev.actions, notes: ev.notes, hash: ev.hash, prev: ev.previousHash, alts, post: { a: slim(m.state.a), b: slim(m.state.b) } });
+    frames.push({ round: ev.round, wp: m.outcome ? (m.outcome.winner === 'A' ? 100 : m.outcome.winner === 'B' ? 0 : 50) : winChance(m.state, m.state.round), actions: ev.actions, notes: ev.notes, hash: ev.hash, prev: ev.previousHash, alts, post: { a: slim(m.state.a), b: slim(m.state.b) } });
   }
   E.verifyLocalHistory(m);
   const replay = E.exportReplay(m), ver = E.verifyReplay(replay);

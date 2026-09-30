@@ -1,0 +1,51 @@
+diff -u a/src/match.ts b/src/match.ts
+--- a/src/match.ts	2026-09-30 07:31:40.602365050 +0000
++++ b/src/match.ts	2026-09-30 19:56:50.117219303 +0000
+@@ -58,7 +58,19 @@
+   eventRootHash: string;
+   outcome: Outcome | null;
+ }
++// Frozen plain objects/arrays are immutable, so their canonical form can be memoized without changing a single byte of any hash.
++const CANON_MEMO = new WeakMap<object, string>();
+ export function canonical(value: unknown): string {
++  if (value !== null && typeof value === "object" && Object.isFrozen(value)) {
++    const hit = CANON_MEMO.get(value);
++    if (hit !== undefined) return hit;
++    const out = canonicalUncached(value);
++    CANON_MEMO.set(value, out);
++    return out;
++  }
++  return canonicalUncached(value);
++}
++function canonicalUncached(value: unknown): string {
+   if (value === null || typeof value === "boolean" || typeof value === "string")
+     return JSON.stringify(value);
+   if (typeof value === "number") {
+diff -u a/src/resolve.ts b/src/resolve.ts
+--- a/src/resolve.ts	2026-09-30 07:31:40.602365050 +0000
++++ b/src/resolve.ts	2026-09-30 20:00:00.629059974 +0000
+@@ -1,6 +1,7 @@
+ import { archivePattern, archiveEntry } from "./history.js";
+ import type {
+   BattleAction,
++  HistoryEntry,
+   PlayerState,
+   PlayerDelta,
+   RoundState,
+@@ -410,10 +411,13 @@
+     activeAdapt,
+     cooldowns,
+     signatures: [...p.signatures],
+-    history: [
++    history: Object.freeze([
+       ...(p.history ?? []),
+-      { action: { ...a }, ...(pattern ? { pattern: { ...pattern } } : {}) },
+-    ],
++      Object.freeze({
++        action: Object.freeze({ ...a }),
++        ...(pattern ? { pattern: Object.freeze({ ...pattern }) } : {}),
++      }) as HistoryEntry,
++    ]) as HistoryEntry[],
+     revealedSignals: e.signals,
+     secondOrderSight:
+       e.grantSight || (Boolean(p.secondOrderSight) && !e.consumeSight),

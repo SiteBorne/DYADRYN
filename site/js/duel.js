@@ -47,7 +47,7 @@
     var h = this.host; h.classList.add('cs', 'dt'); h.setAttribute('data-view', this.view);
     h.innerHTML =
       '<div class="cs-frame dt-frame"><canvas class="cs-cv dt-cv" aria-hidden="true"></canvas><div class="dt-ui">' +
-      '<div class="dt-top">' + this.idHTML('a') + '<div class="dt-mid"><div class="dt-seal" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="r1" cx="50" cy="50" r="44"/><circle class="r2" cx="50" cy="50" r="36"/><path class="tk" d="M50 2v9M50 89v9M2 50h9M89 50h9"/></svg><b class="rn">0</b></div><ol class="dt-phases" aria-label="Round phase"><li data-p="LOCK">Lock</li><li data-p="REVEAL">Reveal</li><li data-p="CLASH">Clash</li><li data-p="RESOLVE">Resolve</li><li data-p="PROOF">Proof</li></ol><span class="ph dt-ph" aria-live="polite">READY</span></div>' + this.idHTML('b') + '</div>' +
+      '<div class="dt-top">' + this.idHTML('a') + '<div class="dt-mid"><div class="dt-seal" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="r1" cx="50" cy="50" r="44"/><circle class="r2" cx="50" cy="50" r="36"/><path class="tk" d="M50 2v9M50 89v9M2 50h9M89 50h9"/></svg><b class="rn">0</b></div><ol class="dt-phases" aria-label="Round phase"><li data-p="LOCK">Lock</li><li data-p="REVEAL">Reveal</li><li data-p="CLASH">Clash</li><li data-p="RESOLVE">Resolve</li><li data-p="PROOF">Proof</li></ol><span class="ph dt-ph" aria-live="polite">READY</span><div class="dt-wp" role="img" aria-label="Win chance estimate: 50% to 50%"><span class="wa">50</span><i><u></u></i><span class="wb">50</span><small>Win chance · simulated estimate</small></div></div>' + this.idHTML('b') + '</div>' +
       '<div class="dt-board"><div class="dt-seat a"></div><div class="dt-table"><div class="dt-ring"></div></div><div class="dt-seat b"></div></div>' +
       '<div class="dt-low">' + this.m7HTML('a') + '<div class="dt-ledger"><div class="dt-hist a" role="group" aria-label="Move history"></div><div class="dt-chg chg" aria-live="polite"></div><div class="dt-hist b" role="group" aria-label="Move history"></div></div>' + this.m7HTML('b') + '</div></div>' +
       '<div class="dt-cards"></div><div class="dt-wipe" aria-hidden="true"></div><div class="cs-sfx" aria-hidden="true"></div><div class="cs-cut" aria-hidden="true"></div><div class="cs-card" role="group" aria-label="Match card"></div><div class="cs-stamp" aria-hidden="true"></div></div>' +
@@ -57,7 +57,7 @@
       '<aside class="cs-codex" hidden aria-label="Codex"><h4>Codex</h4><ul></ul><p class="muted">Lines unlock as their mechanic appears on the table.</p></aside>';
     var q = function (s) { return h.querySelector(s); }, qa = function (s) { return h.querySelectorAll(s); };
     this.cv = q('.dt-cv'); this.g = this.cv.getContext('2d');
-    this.dom = { frame: q('.dt-frame'), ui: q('.dt-ui'), rn: q('.rn'), ph: q('.dt-ph'), phases: q('.dt-phases'), seal: q('.dt-seal'), seatA: q('.dt-seat.a'), seatB: q('.dt-seat.b'), ring: q('.dt-ring'), histA: q('.dt-hist.a'), histB: q('.dt-hist.b'), chg: q('.dt-chg'), cards: q('.dt-cards'), wipe: q('.dt-wipe'), sfx: q('.cs-sfx'), cut: q('.cs-cut'), card: q('.cs-card'), stamp: q('.cs-stamp'), cap: q('.cap'), lore: q('.lore'), tl: q('.cs-tl'), codex: q('.cs-codex'), cdxN: q('.cdx'), plate: { a: q('.dt-id.a'), b: q('.dt-id.b') }, m7: { a: q('.dt-m7.a'), b: q('.dt-m7.b') } };
+    this.dom = { frame: q('.dt-frame'), ui: q('.dt-ui'), rn: q('.rn'), ph: q('.dt-ph'), phases: q('.dt-phases'), wp: q('.dt-wp'), seal: q('.dt-seal'), seatA: q('.dt-seat.a'), seatB: q('.dt-seat.b'), ring: q('.dt-ring'), histA: q('.dt-hist.a'), histB: q('.dt-hist.b'), chg: q('.dt-chg'), cards: q('.dt-cards'), wipe: q('.dt-wipe'), sfx: q('.cs-sfx'), cut: q('.cs-cut'), card: q('.cs-card'), stamp: q('.cs-stamp'), cap: q('.cap'), lore: q('.lore'), tl: q('.cs-tl'), codex: q('.cs-codex'), cdxN: q('.cdx'), plate: { a: q('.dt-id.a'), b: q('.dt-id.b') }, m7: { a: q('.dt-m7.a'), b: q('.dt-m7.b') } };
     var self = this; h.addEventListener('click', function (e) { var b = e.target.closest('[data-c]'); if (b && h.contains(b)) self.control(b.getAttribute('data-c'), b); });
     h.addEventListener('keydown', function (e) { if (e.target.closest('input,textarea,select')) return; if (e.key === ' ' && !e.target.closest('button,a')) { e.preventDefault(); self.control('play'); } else if (e.key === 'ArrowRight') self.control('next'); else if (e.key === 'ArrowLeft') self.control('prev'); });
     if (window.ResizeObserver) new ResizeObserver(function () { self.resize(); }).observe(this.dom.frame); else window.addEventListener('resize', function () { self.resize(); });
@@ -140,6 +140,10 @@
     var F = this.F[side]; F.res = r; var ns = post.adapt ? post.adapt.stance : null; if (ns !== F.stance) { F.stance = ns; F.stanceK = 0; this.tw(F, 'stanceK', 1, 500, 0, E.out3); }
     pl.classList.toggle('bright', r.heat >= 70); pl.classList.toggle('drift', r.drift >= 60);
   };
+  P.setWP = function (v, instant) {
+    var w = this.dom.wp; if (!w) return; v = cl(v, 0, 100); var u = w.querySelector('u'); u.style.width = v + '%'; w.querySelector('.wa').textContent = Math.round(v); w.querySelector('.wb').textContent = Math.round(100 - v);
+    w.setAttribute('aria-label', 'Win chance estimate: ' + this.names.a + ' ' + Math.round(v) + '%, ' + this.names.b + ' ' + Math.round(100 - v) + '%'); w.classList.toggle('lead-a', v > 55); w.classList.toggle('lead-b', v < 45);
+  };
   P.setPhase = function (name, plane) {
     this.dom.ph.textContent = name; this.dom.frame.setAttribute('data-phase', name); var key = name.split(' ')[0], ps = this.dom.phases.children;
     for (var i = 0; i < ps.length; i++) ps[i].classList.toggle('on', ps[i].getAttribute('data-p') === key);
@@ -185,9 +189,9 @@
   Duel.dv = dv;
   Duel.normalize = function (m) {
     var rounds = [], F = m.frames;
-    for (var i = 1; i < F.length; i++) { var f = F[i], pre = F[i - 1].post; rounds.push({ n: f.round, pre: pre, post: f.post, a: f.actions.a || { action: 'STALL' }, b: f.actions.b || { action: 'STALL' }, notes: f.notes || [], hash: f.hash, prev: f.prev, alts: f.alts || [] }); }
+    for (var i = 1; i < F.length; i++) { var f = F[i], pre = F[i - 1].post; rounds.push({ n: f.round, wp: f.wp == null ? 50 : f.wp, wp0: F[i - 1].wp == null ? 50 : F[i - 1].wp, pre: pre, post: f.post, a: f.actions.a || { action: 'STALL' }, b: f.actions.b || { action: 'STALL' }, notes: f.notes || [], hash: f.hash, prev: f.prev, alts: f.alts || [] }); }
     var out = { id: m.id, label: m.label, a: m.a, b: m.b, rounds: rounds, outcome: m.outcome, scores: m.scores || null, seed_commitment: m.seed_commitment, root: m.root, mode: m.mode, verified: m.engine_verified, init: F[0].post, source: m.source || 'engine' };
-    for (var j = 0; j < rounds.length; j++) rounds[j].key = keyRound(rounds, j); return out;
+    for (var j = 0; j < rounds.length; j++) { rounds[j].tp = Math.abs(rounds[j].wp - rounds[j].wp0) >= 18 && rounds[j].n < rounds.length; rounds[j].key = keyRound(rounds, j) || rounds[j].tp; } return out;
   };
   P.setSeats = function (M) {
     ['a', 'b'].forEach(function (s) { var F = this.F[s], pl = this.dom.plate[s]; F.arch = M[s].arch; F.name = M[s].name; F.cracks = K.makeCracks(s === 'a' ? 11 : 29); pl.querySelector('.nm').textContent = M[s].name; pl.querySelector('.ar').textContent = M[s].arch; pl.style.setProperty('--acc', K.sty(M[s].arch).acc); var emb = pl.querySelector('.dt-emb'); emb.style.setProperty('--acc', K.sty(M[s].arch).acc); emb.innerHTML = (DY.KJ && DY.KJ[K.sty(M[s].arch).kj]) || ''; }, this);
@@ -202,7 +206,7 @@
   P.hideCard = function () { this.dom.card.classList.remove('show'); };
   P.buildTimeline = function () {
     var tl = this.dom.tl, self = this; tl.innerHTML = '';
-    this.M.rounds.forEach(function (r, i) { var b = el('button', { type: 'button', 'class': 'tc' + (r.key ? ' k' : ''), 'aria-label': 'Round ' + r.n + ': ' + MOVE[r.a.action] + ' versus ' + MOVE[r.b.action], 'data-i': i }, '<span class="tn">' + r.n + '</span><span class="ti a">' + DY.icon(ICO[r.a.action], 14) + '</span><span class="ti b">' + DY.icon(ICO[r.b.action], 14) + '</span>'); b.addEventListener('click', function () { self.pause(); self.snap(i + 1); }); tl.appendChild(b); });
+    this.M.rounds.forEach(function (r, i) { var b = el('button', { type: 'button', 'class': 'tc' + (r.key ? ' k' : '') + (r.tp ? ' tp' : ''), 'title': r.tp ? 'Turning point: win chance moved ' + Math.round(Math.abs(r.wp - r.wp0)) + ' points' : '', 'aria-label': 'Round ' + r.n + ': ' + MOVE[r.a.action] + ' versus ' + MOVE[r.b.action], 'data-i': i }, '<span class="tn">' + r.n + '</span><span class="ti a">' + DY.icon(ICO[r.a.action], 14) + '</span><span class="ti b">' + DY.icon(ICO[r.b.action], 14) + '</span>'); b.addEventListener('click', function () { self.pause(); self.snap(i + 1); }); tl.appendChild(b); });
   };
   P.markTimeline = function (i) { var cs = this.dom.tl.children; for (var k = 0; k < cs.length; k++) { cs[k].classList.toggle('on', k === i - 1); cs[k].classList.toggle('past', k < i - 1); } var cur = cs[i - 1]; if (cur && this.dom.tl.scrollWidth > this.dom.tl.clientWidth) this.dom.tl.scrollLeft = cur.offsetLeft - this.dom.tl.clientWidth / 2; };
 
@@ -212,7 +216,7 @@
     this.round = i; var M = this.M; this.clearCards(); this.dom.cut.className = 'cs-cut'; this.dom.sfx.innerHTML = ''; this.stamp(null, false);
     ['a', 'b'].forEach(function (s) { var F = this.F[s]; F.pose = this.pose0(); F.cold = 0; }, this);
     var post = i === 0 ? M.init : M.rounds[i - 1].post; this.setPlate('a', post.a, true); this.setPlate('b', post.b, true); this.syncCracks(true);
-    this.dom.rn.textContent = i; this.markTimeline(i); this.setPhase(i === 0 ? 'READY' : 'ROUND ' + i, null); this.buildHist(i);
+    this.setWP(i === 0 ? (M.init && M.wp0 != null ? M.wp0 : 50) : M.rounds[i - 1].wp, true); this.dom.rn.textContent = i; this.markTimeline(i); this.setPhase(i === 0 ? 'READY' : 'ROUND ' + i, null); this.buildHist(i);
     if (i === 0) { this.caption('Both masks clean. Seed committed. Press play, or step through a round at a time.', ''); this.dom.chg.innerHTML = ''; } else { var Rd = M.rounds[i - 1]; this.caption(this.describeChoice(Rd) + ' ' + this.describeResult(Rd), ''); this.chg(Rd); }
     if (i === M.rounds.length && M.outcome) this.applyEnding(true); if (i > 0) this.hideCard(); else this.introCard(); this.updatePlayBtn(); this.dirty = true;
   };

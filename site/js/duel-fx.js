@@ -25,7 +25,7 @@
     return '<div class="dt-card ' + side + '" style="--c:' + c.c + '"><div class="ci"><div class="cb">' + BACK + '<span class="lk">' + DY.icon('lock', 14) + 'SEALED</span></div><div class="cf"><header><span class="cost" title="Energy cost">' + pips(cost, 3) + '</span><b>' + name + '</b></header><div class="art"><span class="kj" aria-hidden="true">' + kj(KANJI[k]) + '</span><span class="emb">' + DY.icon(ICO[k] || 'drift', 44) + '</span></div><div class="ty"><span>' + c.t + (sub ? ' · ' + sub : '') + '</span><span class="ip" title="Intensity">' + pips(x.intensity || 0, 3) + '</span></div><p class="tx"><b>' + line + '</b><span>' + tx + '</span></p></div></div></div>';
   };
   P.layoutCards = function () {
-    var cw = Math.round((this.W < 700 ? Math.round(this.W * .36) : Math.max(150, Math.min(this.H * .34, this.W * .3)))), ch = Math.round(cw * 1.5), Ra = this.R.a, Rb = this.R.b, rc = this.ringC(); this.cw = cw; this.ch = ch; this.dom.cards.style.setProperty('--cw', cw + 'px');
+    var cw = Math.round((this.W < 700 ? Math.round(this.W * .36) : Math.max(150, Math.min(this.H * .3, this.W * .3)))), ch = Math.round(cw * 1.5), Ra = this.R.a, Rb = this.R.b, rc = this.ringC(); this.cw = cw; this.ch = ch; this.dom.cards.style.setProperty('--cw', cw + 'px');
     this.slot = { a: { x: Ra.x + Ra.w - cw * .1, y: Ra.y + Ra.h - ch * .36 }, b: { x: Rb.x + cw * .1, y: Rb.y + Rb.h - ch * .36 } }; this.clashAt = { a: { x: rc.x - cw * (this.W < 700 ? .56 : .6), y: rc.y - ch * (this.W < 700 ? .3 : .02) }, b: { x: rc.x + cw * (this.W < 700 ? .56 : .6), y: rc.y - ch * (this.W < 700 ? .3 : .02) } };
   };
   P.clearCards = function () { if (this.dom && this.dom.cards) this.dom.cards.innerHTML = ''; this.cards = { a: null, b: null }; };
@@ -146,7 +146,7 @@
     /* RESOLVE — the meters settle */
     var RS = T(2950) + (wasCounterHit ? 300 : 0);
     at(RS, function () {
-      this.setPhase('RESOLVE', 'd0'); this.cam0(); this.setPlate('a', Rd.post.a, false); this.setPlate('b', Rd.post.b, false); this.caption(this.describeChoice(Rd) + ' ' + this.describeResult(Rd), ''); this.chg(Rd);
+      this.setPhase('RESOLVE', 'd0'); this.cam0(); this.setPlate('a', Rd.post.a, false); this.setPlate('b', Rd.post.b, false); this.caption(this.describeChoice(Rd) + ' ' + this.describeResult(Rd), ''); this.chg(Rd); if (Rd.wp != null) { this.setWP(Rd.wp); if (Rd.tp) { var lead = Rd.wp > Rd.wp0 ? 'a' : 'b'; this.sfx('TURNING POINT', this.W / 2, this.H * .36, 'rev', '転'); this.pop(lead, 'SWING', C.amber, true, -150); } }
       var lore = null; if (Rd.pre.a.r.heat < 70 && Rd.post.a.r.heat >= 70 || Rd.pre.b.r.heat < 70 && Rd.post.b.r.heat >= 70) lore = this.unlock('BRIGHT'); if (!lore && (Rd.pre.a.r.drift < 60 && Rd.post.a.r.drift >= 60 || Rd.pre.b.r.drift < 60 && Rd.post.b.r.drift >= 60)) lore = this.unlock('STRAINED');
       if (lore) { this.dom.lore.textContent = lore[0] + ' — ' + lore[1]; this.dom.lore.classList.add('on'); }
       ['a', 'b'].forEach(function (s) { var d = dv(Rd, s); if (d.focus >= 8) this.pop(s, '+' + Math.round(d.focus) + ' FOCUS', C.coldHi, false, -40); if (d.heat <= -8) this.pop(s, '−' + Math.abs(Math.round(d.heat)) + ' HEAT', C.paper, false, -40); if (d.vitality >= 4) this.pop(s, '+' + Math.round(d.vitality) + ' VIT', C.paper, false, -40); if (d.drift >= 5) this.pop(s, '+' + Math.round(d.drift) + ' DRIFT', C.oxide, false, -80); }, this);
