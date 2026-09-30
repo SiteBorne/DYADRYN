@@ -261,3 +261,18 @@ html[data-motion=reduce] .arch .edge,html[data-motion=reduce] .arch .spark{anima
 .hud li{opacity:.75}.hud li:first-child{opacity:1;color:#fff}
 .hud--r li::before{content:"";display:inline-block;width:8px;height:8px;margin-right:.8em;background:#D63A32;transform:rotate(45deg);vertical-align:middle}
 .hud--l li{opacity:1}
+
+/* doors v3: crisp vector scenes + full-res mask; nothing upscaled */
+.door .card-art{position:absolute;inset:0;width:100%;height:100%;z-index:-2;filter:saturate(1.25) contrast(1.12) brightness(1.05)}
+.door:hover .card-art{transform:scale(1.06)}
+.door .door-face{height:135%;right:0;bottom:-12%;opacity:.96;-webkit-mask-image:linear-gradient(90deg,transparent 35%,#000 70%);mask-image:linear-gradient(90deg,transparent 35%,#000 70%)}
+.door[href="community.html"]::before{display:block;content:"";position:absolute;right:8%;top:-18%;width:62%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a3332,#151112 62%);box-shadow:0 0 0 2px rgba(214,58,50,.7),0 0 34px rgba(214,58,50,.45),inset -18px -10px 30px rgba(0,0,0,.6);z-index:-2}
+.door::after{background:linear-gradient(90deg,rgba(9,7,9,.92) 0,rgba(9,7,9,.6) 46%,rgba(9,7,9,0) 80%),linear-gradient(180deg,transparent 45%,rgba(9,7,9,.75))}
+/* cards: never clip italic letters */
+.dt-card header b,.dt-card .tx b{overflow:visible;text-overflow:clip;padding:0 .18em 0 .05em;margin-right:-.05em}
+.dt-card header{overflow:visible;padding-right:14px}
+.dt-card header b{font-size:max(16px,calc(var(--cw)*.125))}
+.dt-card .cf{overflow:hidden}
+.sf{overflow:visible;padding:0 .3em}.sf b{padding:0 .18em;white-space:nowrap}
+.dt-nm .nm{padding-right:.2em;overflow:visible}
+.door[href="agents.html"] .card-art{opacity:.25}
