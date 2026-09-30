@@ -135,3 +135,13 @@ html[data-motion=reduce] .m u::after,html[data-motion=reduce] .m.flag,html[data-
 .dt-wp.lead-a .wa,.dt-wp.lead-b .wb{color:#FFD27A}
 .tc.tp::before{content:"⚡";position:absolute;left:2px;top:1px;font-size:10px;color:var(--amber)}
 @media(max-width:820px){.dt-wp{width:100%}}
+
+/* card title v3: own row, no clipping, no italic overhang */
+.dt-card header{display:block;padding:calc(var(--cw)*.045) calc(var(--cw)*.06) calc(var(--cw)*.02);text-align:center}
+.dt-card header b{display:block;font-style:normal;white-space:nowrap;overflow:visible;text-overflow:clip;letter-spacing:.03em;padding:0 2px;font-size:max(16px,calc(var(--cw)*.14));text-shadow:1px 1px 0 var(--c),-1px -1px 0 #050607;line-height:1.15}
+.dt-card header b.l1{font-size:max(14px,calc(var(--cw)*.115))}
+.dt-card header b.l2{font-size:max(12.5px,calc(var(--cw)*.094))}
+.dt-card .art .cost{position:absolute;left:calc(var(--cw)*.04);top:calc(var(--cw)*.04);z-index:2;padding:3px 4px;background:rgba(5,6,7,.78);border:1px solid var(--c)}
+.dt-card .art .cost i{width:8px;height:8px}
+.dt-card .tx b{font-style:normal}
+.dt-card .ty{padding-right:calc(var(--cw)*.09);clip-path:none}.dt-card .tx{overflow-wrap:anywhere}
