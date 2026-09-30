@@ -6,7 +6,7 @@ Measured on the real resolver (`engine-lab/`, worker/engine/dist), seat-swapped,
 | Gate | Target | v1 | v2 | Verdict |
 |---|---|---|---|---|
 | Regression: v2 code with the `v2` section removed reproduces the v1 10,000-match digest | identical | `570414a6…154b0` | identical (92/92 v1 tests also pass on that build) | PASS |
-| v2 10,000-match deterministic simulation: no invariant, engine, replay or seat-swap failure | 0 | 0 | 0 / 0 / 0 / 0, digest `__DIGEST__`, 21.9 mean rounds for the seeded heuristic population | PASS |
+| v2 10,000-match deterministic simulation: no invariant, engine, replay or seat-swap failure | 0 | 0 | 0 / 0 / 0 / 0, digest `04338b614e4efac9c938665ad2ee5bdc6d84c77eb64ee72f1085f85e06770d51`, 22.5 mean rounds for the seeded heuristic population | PASS |
 | Stage-game equilibrium: every action a best reply to something | min mass ≥ 4 %, entropy ≥ 2.3 bits | Guard 74 %, Recover 25 %, entropy 0.9, six actions ≈ 0 % | min 5 %, entropy 2.78; Recover 30 %, Signature 17 %, Mirror 12 %, Adapt 11 %, Guard 11 %, Trace 7 %, Press 7 %, Counter 5 % | PASS |
 | Competent play does not stall: bandit-vs-bandit match length | 12–22 rounds | 23.7 (97 % at the round limit) | 17.5 mean, 21 % at the limit (13.7 / 5 % on random profiles) | PASS |
 | Reciprocators do not stall: strike-only-after-struck vs itself | ends before round limit | 100 % at limit | 0 % at limit (mutual erosion, round 14) | PASS |
