@@ -1,0 +1,33 @@
+/* Mobile refinements. Every rule here sits inside a max-width query, so the desktop/tablet layout is untouched. */
+@media (max-width:860px){
+  /* two-column splits that carry an inline grid template collapse to one readable column */
+  .grid[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important;gap:clamp(20px,5vw,32px)}
+  .live-side{order:2}.live-main{order:1}
+  .wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+}
+@media (max-width:640px){
+  /* calls to action: one consistent, thumb-sized, full-width stack */
+  .btn-row{flex-direction:column;align-items:stretch;gap:10px}
+  .btn-row .btn,.btn-row a.btn,.btn-row button.btn{width:100%;min-height:48px;justify-content:center;text-align:center}
+  .btn--sm{min-height:44px}
+  /* code samples wrap instead of clipping */
+  .code{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font-size:.74rem;line-height:1.6;padding:12px 14px}
+  /* quieter back-to-top so it never hides content */
+  .totop{right:12px;bottom:12px;width:40px;height:40px;background:rgba(11,9,12,.82)}
+  /* tighter, even vertical rhythm */
+  .section{padding-top:clamp(40px,11vw,64px);padding-bottom:clamp(40px,11vw,64px)}
+  .page-hero .lede,.lede{font-size:1.06rem;line-height:1.55}
+  .sec-head{margin-bottom:22px}
+  .panel{padding:16px}
+  /* readable tap targets for chips, tabs and select controls */
+  select,input[type=search],input[type=text],input[type=email]{min-height:46px;font-size:16px}
+  .tabs button,.cbt{min-height:44px}
+  .live-status{font-size:.92rem}
+  .live-act .btn{width:100%}
+  .lm{padding:10px 12px}
+}
+@media (max-width:400px){
+  h1{font-size:clamp(2rem,10.5vw,2.6rem);line-height:1.08}
+  h2{font-size:clamp(1.55rem,8vw,2rem);line-height:1.14}
+  .cn-grid .panel{padding:14px}
+}

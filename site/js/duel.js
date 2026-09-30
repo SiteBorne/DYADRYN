@@ -135,6 +135,7 @@
       var prev = c._v; c._v = x; if (prev != null && Math.abs(x - prev) >= .5 && !instant) { var cls = (k === 'heat' || k === 'drift') ? (x > prev ? 'dn' : 'up') : (x > prev ? 'up' : 'dn'); c.classList.remove('up', 'dn'); void c.offsetWidth; c.classList.add(cls); (function (cc) { setTimeout(function () { cc.classList.remove('up', 'dn'); }, 900); })(c); }
       c.querySelector('b').textContent = (k === 'momentum' && x > 0 ? '+' : '') + R_(x); c.classList.toggle('flag', !!flag); c.querySelector('em').textContent = flag ? '▲' : ''; });
     var ch = []; if (r.heat >= 90) ch.push(['OVERHEATED', 'hot']); else if (r.heat >= 70) ch.push(['BRIGHT', 'hot']); if (r.drift >= 80) ch.push(['UNSTABLE', 'dr']); else if (r.drift >= 60) ch.push(['STRAINED', 'dr']);
+    if (post.acc > 0) ch.push(['ACCORD ×' + post.acc, 'st']); if (post.rep > 0) ch.push(['REPRISAL', 'hot']);
     if (post.adapt) ch.push([post.adapt.stance + ' ' + post.adapt.left, 'st']); if (Object.keys(post.cd || {}).length) ch.push(['COOLDOWN', 'cd']);
     pl.querySelector('.chips').innerHTML = ch.map(function (c) { return '<span class="ch ' + c[1] + '">' + c[0] + '</span>'; }).join('');
     var F = this.F[side]; F.res = r; var ns = post.adapt ? post.adapt.stance : null; if (ns !== F.stance) { F.stance = ns; F.stanceK = 0; this.tw(F, 'stanceK', 1, 500, 0, E.out3); }
