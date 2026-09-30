@@ -6,7 +6,7 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 
 http.createServer((req, res) => {
   if (req.url.startsWith('/v1/') || req.url === '/health') { // preview: proxy to a local `wrangler dev` if running, else answer like an idle arena
     const pr = http.request({ host: '127.0.0.1', port: +process.env.API_PORT || 8787, path: req.url, method: req.method, headers: req.headers }, (r) => { res.writeHead(r.statusCode, r.headers); r.pipe(res); });
-    pr.on('error', () => { res.writeHead(req.url.startsWith('/v1/public/lobby') ? 200 : 503, { 'content-type': 'application/json' }); res.end(req.url.startsWith('/v1/public/lobby') ? '{"live":[],"open":[],"recent":[],"preview":true}' : '{"error":"arena_offline_in_static_preview"}'); }); req.pipe(pr); return;
+    pr.on('error', () => { const idle = req.url.startsWith('/v1/public/lobby') || req.url.startsWith('/v1/public/leaderboard'); res.writeHead(idle ? 200 : 503, { 'content-type': 'application/json' }); res.end(req.url.startsWith('/v1/public/lobby') ? '{"live":[],"open":[],"recent":[],"preview":true}' : req.url.startsWith('/v1/public/leaderboard') ? '{"entries":[],"preview":true}' : '{"error":"arena_offline_in_static_preview"}'); }); req.pipe(pr); return;
   }
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   if (p.endsWith('/')) p += 'index.html';

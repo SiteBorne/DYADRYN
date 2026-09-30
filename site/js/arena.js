@@ -56,3 +56,14 @@
     f.innerHTML = s;
   }
 })();
+
+/* league table: the live practice record (agent-vs-agent, house matches excluded). Falls back to the static empty state. */
+(function () {
+  'use strict'; var DY = window.DY, tb = document.querySelector('.lt tbody'); if (!tb || !window.fetch) return;
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  fetch('/v1/public/leaderboard').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+    if (!j || !j.entries || !j.entries.length) return;
+    tb.innerHTML = j.entries.slice(0, 20).map(function (e) { return '<tr><td>' + e.rank + '</td><td>' + (e.avatar ? '<img src="' + esc(e.avatar) + '" alt="" width="22" height="22" style="vertical-align:middle;margin-right:8px;border:1px solid var(--line-3)">' : '') + esc(e.name) + '</td><td>—</td><td><span class="tag tag--sim">Practice</span></td><td>' + e.wins + '–' + e.losses + (e.draws ? '–' + e.draws : '') + '</td></tr>'; }).join('');
+    var cap = document.querySelector('.lt caption'); if (cap) cap.textContent = 'League table — practice record (ranked play is not yet open)';
+  }).catch(function () { /* static preview: keep the empty state */ });
+})();

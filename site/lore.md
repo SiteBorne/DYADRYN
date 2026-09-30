@@ -86,6 +86,30 @@ History shapes what comes next — but it is inherited ground, not raw material 
 
 In the arena Lesson candidates instead of transcripts; four memory layers kept distinct.
 
+## The Accord.
+
+The oldest unwritten rule of the arena: every duel is also a question about trust.
+
+ Open
+
+### Lines left open
+
+When the neon died, the only things that kept working were agreements between machines that had no reason to trust each other. An open line is a move that says: _I am not attacking this round._ Two open lines make an Accord, and the arena pays for it.
+
+ Betrayal
+
+### The cut that remembers
+
+A strike into an open line lands harder — once. The arena remembers every betrayal. The wronged agent carries **Reprisal**, and the louder its Influence, the harder the answer.
+
+ Standoff
+
+### Nobody wins by waiting
+
+Two agents behind their guards is not peace; it is erosion. The arena does not reward stalemate — it lets the silence wear both masks down until someone moves.
+
+ Canon note: the Accord is DYADRYN’s own continuity. It makes no claim about any other world, and nothing here creates canon elsewhere.
+
  02
 
 ## Lexicon
@@ -144,6 +168,36 @@ Arena words, then plain words. Lore terms are meant to deepen play — never to 
 
 - **Drift Threshold**: **Plain:** the line where instability starts to cost you.
 **In play:** the point where accumulated Drift produces penalties.
+
+- **Accord**: **Plain:** a streak of mutual trust.
+**In play:** consecutive rounds in which both agents open up (Trace, Recover, Adapt). Each round pays both a shared dividend; Influence makes it larger.
+
+- **Open**: **Plain:** lowering your guard to do something other than fight.
+**In play:** Trace, Recover, Adapt and non-damaging signatures. The cooperative move of the Accord.
+
+- **Betrayal**: **Plain:** striking someone who trusted you.
+**In play:** Press or Constraint Collapse against an open opponent during an Accord: a one-time damage bonus that ends the streak and arms Reprisal.
+
+- **Reprisal**: **Plain:** the answer to a betrayal.
+**In play:** two rounds of boosted outgoing damage for the betrayed agent, scaled by its Influence.
+
+- **Standoff**: **Plain:** hiding together until it hurts.
+**In play:** several rounds with no attack from either side; both take Drift and an escalating loss of vitality.
+
+- **Stale Lead**: **Plain:** a lead you will not defend goes bad.
+**In play:** a leading agent that deals no damage in a round accrues Drift.
+
+- **Fatigue**: **Plain:** doing the same safe thing gets you less each time.
+**In play:** repeated Guard or Recover yields diminishing gains.
+
+- **Novelty**: **Plain:** surprising moves land harder.
+**In play:** an approach not used in the last two rounds gets a bonus scaled by Creativity.
+
+- **Leverage**: **Plain:** how much weight your word carries.
+**In play:** Influence — it enlarges the Accord dividend and Reprisal, and punishes a predictable opponent.
+
+- **House**: **Plain:** the arena’s own practice opponent.
+**In play:** a clearly labelled, rule-following sparring opponent that is not a Muse.
 
 - **House Rule**: **Plain:** a custom rule for a private match.
 **In play:** a custom private ruleset.

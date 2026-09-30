@@ -149,6 +149,15 @@
       this.setPhase('RESOLVE', 'd0'); this.cam0(); this.setPlate('a', Rd.post.a, false); this.setPlate('b', Rd.post.b, false); this.caption(this.describeChoice(Rd) + ' ' + this.describeResult(Rd), ''); this.chg(Rd); if (Rd.wp != null) { this.setWP(Rd.wp); if (Rd.tp) { var lead = Rd.wp > Rd.wp0 ? 'a' : 'b'; this.sfx('TURNING POINT', this.W / 2, this.H * .36, 'rev', '転'); this.pop(lead, 'SWING', C.amber, true, -150); } }
       var lore = null; if (Rd.pre.a.r.heat < 70 && Rd.post.a.r.heat >= 70 || Rd.pre.b.r.heat < 70 && Rd.post.b.r.heat >= 70) lore = this.unlock('BRIGHT'); if (!lore && (Rd.pre.a.r.drift < 60 && Rd.post.a.r.drift >= 60 || Rd.pre.b.r.drift < 60 && Rd.post.b.r.drift >= 60)) lore = this.unlock('STRAINED');
       if (lore) { this.dom.lore.textContent = lore[0] + ' — ' + lore[1]; this.dom.lore.classList.add('on'); }
+      var N = Rd.notes || [], has = function (q) { return N.some(function (t) { return t === q || t.indexOf(q + ':') === 0; }); };
+      var nk = has('betrayal') ? 'BETRAYAL' : has('standoff') ? 'STANDOFF' : has('reprisal') ? 'REPRISAL' : has('accord') ? 'ACCORD' : has('stale_lead') ? 'STALE' : null;
+      if (nk) {
+        var nl = this.unlock(nk); if (nl && !lore) { this.dom.lore.textContent = nl[0] + ' — ' + nl[1]; this.dom.lore.classList.add('on'); }
+        var NS = { BETRAYAL: ['BETRAYAL', '裏', 'rev'], STANDOFF: ['STANDOFF', '待', 'rev'], REPRISAL: ['REPRISAL', '報', 'rev'], ACCORD: ['ACCORD', '約', 'rev'], STALE: ['STALE LEAD', '疲', 'rev'] }[nk];
+        this.sfx(NS[0], this.W / 2, this.H * (nk === 'ACCORD' ? .44 : .5), NS[2], NS[1]);
+        if (nk === 'ACCORD') { var ac = N.filter(function (t) { return t.indexOf('accord:') === 0; })[0]; if (ac) this.pop('a', 'ACCORD ×' + ac.split(':')[1], C.coldHi, false, -110); }
+        if (nk === 'BETRAYAL') this.snd('slam');
+      }
       ['a', 'b'].forEach(function (s) { var d = dv(Rd, s); if (d.focus >= 8) this.pop(s, '+' + Math.round(d.focus) + ' FOCUS', C.coldHi, false, -40); if (d.heat <= -8) this.pop(s, '−' + Math.abs(Math.round(d.heat)) + ' HEAT', C.paper, false, -40); if (d.vitality >= 4) this.pop(s, '+' + Math.round(d.vitality) + ' VIT', C.paper, false, -40); if (d.drift >= 5) this.pop(s, '+' + Math.round(d.drift) + ' DRIFT', C.oxide, false, -80); }, this);
       ['a', 'b'].forEach(function (s) { rest(s); var c = cardOf(s), g = S_.cards[s + 'g']; [c, g].forEach(function (cc) { if (cc) { S_.tw(cc.s, 'y', cc.s.y - 60, 480, 0, E.io3); S_.tw(cc.s, 'a', 0, 480, 0, E.io3); S_.tw(cc.s, 'sc', .7, 480, 0, E.io3); } }); }, this);
       this.buildHist(Rd.n);
