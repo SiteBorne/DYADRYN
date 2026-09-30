@@ -38,3 +38,10 @@ Sources: DYADRYN Brand Bible v1.1 §76 (Brand QA), DYADRYN Brand Release Gate, C
 
 ## C. Release procedure
 1. `npm run build` 2. `npm run qa` (automated A-gates) 3. Screenshot review at 390 / 768 / 1440 4. Score B-gates in the PR description 5. Commit + push.
+
+## Addendum — Combat Stage, characters and IP
+- **C1 Engine truth:** every stage round comes from `src/js/engine-replays.js`, exported from the real engine by `scripts/export-engine-replays.mjs` (`ENGINE_DIST=<engine>/dist`). No engine code, constants or formulas ship; qa.mjs IP-leak regex must stay green.
+- **C2 Proof:** the Verify panel recomputes hashes in the browser; tampering marks later rows unproven.
+- **C3 Characters:** six original archetype designs (`stage-chars.js`), drawn procedurally. They are not ASHEN characters and use no ASHEN names or the nine-dot symbol.
+- **C4 Pose coverage:** idle, strike, guard, trace, counter, adapt, mirror, recover, signature, hurt and cold states checked for both sides across all four matches, the Training Ground and 390px.
+- **C5 Motion safety:** reduced-motion disables shake, flashes and auto-cycling; sound is off by default; no state is colour-only.

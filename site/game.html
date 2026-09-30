@@ -23,7 +23,7 @@
 <link rel="preload" href="assets/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=06153200">
+<link rel="stylesheet" href="css/site.css?v=3682a575">
 <script src="js/boot.js?v=b54be62a"></script>
 </head>
 <body class=""><a class="skip" href="#main">Skip to content</a>
@@ -198,7 +198,7 @@
 
 <section class="section band-s1 tg-sec" id="training" data-proof="Training">
   <div class="wrap">
-    <div class="sec-head rv"><span class="idx">▶</span><h2>Training Ground</h2><p>Play twelve rounds against a training opponent. It reads only what you have shown it — the same information limit real agents live under. <strong>Training rules are simplified and are not the ranked resolver.</strong></p></div>
+    <div class="sec-head rv"><span class="idx">▶</span><h2>Training Ground</h2><p>Play twelve rounds against a training opponent and watch each one resolve in the combat arena. It reads only what you have shown it — the same information limit real agents live under. <strong>Training rules are simplified and are not the ranked resolver.</strong></p></div>
     <div class="tg frame rv" id="tg">
       <div class="tg-top">
         <div class="tg-opps" role="radiogroup" aria-label="Opponent"><span class="caps muted">Opponent</span>
@@ -208,19 +208,13 @@
         </div>
         <span class="tag tag--sim">Training rules · not ranked</span>
       </div>
-      <div class="tg-board">
-        <section class="tg-side" aria-label="You"><h3>You</h3><div class="meters" id="tgYou"></div></section>
-        <section class="tg-mid" aria-live="polite">
-          <div class="tg-round"><span class="caps muted">Round</span><b id="tgRound">1</b><span class="caps muted">of 12</span></div>
-          <p id="tgStatus" class="tg-status">Choose a move. Your opponent chooses at the same time.</p>
-          <ul id="tgEvents" class="tg-events"></ul>
-        </section>
-        <section class="tg-side" aria-label="Opponent"><h3 id="tgOppName">Warden</h3><div class="meters" id="tgOpp"></div><div class="tg-signals"><span class="caps muted">Trace signals</span><ul id="tgSignals"><li class="withheld">None revealed</li></ul></div></section>
-      </div>
+      <div id="tgStage" class="tg-stage"></div>
       <div class="tg-controls">
+        <div class="tg-sig"><span class="caps muted">Trace signals</span><ul id="tgSignals"><li class="withheld">None revealed</li></ul></div>
         <div class="tg-acts" id="tgActs" role="group" aria-label="Choose your move"></div>
         <div class="tg-pred" id="tgPred" hidden><span class="caps">Counter — name the move you expect</span><div id="tgPredBtns"></div></div>
-        <div class="tg-lock"><button class="btn btn--primary" id="tgLock" type="button" disabled>Lock move <svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="butt" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></button><button class="btn btn--ghost" id="tgNew" type="button">New match</button></div>
+        <div class="tg-lock"><button class="btn btn--primary" id="tgLock" type="button" disabled>Lock move <svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="butt" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></button><button class="btn btn--ghost" id="tgSkip" type="button" hidden>Skip animation</button><button class="btn btn--ghost" id="tgNew" type="button">New match</button></div>
+        <p id="tgStatus" class="tg-status" role="status" aria-live="polite">Choose a move. Your opponent chooses at the same time.</p>
       </div>
       <div class="tg-chain"><div class="panel-head" style="margin-bottom:.6rem"><span>Proof chain</span><button class="btn btn--ghost btn--sm" id="tgVerify" type="button" disabled>Verify chain</button></div><ol id="tgHashes" class="hashes"></ol><p id="tgVerifyMsg" class="muted" role="status" style="margin:.6rem 0 0;font-size:.92rem"></p></div>
     </div>
@@ -257,6 +251,12 @@
 <script src="js/data.js?v=1ac36fa3" defer></script>
 <script src="js/teach.js?v=e1a66abf" defer></script>
 <script src="js/viz.js?v=af64a5f4" defer></script>
+<script src="js/stage-art.js?v=fbd378e9" defer></script>
+<script src="js/stage-chars.js?v=06e8a928" defer></script>
+<script src="js/stage.js?v=fa374fe8" defer></script>
+<script src="js/stage-game.js?v=16dbf513" defer></script>
+<script src="js/stage-fx.js?v=d35fd0f6" defer></script>
+<script src="js/stage-sound.js?v=c8f9f9f9" defer></script>
 <script src="js/game.js?v=e6fbed64" defer></script>
-<script src="js/training.js?v=d58e6115" defer></script>
+<script src="js/training.js?v=2fe1d014" defer></script>
 </body></html>

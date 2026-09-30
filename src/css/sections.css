@@ -192,3 +192,4 @@ code{color:var(--accent-text)}
 .tr-cap{bottom:9%}
 
 @media(max-width:900px){.forge-mini{grid-template-columns:minmax(0,1fr)!important}}
+.ledger3{margin-top:clamp(24px,4vw,44px)}.ledger3 h3{margin:0 0 .3em}.ledger3 p{margin:0}

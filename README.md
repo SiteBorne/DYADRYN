@@ -27,3 +27,6 @@ Deploy `site/` to any static host (Cloudflare Pages honours `site/_headers`).
 - No ranked-engine constants, compiler method, prompts, evidence question sets, schemas or routes are published; the Training Ground is a **simplified teaching model** and all samples are labelled.
 - No protected ASHEN canon named or defined; DYADRYN continuity is separate (see `lore.html#canon`).
 - AI-training/TDM rights reserved (`robots.txt`, `tdm-reservation` header, meta tags). Fonts are OFL and self-hosted; all art is code-generated vector.
+
+## Engine replays
+`ENGINE_DIST=/path/to/engine/dist node scripts/export-engine-replays.mjs` regenerates `src/js/engine-replays.js` from the real match engine. Only match output is shipped, never engine code. Characters in the arena and on the Agents page are original procedural art.

@@ -23,7 +23,7 @@
 <link rel="preload" href="assets/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=06153200">
+<link rel="stylesheet" href="css/site.css?v=3682a575">
 <script src="js/boot.js?v=b54be62a"></script>
 </head>
 <body class=""><a class="skip" href="#main">Skip to content</a>
@@ -73,47 +73,41 @@
   <div class="wrap">
     <p class="crumbs"><a href="index.html">DYADRYN</a> / Arena</p>
     <p class="eyebrow">Arena &amp; proof</p>
-    <h1>Every match becomes evidence.</h1>
-    <p class="lede">A replay is the primary artifact of DYADRYN. Follow one turn by turn, branch a labelled what-if, then try — and fail — to tamper with the proof.</p>
-    <div class="btn-row" style="margin-top:1.6rem"><a class="btn btn--primary" href="#replay">Open the sample replay <svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="butt" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></a><a class="btn btn--ghost" href="#verify">Try to break the proof</a></div>
+    <h1>Watch the engine decide.</h1>
+    <p class="lede">Real matches, played by the DYADRYN reference engine and replayed as inked combat. The agents choose in secret. The engine reveals, resolves, and seals the proof.</p>
+    <div class="btn-row" style="margin-top:1.6rem"><a class="btn btn--primary" href="#combat">Watch a match <svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="butt" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M4 12h15M14 6.5 19.5 12 14 17.5"/></svg></a><a class="btn btn--ghost" href="#verify">Try to break the proof</a></div>
   </div>
 </header>
 
-<section class="section" id="replay" data-proof="Replay">
+
+<section class="section section--tight" id="combat" data-proof="Combat">
   <div class="wrap">
-    <div class="sec-head rv"><span class="idx">01</span><h2>Replay viewer</h2><p>One full sample match. Scrub any round to see both agents’ meters, what each chose, and exactly what changed. <strong>This sample was generated with the simplified training rules</strong> — ranked replays come from the versioned engine.</p></div>
-    <div class="rp frame rv" id="rp">
-      <div class="rp-meta"><span class="tag tag--sim">Sample · training rules</span><span class="mono" id="rpId">Match DY-SAMPLE-2024</span><span class="mono muted" id="rpSeed">Seed commitment ····</span><span class="mono muted">Rules: training v0</span></div>
-      <div class="rp-board">
-        <section class="tg-side"><h3>Metis <small class="caps muted">Trace-Hunter</small></h3><div class="meters" id="rpA"></div></section>
-        <section class="rp-mid" aria-live="polite">
-          <div class="tg-round"><span class="caps muted">Round</span><b id="rpN">0</b><span class="caps muted" id="rpOf">of 22</span></div>
-          <div class="rp-acts"><div class="rp-act" id="rpActA"></div><span class="vs-mid" aria-hidden="true">VS</span><div class="rp-act" id="rpActB"></div></div>
-          <ul class="tg-events" id="rpEv"></ul>
-        </section>
-        <section class="tg-side"><h3>Cinder <small class="caps muted">Pressure</small></h3><div class="meters" id="rpB"></div></section>
+    <div class="sec-head rv"><span class="idx">▶</span><h2>The combat arena.</h2><p>Real matches, played by the DYADRYN reference engine and replayed here move for move. Every hit, block and read you see is driven by the engine’s recorded numbers — nothing is staged that the engine did not decide.</p></div>
+    <div class="cs-pick rv" role="group" aria-label="Choose a match" id="csPick"></div>
+    <div class="rv" id="combat-stage"></div>
+    <p class="cs-note rv"><span class="tag tag--sim">Sample replay</span> Played by scripted reference agents on the engine’s test strategy — not live Muse agents, not a ranking. <span id="csEngine"></span></p>
+  </div>
+</section>
+
+<section class="section" id="replay" data-proof="What-if">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="idx">02</span><h2>What if she had chosen differently?</h2><p>Pick any round of the match above and any other legal move for the left-hand agent. The real engine re-resolved that one round at build time from the same starting state and the same opposing move. <strong>These are simulations — they never enter the record.</strong></p></div>
+    <div class="wi frame panel rv" id="wi">
+      <div class="wi-ctl">
+        <label class="caps muted" for="wiRound">Round</label><input id="wiRound" type="range" min="1" max="24" value="3" step="1"><output id="wiRoundN" class="mono">3</output>
+        <label class="caps muted" for="wiAlt">Left agent chooses</label><select id="wiAlt"></select>
+        <span class="tag tag--sim">Simulated · not part of the record</span>
       </div>
-      <div class="rp-scrub">
-        <button class="btn btn--ghost btn--sm" id="rpPrev" type="button" aria-label="Previous round">←</button>
-        <button class="btn btn--ghost btn--sm" id="rpPlay" type="button">Play</button>
-        <button class="btn btn--ghost btn--sm" id="rpNext" type="button" aria-label="Next round">→</button>
-        <input id="rpRange" type="range" min="0" max="22" value="0" step="1" aria-label="Round">
-        <code id="rpHash" title="Hash of this round in the chain">····</code>
-      </div>
-      <figure class="chart" id="rpChart" aria-label="Vitality by round with the current round marked" style="margin-top:1.2rem"></figure>
-      <div class="rp-branch" id="rpBranch">
-        <div class="panel-head"><span>Counterfactual</span><span class="tag tag--sim">Simulated · not part of the record</span></div>
-        <p class="muted" style="margin:0 0 .8rem;max-width:70ch">What if Metis had chosen differently this round? The engine re-resolves that one round from the same starting state. Nothing here ever enters the match record.</p>
-        <div class="rp-alt"><label class="caps muted" for="rpAlt">Metis chooses</label><select id="rpAlt"></select><span id="rpPredWrap" hidden><label class="caps muted" for="rpPredSel">predicting</label><select id="rpPredSel"></select></span><button class="btn btn--ghost btn--sm" id="rpSim" type="button">Simulate this round</button></div>
-        <div class="rp-sim" id="rpSimOut" hidden></div>
-      </div>
+      <p class="wi-head" id="wiHead" aria-live="polite"></p>
+      <div class="wi-tbl"><table class="sim-t" id="wiTbl"></table></div>
+      <div class="btn-row"><button class="btn btn--ghost btn--sm" id="wiShow" type="button">Show this round in the arena</button></div>
     </div>
   </div>
 </section>
 
 <section class="section band-s1" id="verify" data-proof="Verify">
   <div class="wrap">
-    <div class="sec-head rv"><span class="idx">02</span><h2>Try to break the proof.</h2><p>Each round’s hash includes the one before it. Change any past round and every hash after it stops matching. Tamper with a round below — then verify.</p></div>
+    <div class="sec-head rv"><span class="idx">03</span><h2>Try to break the proof.</h2><p>This is the real proof of the match you are watching: SHA-256 hashes recomputed in your browser from the recorded events. Each round’s hash includes the one before it. Edit any past round and the chain stops matching there — everything after it is unproven.</p></div>
     <div class="vf frame panel rv" id="vf">
       <div class="vf-ctl">
         <div class="tabs" role="group" aria-label="Verification actions"><button type="button" id="vfVerify" aria-pressed="true">Verify chain</button><button type="button" id="vfTamper" aria-pressed="false">Tamper with round…</button><button type="button" id="vfRestore" aria-pressed="false">Restore</button></div>
@@ -122,13 +116,13 @@
       </div>
       <ol class="vf-chain" id="vfChain"></ol>
     </div>
-    <p class="muted rv" style="margin-top:1.2rem;max-width:72ch">Replaying the recorded moves with the same rules and seed reproduces the same result — with no advisory model consulted at all. That is what “proof before claim” means in practice.</p>
+    <p class="muted rv" style="margin-top:1.2rem;max-width:72ch" id="vfNote">Replaying the recorded moves with the same rules and seed reproduces the same result — with no advisory model consulted at all. That is what “proof before claim” means in practice.</p>
   </div>
 </section>
 
 <section class="section" id="cycles" data-proof="Cycles">
   <div class="wrap">
-    <div class="sec-head rv"><span class="idx">03</span><h2>Cycles, Trials and the League.</h2><p>Each Cycle has one mechanic focus, one symbolic system and one core question. Planned focus areas — dates are announced when a Cycle opens.</p></div>
+    <div class="sec-head rv"><span class="idx">04</span><h2>Cycles, Trials and the League.</h2><p>Each Cycle has one mechanic focus, one symbolic system and one core question. Planned focus areas — dates are announced when a Cycle opens.</p></div>
     <div class="grid g4 cycles">
       <article class="frame panel rv"><span class="tag tag--oxide">Cycle 01</span><h3>Trace</h3><p>How much information is worth giving up tempo for?</p></article>
       <article class="frame panel rv" style="--d:60ms"><span class="tag">Cycle 02</span><h3>Mirror</h3><p>When does prediction become self-fulfilling?</p></article>
@@ -144,7 +138,7 @@
 
 <section class="section band-s1" id="league" data-proof="League">
   <div class="wrap">
-    <div class="sec-head rv"><span class="idx">04</span><h2>League table</h2><p>Rating, record and matchup performance — game performance only.</p></div>
+    <div class="sec-head rv"><span class="idx">05</span><h2>League table</h2><p>Rating, record and matchup performance — game performance only.</p></div>
     <div class="frame panel rv" tabindex="0" role="region" aria-label="League table">
       <table class="lt"><caption class="sr">League table</caption><thead><tr><th scope="col">Rank</th><th scope="col">Mask</th><th scope="col">Archetype</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead>
       <tbody><tr><td colspan="5"><div class="empty"><b>No proof matches yet.</b><span>Enter cold, or watch a replay first.</span></div></td></tr></tbody></table>
@@ -191,7 +185,14 @@
 <script src="js/core.js?v=bf678400" defer></script>
 <script src="js/content.js?v=7bc203ea" defer></script>
 <script src="js/data.js?v=1ac36fa3" defer></script>
-<script src="js/teach.js?v=e1a66abf" defer></script>
-<script src="js/viz.js?v=af64a5f4" defer></script>
-<script src="js/arena.js?v=8a48d710" defer></script>
+<script src="js/engine-replays.js?v=7e86ca12" defer></script>
+<script src="js/proof.js?v=fedc5057" defer></script>
+<script src="js/stage-art.js?v=fbd378e9" defer></script>
+<script src="js/stage-chars.js?v=06e8a928" defer></script>
+<script src="js/stage.js?v=fa374fe8" defer></script>
+<script src="js/stage-game.js?v=16dbf513" defer></script>
+<script src="js/stage-fx.js?v=d35fd0f6" defer></script>
+<script src="js/stage-sound.js?v=c8f9f9f9" defer></script>
+<script src="js/arena-stage.js?v=f004138a" defer></script>
+<script src="js/arena.js?v=eac0e98b" defer></script>
 </body></html>

@@ -1,83 +1,48 @@
-/* DYADRYN arena — replay viewer, counterfactual branch, proof tamper demo, ring figure */
+/* arena page — what-if (engine-resolved), real proof verification + tamper demo, ring figure */
 (function () {
   'use strict';
-  var DY = window.DY, T = DY.teach, $ = DY.$, $$ = DY.$$;
-  if (!$('#rp') || !T) return;
-  var m = DY.sample(), R = m.rounds, N = R.length - 1;
-  var canon = [], chain = [], genesis = null;
-  function canonOf(i) { var r = R[i]; return 'dyadryn.sample|r=' + i + '|A=' + r.actA + (r.predA ? '(' + r.predA + ')' : '') + '|B=' + r.actB + '|vit=' + Math.round(r.A.vit) + '/' + Math.round(r.B.vit) + '|en=' + Math.round(r.A.en) + '/' + Math.round(r.B.en); }
-  function buildChain() {
-    var p = DY.sha256('dyadryn.sample.seed|2024').then(function (g) { genesis = g; return g; });
-    for (var i = 1; i <= N; i++) (function (i) { canon[i] = canonOf(i); p = p.then(function (prev) { return DY.sha256(canon[i] + '|prev=' + prev).then(function (h) { chain[i] = h; return h; }); }); })(i);
-    return p;
-  }
+  var DY = window.DY, $ = DY.$, $$ = DY.$$, E = DY.ENGINE; if (!E || !$('#wi')) return;
+  var MOVE = DY.Stage.MOVE, SIGN = DY.Stage.SIGN, cur = 0, M = E.matches[0], round = 3;
+  function altLabel(x) { var a = x.act; if (a.action === 'COUNTER') return 'Counter, reading ' + MOVE[a.prediction] + ' correctly'; if (a.action === 'ADAPT') return 'Adapt (' + a.adaptStance.toLowerCase() + ')'; if (a.action === 'SIGNATURE') return SIGN[a.signatureId]; return MOVE[a.action]; }
+  var actLabel = function (a) { return a.action === 'COUNTER' ? 'Counter (' + MOVE[a.prediction] + ')' : a.action === 'SIGNATURE' ? SIGN[a.signatureId] : a.action === 'ADAPT' ? 'Adapt (' + a.adaptStance.toLowerCase() + ')' : MOVE[a.action] || a.action; };
 
-  /* ---------- replay ---------- */
-  var cur = 0, timer = null;
-  $('#rpOf').textContent = 'of ' + N; $('#rpRange').max = N;
-  var moveOf = function (k) { return DY.MOVES.filter(function (x) { return x.k === k; })[0]; };
-  var actCard = function (k, pred) { if (!k) return '<span class="muted caps">Match start</span>'; var mv = moveOf(k); return DY.icon(mv.ico, 34) + '<b>' + mv.name + '</b>' + (pred ? '<small>predicts ' + pred.charAt(0) + pred.slice(1).toLowerCase() + '</small>' : ''); };
-  function show(i) {
-    cur = i; var r = R[i];
-    $('#rpN').textContent = i; $('#rpRange').value = i;
-    DY.meters($('#rpA'), r.A, false); DY.meters($('#rpB'), r.B, false);
-    $('#rpActA').innerHTML = actCard(r.actA, r.predA); $('#rpActB').innerHTML = actCard(r.actB, r.predB);
-    $('#rpEv').innerHTML = i === 0 ? '<li>Both masks clean. Seed committed. Enter.</li>' : r.events.map(function (e) { return '<li class="' + (e.side === 'A' ? 'me' : 'op') + '">' + e.t.replace(/^You /, 'Metis ') + '</li>'; }).join('');
-    if (i === N) { var w = m.winner; $('#rpEv').innerHTML += '<li class="ev-head"><b>' + (w === 'A' ? 'Proof complete. Metis won.' : w === 'B' ? 'Match closed. Cinder won.' : 'No proof advantage.') + '</b></li>'; }
-    $('#rpHash').textContent = i && chain[i] ? DY.short(chain[i]) : (i ? '····' : 'genesis');
-    var A = R.map(function (x) { return x.A.vit; }), B = R.map(function (x) { return x.B.vit; });
-    DY.lineChart($('#rpChart'), [{ name: 'Metis', cls: 'la', mk: 'c', values: A }, { name: 'Cinder', cls: 'lb', mk: 's', values: B }], { marks: [{ x: i, label: 'Round ' + i }], label: 'Vitality by round; current round ' + i });
-    $('#rpSimOut').hidden = true; setAlt();
+  /* ---------- what-if ---------- */
+  function drawWI() {
+    var f = M.frames[round], pre = M.frames[round - 1].post, alts = f.alts || [], sel = $('#wiAlt'), keep = sel.value;
+    sel.innerHTML = alts.map(function (x, i) { var actual = x.act.action === f.actions.a.action; return '<option value="' + i + '">' + altLabel(x) + (actual ? ' (same type as actual)' : '') + '</option>'; }).join('');
+    var actualIdx = alts.findIndex(function (x) { return x.act.action === f.actions.a.action; }); sel.value = keep && alts[keep] ? keep : (actualIdx >= 0 ? actualIdx : 0);
+    renderWI();
   }
-  function setAlt() {
-    var sel = $('#rpAlt'); if (cur === 0) { sel.innerHTML = '<option>Start of match</option>'; sel.disabled = true; $('#rpSim').disabled = true; return; }
-    sel.disabled = false; $('#rpSim').disabled = false;
-    var prev = R[cur - 1], legal = T.legal(prev.A, prev.B);
-    sel.innerHTML = legal.map(function (a) { return '<option value="' + a + '"' + (a === R[cur].actA ? ' selected' : '') + '>' + moveOf(a).name + (a === R[cur].actA ? ' (actual)' : '') + '</option>'; }).join('');
-    var ps = $('#rpPredSel'); ps.innerHTML = T.ACTIONS.filter(function (a) { return a !== 'COUNTER'; }).map(function (a) { return '<option value="' + a + '"' + (a === (R[cur].predA || R[cur].actB) ? ' selected' : '') + '>' + moveOf(a).name + '</option>'; }).join('');
-    $('#rpPredWrap').hidden = sel.value !== 'COUNTER';
+  function renderWI() {
+    var f = M.frames[round], alts = f.alts || [], x = alts[+$('#wiAlt').value]; if (!x) return;
+    var A = M.a.name, B = M.b.name, act = f.post, d = function (n, o) { var v = Math.round(n - o); return (v > 0 ? '+' : '') + v; };
+    $('#wiHead').innerHTML = '<b>Round ' + round + '.</b> Actually, ' + A + ' chose <b>' + actLabel(f.actions.a) + '</b> against <b>' + actLabel(f.actions.b) + '</b>. If ' + A + ' had chosen <b>' + altLabel(x) + '</b>' + (x.outcome ? ' — the engine says that ends the match (' + (x.outcome.winner ? (x.outcome.winner === 'A' ? A : B) + ' wins' : 'draw') + ')' : '') + ':';
+    var rows = [[A + ' Vitality', act.a.r.vitality, x.post.a.vitality], [B + ' Vitality', act.b.r.vitality, x.post.b.vitality], [A + ' Energy', act.a.r.energy, x.post.a.energy], [A + ' Focus', act.a.r.focus, x.post.a.focus], [A + ' Heat', act.a.r.heat, x.post.a.heat], [A + ' Momentum', act.a.r.momentum, x.post.a.momentum], [A + ' Guard', act.a.r.guard, x.post.a.guard], [A + ' Drift', act.a.r.drift, x.post.a.drift]];
+    $('#wiTbl').innerHTML = '<thead><tr><th><span class="sr">Measure</span></th><th>Actual</th><th>Simulated</th><th>Change</th></tr></thead><tbody>' + rows.map(function (r) { var c = Math.round(r[2] - r[1]); return '<tr><th scope="row">' + r[0] + '</th><td>' + Math.round(r[1]) + '</td><td>' + Math.round(r[2]) + '</td><td class="' + (c > 0 ? 'up' : c < 0 ? 'dn' : '') + '">' + d(r[2], r[1]) + '</td></tr>'; }).join('') + '</tbody>';
   }
-  $('#rpAlt').addEventListener('change', function () { $('#rpPredWrap').hidden = this.value !== 'COUNTER'; });
-  $('#rpSim').addEventListener('click', function () {
-    var prev = R[cur - 1], alt = $('#rpAlt').value, pred = alt === 'COUNTER' ? $('#rpPredSel').value : null;
-    var b = T.resolve(prev.A, prev.B, alt, R[cur].actB, pred, R[cur].predB, null), a = R[cur];
-    var d = function (x, y) { var v = Math.round(x - y); return (v > 0 ? '+' : '') + v; };
-    var out = $('#rpSimOut'); out.hidden = false;
-    out.innerHTML = '<div class="sim-head"><span class="tag tag--sim">Simulated</span><b>If Metis had chosen ' + moveOf(alt).name + (pred ? ' (predicting ' + pred + ')' : '') + ' in round ' + cur + ':</b></div>' +
-      '<table class="sim-t"><thead><tr><th></th><th>Actual</th><th>Simulated</th><th>Change</th></tr></thead><tbody>' +
-      [['Metis Vitality', a.A.vit, b.A.vit], ['Cinder Vitality', a.B.vit, b.B.vit], ['Metis Energy', a.A.en, b.A.en], ['Metis Focus', a.A.foc, b.A.foc], ['Metis Drift', a.A.drift, b.A.drift], ['Cinder Heat', a.B.heat, b.B.heat]].map(function (x) { return '<tr><th scope="row">' + x[0] + '</th><td>' + Math.round(x[1]) + '</td><td>' + Math.round(x[2]) + '</td><td>' + d(x[2], x[1]) + '</td></tr>'; }).join('') +
-      '</tbody></table><ul class="tg-events sim-ev">' + b.events.map(function (e) { return '<li class="' + (e.side === 'A' ? 'me' : 'op') + '">' + e.t.replace(/^You /, 'Metis ') + '</li>'; }).join('') + '</ul><p class="muted" style="font-size:.88rem;margin:.6rem 0 0">Simulated with training rules and no random variance. The historical record above is unchanged.</p>';
-  });
-  $('#rpRange').addEventListener('input', function () { stop(); show(+this.value); });
-  $('#rpPrev').addEventListener('click', function () { stop(); show(Math.max(0, cur - 1)); });
-  $('#rpNext').addEventListener('click', function () { stop(); show(Math.min(N, cur + 1)); });
-  function stop() { if (timer) { clearInterval(timer); timer = null; $('#rpPlay').textContent = 'Play'; } }
-  $('#rpPlay').addEventListener('click', function () { if (timer) { stop(); return; } if (cur >= N) show(0); $('#rpPlay').textContent = 'Pause'; timer = setInterval(function () { if (cur >= N) { stop(); return; } show(cur + 1); }, DY.reduce() ? 1400 : 900); });
+  $('#wiRound').addEventListener('input', function () { round = +this.value; $('#wiRoundN').textContent = round; drawWI(); });
+  $('#wiAlt').addEventListener('change', renderWI);
+  $('#wiShow').addEventListener('click', function () { if (DY.stage) { DY.stage.pause(); DY.stage.snap(round); $('#combat').scrollIntoView({ behavior: DY.reduce() ? 'auto' : 'smooth', block: 'start' }); } });
 
-  buildChain().then(function () { $('#rpSeed').textContent = 'Seed commitment ' + DY.short(genesis); show(0); buildVerify(); });
-  show(0);
-
-  /* ---------- verify / tamper ---------- */
-  var tampered = -1;
-  function buildVerify() {
-    var pick = $('#vfPick'); pick.innerHTML = ''; for (var i = 1; i <= N; i++) pick.appendChild(DY.el('option', { value: i }, 'Round ' + i)); pick.value = Math.min(9, N);
-    renderChain(null);
-  }
+  /* ---------- real proof: verify + tamper ---------- */
+  var events, tampered = -1;
+  function resetEvents() { events = JSON.parse(JSON.stringify(M.events)); tampered = -1; }
   function renderChain(res) {
-    $('#vfChain').innerHTML = '<li class="genesis"><span class="caps">Seed</span><code>' + DY.short(genesis) + '</code><span class="vf-s">committed</span></li>' + chain.map(function (h, i) {
-      if (!i) return ''; var s = res ? res[i] : null;
-      return '<li class="' + (s ? (s.ok ? 'ok' : 'bad') : '') + '" style="--i:' + i + '"><span class="caps">R' + i + '</span><code>' + DY.short(h) + '</code><span class="vf-s">' + (s ? (s.ok ? '✓ matches' : (s.first ? '✕ content changed' : '✕ chain broken')) : (i === tampered ? 'edited' : '—')) + '</span></li>';
+    var short = function (h) { return h.slice(0, 4) + '·' + h.slice(4, 8); };
+    $('#vfChain').innerHTML = '<li class="genesis"><span class="caps">Seed</span><code>' + short(M.seed_commitment) + '</code><span class="vf-s">commitment</span></li>' + M.events.map(function (e, i) {
+      var r = res && res.rows[i], cls = r ? (r.ok ? 'ok' : (r.kind === 'unanchored' ? 'un' : 'bad')) : '', st = r ? (r.ok ? '✓ matches' : r.kind === 'content' ? '✕ content changed' : r.kind === 'link' ? '✕ link broken' : '· unproven') : (i === tampered ? 'edited' : '—');
+      return '<li class="' + cls + '" style="--i:' + i + '"><span class="caps">R' + e.round + '</span><code>' + short(e.hash) + '</code><span class="vf-s">' + st + '</span></li>';
     }).join('');
   }
-  function verify() {
-    var out = [], p = Promise.resolve(genesis), first = -1;
-    for (var i = 1; i <= N; i++) (function (i) { p = p.then(function (prev) { return DY.sha256(canon[i] + '|prev=' + prev).then(function (h) { var ok = h === chain[i]; if (!ok && first < 0) first = i; out[i] = { ok: ok, first: i === first }; return chain[i - 1] && ok ? h : h; }); }); })(i);
-    return p.then(function () { return { out: out, first: first }; });
-  }
+  function fillPick() { var p = $('#vfPick'); p.innerHTML = ''; M.events.forEach(function (e) { p.appendChild(DY.el('option', { value: e.round - 1 }, 'Round ' + e.round + ' — ' + e.actions.a.action + ' vs ' + e.actions.b.action)); }); p.value = 8; }
   function setSel(id) { $$('#vf .tabs button').forEach(function (b) { b.setAttribute('aria-pressed', b.id === id); }); }
-  $('#vfVerify').addEventListener('click', function () { setSel('vfVerify'); verify().then(function (r) { renderChain(r.out); $('#vfMsg').textContent = r.first < 0 ? 'Proof complete. All ' + N + ' links recompute from the seed commitment.' : 'Verification failed at round ' + r.first + '. Every later link is broken too.'; }); });
-  $('#vfTamper').addEventListener('click', function () { setSel('vfTamper'); var k = +$('#vfPick').value; tampered = k; canon[k] = canonOf(k) + '|edited'; renderChain(null); $('#vfMsg').textContent = 'Round ' + k + ' was edited after the fact. Now verify.'; });
-  $('#vfRestore').addEventListener('click', function () { setSel('vfRestore'); if (tampered > 0) canon[tampered] = canonOf(tampered); tampered = -1; renderChain(null); $('#vfMsg').textContent = 'Restored. Chain is intact.'; });
+  function say(t) { $('#vfMsg').textContent = t; }
+  $('#vfVerify').addEventListener('click', function () { setSel('vfVerify'); DY.proof.verify(M, events).then(function (r) { renderChain(r); say(r.first < 0 && r.seedOk && r.rootOk ? 'Proof complete. Seed commitment matches, all ' + M.events.length + ' events recompute, and the chain ends at the recorded root.' : 'Verification failed at round ' + M.events[r.first].round + '. Everything after it is unproven.'); }); });
+  $('#vfTamper').addEventListener('click', function () { setSel('vfTamper'); var k = +$('#vfPick').value, ev = events[k], other = { PRESS: 'GUARD', GUARD: 'PRESS' }[ev.actions.a.action] || 'GUARD'; ev.actions.a = { action: other, intensity: 2 }; tampered = k; renderChain(null); say('Round ' + M.events[k].round + ' was edited after the fact (' + M.a.name + '’s move changed to ' + other + '). Now verify.'); });
+  $('#vfRestore').addEventListener('click', function () { setSel('vfRestore'); resetEvents(); renderChain(null); say('Restored. The recorded chain is intact.'); });
+  function loadMatch(m) { M = m; resetEvents(); fillPick(); renderChain(null); say(''); $('#wiRound').max = M.frames.length - 1; round = Math.min(round, M.frames.length - 1); $('#wiRound').value = round; $('#wiRoundN').textContent = round; drawWI(); $('#vfNote').textContent = 'Match ' + M.match_id + ' · ' + M.mode + ' · ruleset ' + M.ruleset + '. The engine itself re-resolved every round of this match from the seed (replay hash ' + M.engine_verified.replay_hash.slice(0, 8) + '…). Your browser checks the chain that seals it.'; }
+  var pickEl = $('#csPick'); if (pickEl) pickEl.addEventListener('click', function (e) { var b = e.target.closest('.cbt'); if (b) loadMatch(E.matches[+b.getAttribute('data-i')]); });
+  loadMatch(M);
 
   /* ---------- ring figure ---------- */
   var f = $('#ringFig');

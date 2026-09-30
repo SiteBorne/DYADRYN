@@ -57,19 +57,6 @@
     render();
   }
 
-  /* ---------- 03 · sample replay ---------- */
-  var chartHost = $('#sampleChart');
-  if (chartHost && DY.teach) {
-    var m = DY.sample();
-    var A = m.rounds.map(function (r) { return r.A.vit; }), B = m.rounds.map(function (r) { return r.B.vit; });
-    var last = m.rounds.length - 1, win = m.winner === 'A' ? 'Metis' : m.winner === 'B' ? 'Cinder' : null;
-    $('#vsRow').innerHTML =
-      '<div class="vs-agent"><span class="th-sig">' + $('.th-sig', th || document).innerHTML + '</span><div><h3>Metis</h3><span class="caps">Trace-Hunter' + (win === 'Metis' ? ' · <b style="color:var(--accent-text)">Won ◆</b>' : '') + '</span></div></div>' +
-      '<div class="vs-mid" aria-hidden="true">VS</div>' +
-      '<div class="vs-agent r"><span class="th-sig" style="--sigil-axis:var(--cold)">' + $('.th-sig', th || document).innerHTML + '</span><div><h3>Cinder</h3><span class="caps">Pressure' + (win === 'Cinder' ? ' · <b style="color:var(--accent-text)">Won ◆</b>' : '') + '</span></div></div>';
-    DY.lineChart(chartHost, [{ name: 'Metis', cls: 'la', mk: 'c', values: A }, { name: 'Cinder', cls: 'lb', mk: 's', values: B }], { label: 'Vitality by round, sample match: Metis versus Cinder', marks: [{ x: last, label: 'Proof complete · round ' + last }] });
-  }
-
   /* ---------- 04 · mask preview ---------- */
   var rows = $('#miniRows');
   if (rows) {
