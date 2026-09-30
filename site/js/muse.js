@@ -33,15 +33,17 @@
   [['D2 · MUSE', 20, 170], ['D1 · EVIDENCE', 176, 310], ['D0 · ENGINE', 350, 545]].forEach(function (b, i) { s += '<g class="band b' + (2 - i) + '"><rect x="6" y="' + b[1] + '" width="988" height="' + (b[2] - b[1]) + '" rx="6"/><text x="16" y="' + (b[1] + 16) + '">' + b[0] + '</text></g>'; });
   Object.keys(E).forEach(function (k) { s += '<path id="e-' + k + '" class="edge" d="' + E[k] + '" marker-end="url(#ah)"/>'; });
   Object.keys(N).forEach(function (k) { var n = N[k]; s += '<g class="node z' + n.z + (n.dash ? ' dash' : '') + '" id="n-' + k + '"><rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="6"/><text class="nt" x="' + (n.x + n.w / 2) + '" y="' + (n.y + n.h / 2 + (n.s ? -4 : 5)) + '" text-anchor="middle">' + n.t + '</text>' + (n.s ? '<text class="ns" x="' + (n.x + n.w / 2) + '" y="' + (n.y + n.h / 2 + 18) + '" text-anchor="middle">' + n.s + '</text>' : '') + '</g>'; });
-  s += '<circle id="pk" r="6" class="pk" cx="-20" cy="-20"/>';
+  for (var q = 0; q < 14; q++) s += '<circle class="spark" r="' + (1.2 + (q % 3)) + '" cx="' + (40 + q * 68) + '" cy="' + (30 + (q * 97) % 520) + '" style="animation-delay:' + (-q * .7) + 's"/>';
+  s += '<circle id="pk" r="7" class="pk" cx="-20" cy="-20"/><circle id="pk2" r="14" class="pk2" cx="-20" cy="-20"/>';
   svg.innerHTML = s;
   var ol = $('#archSteps'), note = $('#archNote'), i = 0, timer = null;
   ol.innerHTML = STEPS.map(function (x, j) { return '<li><button type="button" data-i="' + j + '"><b>' + (j + 1) + '</b><span>' + x.t + '</span></button></li>'; }).join('');
-  function packet(id) { var p = document.getElementById('e-' + id); if (!p || DY.reduce()) return; var len = p.getTotalLength(), t0 = performance.now(), pk = $('#pk'); (function f(now) { var k = Math.min(1, (now - t0) / 900), pt = p.getPointAtLength(len * k); pk.setAttribute('cx', pt.x); pk.setAttribute('cy', pt.y); if (k < 1) requestAnimationFrame(f); else { pk.setAttribute('cx', -20); } })(t0); }
+  function packet(id) { var p = document.getElementById('e-' + id); if (!p || DY.reduce()) return; var len = p.getTotalLength(), t0 = performance.now(), pk = $('#pk'); (function f(now) { var k = Math.min(1, (now - t0) / 900), pt = p.getPointAtLength(len * k); pk.setAttribute('cx', pt.x); pk.setAttribute('cy', pt.y); var p2 = $('#pk2'); p2.setAttribute('cx', pt.x); p2.setAttribute('cy', pt.y); if (k < 1) requestAnimationFrame(f); else { pk.setAttribute('cx', -20); $('#pk2').setAttribute('cx', -20); } })(t0); }
   function go(j) {
     i = j; var st = STEPS[j];
     $$('.edge', svg).forEach(function (e) { e.classList.remove('on'); }); $$('.node', svg).forEach(function (n) { n.classList.remove('on'); });
     st.e.forEach(function (k) { document.getElementById('e-' + k).classList.add('on'); }); st.n.forEach(function (k) { document.getElementById('n-' + k).classList.add('on'); });
+    var pl = st.n.indexOf('d0') > -1 || st.n.indexOf('pf') > -1 ? 'd0' : (st.n.indexOf('ev') > -1 ? 'd1' : 'd2'); svg.setAttribute('data-plane', pl); var lg = $('#archLegend'); if (lg) $$('li', lg).forEach(function (li) { li.classList.toggle('on', li.getAttribute('data-p') === pl); });
     if (st.e.length) packet(st.e[0]);
     $$('button', ol).forEach(function (b, k) { b.setAttribute('aria-current', k === j ? 'step' : 'false'); });
     note.innerHTML = '<span class="tag ' + (j === 2 || j === 3 ? 'tag--trace' : j === 7 ? '' : 'tag--oxide') + '">' + st.tool + '</span><h3>' + (j + 1) + '. ' + st.t + '</h3><p>' + st.d + '</p>';

@@ -80,3 +80,16 @@ html[data-motion="reduce"] .dt-wipe.go{animation:none}@media(prefers-reduced-mot
   .dt-low{grid-template-columns:1fr 1fr}.dt-ledger{grid-column:1/-1;grid-row:2}.dt-hist{display:none}.dt-low .m7{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 .dt-low .m .ml{letter-spacing:0;font-size:calc(var(--u)*8px)}
+
+/* meters: change flashes, shimmer, danger pulse */
+.m{transition:border-color .2s,background .2s}.m u{position:relative;overflow:hidden}
+.m u::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);animation:mshine 4.2s ease-in-out infinite}
+@keyframes mshine{60%,100%{transform:translateX(120%)}}
+.m.up{animation:mup .9s ease-out}.m.dn{animation:mdn .9s ease-out}
+@keyframes mup{0%{background:rgba(127,209,138,.6);box-shadow:0 0 18px rgba(127,209,138,.8);transform:translateY(-3px)}100%{background:rgba(5,6,7,.72);box-shadow:none;transform:none}}
+@keyframes mdn{0%{background:rgba(224,69,58,.65);box-shadow:0 0 18px rgba(224,69,58,.9);transform:translateX(3px)}25%{transform:translateX(-3px)}50%{transform:translateX(2px)}100%{background:rgba(5,6,7,.72);box-shadow:none;transform:none}}
+.m.flag{animation:mflag 1.1s ease-in-out infinite}@keyframes mflag{50%{box-shadow:0 0 14px rgba(224,69,58,.8)}}
+.m.up,.m.dn{animation-fill-mode:none}
+.dt-frame.hit2{filter:drop-shadow(3px 0 0 rgba(255,0,60,.5)) drop-shadow(-3px 0 0 rgba(0,220,255,.4))}.dt-frame.hit3{filter:drop-shadow(6px 0 0 rgba(255,0,60,.7)) drop-shadow(-6px 0 0 rgba(0,220,255,.55)) contrast(1.15)}
+.dt-id .ch.st{animation:chpulse 1.6s ease-in-out infinite;background:rgba(79,209,197,.14)}@keyframes chpulse{50%{box-shadow:0 0 12px currentColor}}
+html[data-motion=reduce] .m u::after,html[data-motion=reduce] .m.flag,html[data-motion=reduce] .dt-id .ch.st{animation:none}@media(prefers-reduced-motion:reduce){.m u::after,.m.flag,.dt-id .ch.st{animation:none}}

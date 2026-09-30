@@ -70,7 +70,7 @@
 
   P.hitOn = function (side, dmg, kind) {
     var sev = dmg < 4 ? 1 : dmg < 9 ? 2 : 3, F = this.F[side], p = this.pt(side, 'chest'), fast = this.rt && this.rt.fast, away = -this.dirOf(side) * -1 * -1;
-    this.fxBurst(p.x, p.y, 40 + sev * 26, sev >= 3); if (F.res) F.res.vitality = Math.max(0, F.res.vitality - dmg);
+    this.fxBurst(p.x, p.y, 40 + sev * 26, sev >= 3); if (sev >= 2) { var fr = this.dom.frame; fr.classList.add('hit' + sev); setTimeout(function () { fr.classList.remove('hit2', 'hit3'); }, 170); } if (F.res) F.res.vitality = Math.max(0, F.res.vitality - dmg);
     if (!fast) { this.stop([0, 50, 90, 150][sev]); this.shake([0, 5, 10, 18][sev]); if (sev >= 2) { this.frameFx.lines = .8; this.frameFx.lx = p.x / this.W; this.frameFx.ly = p.y / this.H; } if (sev >= 3) { this.flash = .4; this.ifr = 90; this.frameFx.ink = .4; } }
     F.pose.flash = 1; var push = -this.dirOf(side) * (10 + sev * 14); this.tw(F.pose, 'dx', push, 140, 0, E.out3); F.pose.hurt = Math.min(1, .5 + sev * .2); F.pose.sway = -this.dirOf(side) * .5; F.pose.glitch = sev >= 2 ? .5 : 0;
     var words = [['', ''], ['TAP', '撃'], ['THUD', '撃'], ['CRASH', '砕']][sev]; if (kind !== 'graze') this.sfx(words[0], p.x - this.dirOf(side) * 40, p.y - 30, 'hit s' + sev, words[1]); this.snd('hit' + sev);

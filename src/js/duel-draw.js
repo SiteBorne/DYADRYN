@@ -56,6 +56,10 @@
     g.globalAlpha = .7; g.fillStyle = halftone(g); g.fillRect(R.x, R.y + R.h * .55, R.w, R.h * .45); g.globalAlpha = 1;
     if (P.flash > 0) { g.fillStyle = 'rgba(255,240,220,' + P.flash * .35 + ')'; g.fillRect(R.x, R.y, R.w, R.h); }
     g.restore();
+    // archetype ambience: each mask sheds its own kind of debris
+    if (!d.reduce) { var amb = K.arc(F.arch), nAmb = 9; g.save(); g.clip(path); for (var ai = 0; ai < nAmb; ai++) { var ph = (ts / 5200 + ai / nAmb) % 1, ax0 = R.x + R.w * (.12 + ((ai * 37) % 76) / 100) + Math.sin(ts / 900 + ai) * 8, ay0 = amb === 'Broker' ? R.y + R.h * ph : R.y + R.h * (1 - ph), al = Math.sin(ph * Math.PI) * .75; g.globalAlpha = al; g.fillStyle = S.acc; g.strokeStyle = S.acc; g.save(); g.translate(ax0, ay0); g.rotate(ts / 700 + ai);
+        if (amb === 'Trace-Hunter') { g.beginPath(); g.moveTo(0, -7); g.lineTo(2.4, 0); g.lineTo(0, 7); g.lineTo(-2.4, 0); g.fill(); } else if (amb === 'Broker') { g.lineWidth = 1.6; g.beginPath(); g.arc(0, 0, 4.5, 0, TAU); g.stroke(); g.fillRect(-1.4, -1.4, 2.8, 2.8); } else if (amb === 'Stillpoint') { g.lineWidth = 1.4; g.beginPath(); for (var hh = 0; hh < 6; hh++) g.lineTo(Math.cos(hh / 6 * TAU) * 5, Math.sin(hh / 6 * TAU) * 5); g.closePath(); g.stroke(); } else if (amb === 'Archive') { g.fillStyle = '#E9DDBE'; g.fillRect(-3, -5, 6, 10); g.fillStyle = '#7A2A22'; g.fillRect(-1, -3, 2, 3); } else if (amb === 'Swarm') { g.beginPath(); g.ellipse(0, 0, 5, 2.6, 0, 0, TAU); g.fill(); } else { g.beginPath(); g.ellipse(0, 0, 6, 2.4, 0, 0, TAU); g.fill(); }
+        g.restore(); } g.restore(); }
     // creature breaks the panel edge (manga pop-out)
     var a = actor(d, side, ts), ol = inked(d, side, a), ax = cx + P.dx - a.bw / a.q / 2, ay = cy + P.dy - a.bh / a.q / 2, bwc = a.bw / a.q, bhc = a.bh / a.q;
     if (F.cold > 0 && 'filter' in g) g.filter = 'grayscale(' + F.cold + ') brightness(' + (1 - F.cold * .35) + ')';
@@ -63,6 +67,8 @@
     if (gl && !d.reduce) { var seed = Math.floor(ts / 90), rr = A.rng(seed + (side === 'a' ? 3 : 9)), n = 7, sh = bhc / n; for (var s = 0; s < n; s++) { var off = (rr() - .5) * (P.glitch > 0 ? 34 : 14); g.drawImage(ol, 0, s * a.bh / n, a.bw, a.bh / n, ax + off, ay + s * sh, bwc, sh + .5); g.drawImage(a.cv, 0, s * a.bh / n, a.bw, a.bh / n, ax + off, ay + s * sh, bwc, sh + .5); } }
     else { g.drawImage(ol, ax, ay, bwc, bhc); g.drawImage(a.cv, ax, ay, bwc, bhc); }
     if ('filter' in g) g.filter = 'none';
+    // stance banner: name + rounds left, in the stance colour
+    if (F.stance && F.stanceK > .05) { var sc = K.STC[F.stance] || '#fff', bx = R.x + R.w * .5, by = R.y + R.h - 26, bw2 = 150; g.save(); g.globalAlpha = F.stanceK; g.translate(bx, by); g.transform(1, 0, -.2, 1, 0, 0); g.fillStyle = '#050607'; g.fillRect(-bw2 / 2, -13, bw2, 26); g.fillStyle = sc; g.fillRect(-bw2 / 2, -13, 6, 26); g.strokeStyle = sc; g.lineWidth = 1.5; g.strokeRect(-bw2 / 2, -13, bw2, 26); g.restore(); g.save(); g.globalAlpha = F.stanceK; g.fillStyle = '#F4EEDF'; g.font = '700 13px "IBM Plex Sans Condensed",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(F.stance.toUpperCase() + ' STANCE', bx + 4, by + 1); g.restore(); }
     // frame: ink + accent keyline
     g.save(); g.lineJoin = 'miter'; g.strokeStyle = '#050607'; g.lineWidth = 5; g.stroke(path); g.strokeStyle = S.acc; g.lineWidth = 2; g.stroke(path); g.restore();
     // corner cut marks
