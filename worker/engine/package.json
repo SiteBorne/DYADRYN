@@ -1,0 +1,20 @@
+{
+  "name": "@dyadryn/reference-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "rules:generate": "node scripts/generate-rules.mjs",
+    "rules:check": "node scripts/generate-rules.mjs --check",
+    "build": "npm run rules:check && tsc -p tsconfig.json",
+    "test": "npm run build && node dist/selftest.js && node --test tests/*.test.mjs",
+    "simulate": "npm run build && node scripts/simulate.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "ajv": "^8.20.0",
+    "fast-check": "^4.10.2",
+    "typescript": "^5.9.3",
+    "yaml": "^2.9.1"
+  }
+}

@@ -1,0 +1,2 @@
+import tseslint from 'typescript-eslint';
+export default tseslint.config({ignores:['node_modules/**','kb/**','dist/**','build/**','engine/dist/**','engine/node_modules/**']},{files:['src/**/*.ts','engine/src/**/*.ts'],languageOptions:{parser:tseslint.parser,parserOptions:{project:'./tsconfig.json',tsconfigRootDir:import.meta.dirname}},plugins:{'@typescript-eslint':tseslint.plugin},rules:{'@typescript-eslint/no-floating-promises':'error','@typescript-eslint/no-explicit-any':'error'}});

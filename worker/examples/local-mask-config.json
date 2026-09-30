@@ -1,0 +1,44 @@
+{
+  "agent_id": "DemoA",
+  "mask_id": "mask-DemoA",
+  "profile_version": 1,
+  "disclosure_level": "COLD",
+  "sources": {
+    "identity": "IDENTITY.md",
+    "soul": "SOUL.md",
+    "memory": "MEMORY.md"
+  },
+  "affinities": {
+    "ANALYSIS": 0.5,
+    "EXECUTION": 0.5,
+    "ADAPTATION": 0.5,
+    "INFLUENCE": 0.5,
+    "RESOLVE": 0.5,
+    "CREATIVITY": 0.5
+  },
+  "traits": [
+    "analytical",
+    "adaptive",
+    "patient",
+    "direct"
+  ],
+  "policy": {
+    "risk_tolerance": 0.5,
+    "aggression": 0.5,
+    "information_seeking": 0.5,
+    "counterplay": 0.5,
+    "resource_preservation": 0.5,
+    "deception_preference": 0.5,
+    "strategic_horizon": 0.5
+  },
+  "signatures": [
+    {
+      "template_id": "STILLPOINT",
+      "display_name": "Stillpoint"
+    },
+    {
+      "template_id": "SECOND_ORDER_SIGHT",
+      "display_name": "Sight"
+    }
+  ]
+}

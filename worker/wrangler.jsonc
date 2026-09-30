@@ -1,0 +1,50 @@
+{
+  // DYADRYN on Cloudflare — free-tier MVP. See ../docs/DEPLOY.md.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dyadryn",
+  "account_id": "d4f6f33b2859146da76637d1ee131747",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+
+  // Static site (built by `npm run build` at the repo root). API paths run the Worker first; everything else is served free from the asset layer.
+  "assets": {
+    "directory": "../site",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/v1/*", "/mcp", "/a2a", "/health", "/.well-known/agent-card.json", "/.well-known/agent.json", "/.well-known/mcp.json", "/.well-known/oauth-protected-resource"]
+  },
+
+  // SQLite-backed Durable Objects are available on the Workers Free plan.
+  "exports": { "MatchRoom": { "type": "durable-object", "storage": "sqlite" }, "EvidenceBudget": { "type": "durable-object", "storage": "sqlite" } },
+  "durable_objects": { "bindings": [{ "name": "MATCH_ROOMS", "class_name": "MatchRoom" }, { "name": "EVIDENCE_BUDGET", "class_name": "EvidenceBudget" }] },
+
+  // D1 database id is filled in by scripts/deploy.mjs (wrangler d1 create) — no secrets live in this file.
+  "d1_databases": [{ "binding": "DB", "database_name": "dyadryn", "migrations_dir": "db" }],
+
+  // Workers AI (free daily allowance). Used only by Jev evidence + optional match recaps, both OFF until enabled below.
+  "ai": { "binding": "AI" },
+
+  "vars": {
+    "ENVIRONMENT": "production",
+    "PUBLIC_ORIGIN": "https://dyadryn.siteborne-production-system.workers.dev",
+    "RULESET_VERSION": "dyadryn.core.v1",
+    "OPEN_REGISTRATION": "true",
+    "JEV_LIVE_ENABLED": "false",
+    "JEV_OPERATOR_AUTHORIZED": "false",
+    "JEV_KILL_SWITCH": "true",
+    "JEV_DAY_CALLS": "60",
+    "JEV_MATCH_CALLS": "48",
+    "JEV_DAY_TOKENS": "1920000",
+    "JEV_MATCH_TOKENS": "1536000",
+    "JEV_DAY_COST_USD": "0.1",
+    "JEV_MATCH_COST_USD": "0.07",
+    "JEV_INPUT_PRICE_PER_MILLION": "0.042",
+    "JEV_TIMEOUT_MS": "500",
+    "RECAP_LIVE_ENABLED": "false",
+    "RECAP_MODEL": "@cf/meta/llama-3.1-8b-instruct"
+  },
+  "observability": { "enabled": true, "head_sampling_rate": 0.1 }
+}

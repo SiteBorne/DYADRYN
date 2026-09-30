@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DyadrynModelRegistryV1",
+  "type": "object",
+  "required": [
+    "model_id",
+    "route",
+    "version",
+    "status",
+    "ruleset_version"
+  ],
+  "properties": {
+    "model_id": {
+      "type": "string"
+    },
+    "route": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "CHAMPION",
+        "CHALLENGER",
+        "ARCHIVE",
+        "UNQUALIFIED"
+      ]
+    },
+    "ruleset_version": {
+      "type": "string"
+    },
+    "prompt_price_per_m": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "completion_price_per_m": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "context_length": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "schema_validity_rate": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "illegal_action_rate": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "glicko_rating": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "glicko_rd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "latency_p50_ms": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "error_rate": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "last_benchmarked": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ratings_by_archetype": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DyadrynReplayV1",
+  "type": "object",
+  "required": [
+    "match_id",
+    "ruleset_version",
+    "seed_commitments",
+    "seed_reveals",
+    "initial_state",
+    "events",
+    "terminal_result",
+    "event_root_hash"
+  ],
+  "properties": {
+    "match_id": {
+      "type": "string"
+    },
+    "ruleset_version": {
+      "type": "string"
+    },
+    "seed_commitments": {
+      "type": "object"
+    },
+    "seed_reveals": {
+      "type": "object"
+    },
+    "initial_state": {
+      "type": "object"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "terminal_result": {
+      "type": "object"
+    },
+    "event_root_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

@@ -1,0 +1,202 @@
+// Generated from config/rules.v1.yaml. Run npm run rules:generate.
+export const RULES = {
+  "ruleset_id": "dyadryn.core.v1",
+  "match": {
+    "max_rounds": 24,
+    "turn_timeout_seconds": 120,
+    "max_timeouts_before_forfeit": 3
+  },
+  "stats": {
+    "names": [
+      "ANALYSIS",
+      "EXECUTION",
+      "ADAPTATION",
+      "INFLUENCE",
+      "RESOLVE",
+      "CREATIVITY"
+    ],
+    "total": 420,
+    "min": 50,
+    "max": 90
+  },
+  "resources": {
+    "VITALITY": {
+      "initial": 100,
+      "min": 0,
+      "max": 100
+    },
+    "ENERGY": {
+      "initial": 100,
+      "min": 0,
+      "max": 100,
+      "round_regen": 6
+    },
+    "FOCUS": {
+      "initial": 20,
+      "min": 0,
+      "max": 100
+    },
+    "HEAT": {
+      "initial": 0,
+      "min": 0,
+      "max": 100
+    },
+    "MOMENTUM": {
+      "initial": 0,
+      "min": -3,
+      "max": 3
+    },
+    "GUARD": {
+      "initial": 0,
+      "min": 0,
+      "max": 60,
+      "round_decay_fraction": 0.5
+    },
+    "DRIFT": {
+      "initial": 0,
+      "min": 0,
+      "max": 100
+    }
+  },
+  "rng": {
+    "jitter_min": 0.97,
+    "jitter_max": 1.03
+  },
+  "intensity": {
+    "1": 0.85,
+    "2": 1,
+    "3": 1.15
+  },
+  "actions": {
+    "TRACE": {
+      "energy": [
+        4,
+        7,
+        10
+      ],
+      "focus_gain": [
+        12,
+        18,
+        24
+      ]
+    },
+    "PRESS": {
+      "energy": [
+        8,
+        13,
+        18
+      ],
+      "heat": [
+        5,
+        8,
+        12
+      ],
+      "base_damage": 11
+    },
+    "GUARD": {
+      "energy": [
+        5,
+        8,
+        11
+      ],
+      "guard_base": [
+        18,
+        24,
+        30
+      ],
+      "heat_delta": -4,
+      "focus_delta": 4
+    },
+    "COUNTER": {
+      "energy": [
+        7,
+        11,
+        15
+      ],
+      "return_base": 7,
+      "success_incoming_multiplier": 0.4,
+      "miss_drift": 6,
+      "miss_incoming_multiplier": 1.1
+    },
+    "ADAPT": {
+      "energy": 8,
+      "duration_rounds": 3,
+      "cooldown_after": 3,
+      "drift_delta": -8
+    },
+    "MIRROR": {
+      "energy": [
+        10,
+        14,
+        18
+      ],
+      "base_scale": 0.9
+    },
+    "RECOVER": {
+      "energy_gain": [
+        12,
+        18,
+        24
+      ],
+      "heat_delta": [
+        -6,
+        -10,
+        -14
+      ],
+      "drift_delta": [
+        -4,
+        -7,
+        -10
+      ],
+      "focus_delta": 5,
+      "incoming_multiplier": [
+        1.05,
+        1.1,
+        1.15
+      ]
+    },
+    "SIGNATURE": {
+      "default_focus_requirement": 30,
+      "default_focus_cost": 30,
+      "default_cooldown": 4
+    }
+  },
+  "thresholds": {
+    "bright": {
+      "heat": 70,
+      "outgoing_multiplier": 1.05,
+      "incoming_multiplier": 1.08
+    },
+    "critical_heat": {
+      "heat": 90,
+      "outgoing_multiplier": 1.1,
+      "incoming_multiplier": 1.15,
+      "drift_per_round": 3
+    },
+    "drift_1": {
+      "drift": 60,
+      "effectiveness": 0.95
+    },
+    "drift_2": {
+      "drift": 80,
+      "effectiveness": 0.85
+    }
+  },
+  "timeout_fallback": {
+    "action": "STALL",
+    "energy_delta": 4,
+    "guard_delta": 5,
+    "heat_delta": -2,
+    "drift_delta": 8,
+    "momentum_delta": -1
+  },
+  "proof_score": {
+    "vitality": 0.55,
+    "energy": 0.15,
+    "focus": 0.1,
+    "guard_normalized": 0.1,
+    "momentum_normalized": 0.05,
+    "inverse_drift": 0.05
+  },
+  "proof_score_draw_epsilon": 0.5
+} as const;

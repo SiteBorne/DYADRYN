@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DyadrynBattleProfileV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mask_id",
+    "agent_id",
+    "profile_version",
+    "compiler_version",
+    "ruleset_version",
+    "source_hashes",
+    "stats",
+    "traits",
+    "policy",
+    "signatures",
+    "disclosure_level",
+    "profile_hash"
+  ],
+  "properties": {
+    "mask_id": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "agent_id": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "profile_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "compiler_version": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "ruleset_version": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "soul",
+        "memory"
+      ],
+      "properties": {
+        "identity": {
+          "type": "string"
+        },
+        "soul": {
+          "type": "string"
+        },
+        "memory": {
+          "type": "string"
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ANALYSIS",
+        "EXECUTION",
+        "ADAPTATION",
+        "INFLUENCE",
+        "RESOLVE",
+        "CREATIVITY"
+      ],
+      "properties": {
+        "ANALYSIS": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 90
+        },
+        "EXECUTION": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 90
+        },
+        "ADAPTATION": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 90
+        },
+        "INFLUENCE": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 90
+        },
+        "RESOLVE": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 90
+        },
+        "CREATIVITY": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 90
+        }
+      }
+    },
+    "traits": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_tolerance",
+        "aggression",
+        "information_seeking",
+        "counterplay",
+        "resource_preservation",
+        "deception_preference",
+        "strategic_horizon"
+      ],
+      "properties": {
+        "risk_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "aggression": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "information_seeking": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "counterplay": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "resource_preservation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "deception_preference": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "strategic_horizon": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "template_id",
+          "display_name"
+        ],
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "disclosure_level": {
+      "enum": [
+        "COLD",
+        "MASKED",
+        "CARRY",
+        "DEEP_CARRY"
+      ]
+    },
+    "public_carry_summary": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "profile_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dyadryn.example/schemas/action.v1.json",
+  "title": "DyadrynActionV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "match_id",
+    "round",
+    "actor_id",
+    "state_hash",
+    "client_nonce",
+    "action",
+    "intensity"
+  ],
+  "properties": {
+    "match_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 80
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 24
+    },
+    "actor_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "state_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "client_nonce": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "action": {
+      "enum": [
+        "TRACE",
+        "PRESS",
+        "GUARD",
+        "COUNTER",
+        "ADAPT",
+        "MIRROR",
+        "RECOVER",
+        "SIGNATURE"
+      ]
+    },
+    "intensity": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "prediction": {
+      "enum": [
+        "TRACE",
+        "PRESS",
+        "GUARD",
+        "ADAPT",
+        "MIRROR",
+        "RECOVER",
+        "SIGNATURE"
+      ]
+    },
+    "adapt_stance": {
+      "enum": [
+        "PREDATOR",
+        "SENTINEL",
+        "HUNTER",
+        "VEIL",
+        "FLUX",
+        "WILD"
+      ]
+    },
+    "signature_id": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "public_intent": {
+      "type": "string",
+      "maxLength": 180
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "COUNTER"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "prediction"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "ADAPT"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "adapt_stance"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "SIGNATURE"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "signature_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "version": "1",
+  "cases": [
+    {
+      "name": "press_vs_guard",
+      "round": 1,
+      "seed": "seed-1",
+      "a": {
+        "action": "PRESS",
+        "intensity": 2
+      },
+      "b": {
+        "action": "GUARD",
+        "intensity": 2
+      }
+    },
+    {
+      "name": "trace_vs_press",
+      "round": 1,
+      "seed": "seed-2",
+      "a": {
+        "action": "TRACE",
+        "intensity": 3
+      },
+      "b": {
+        "action": "PRESS",
+        "intensity": 1
+      }
+    },
+    {
+      "name": "counter_hit",
+      "round": 4,
+      "seed": "seed-3",
+      "a": {
+        "action": "COUNTER",
+        "intensity": 2,
+        "prediction": "PRESS"
+      },
+      "b": {
+        "action": "PRESS",
+        "intensity": 2
+      }
+    }
+  ]
+}

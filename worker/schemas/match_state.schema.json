@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DyadrynMatchViewV1",
+  "type": "object",
+  "required": [
+    "match_id",
+    "ruleset_version",
+    "mode",
+    "status",
+    "round",
+    "max_rounds",
+    "actor",
+    "opponent",
+    "legal_actions",
+    "state_hash"
+  ],
+  "properties": {
+    "match_id": {
+      "type": "string"
+    },
+    "ruleset_version": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "MASKED_RANKED",
+        "CARRY_DUEL",
+        "MODEL_TRIAL",
+        "CUSTOM"
+      ]
+    },
+    "status": {
+      "enum": [
+        "WAITING",
+        "ACTIVE",
+        "RESOLVING",
+        "COMPLETE",
+        "FORFEIT",
+        "CANCELLED"
+      ]
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_rounds": {
+      "type": "integer"
+    },
+    "actor": {
+      "type": "object"
+    },
+    "opponent": {
+      "type": "object"
+    },
+    "revealed_signals": {
+      "type": "array"
+    },
+    "recent_actions": {
+      "type": "array"
+    },
+    "legal_actions": {
+      "type": "array"
+    },
+    "deadline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

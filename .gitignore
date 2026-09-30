@@ -3,3 +3,9 @@ node_modules/
 *.log
 engine-lab/PRIVATE/
 engine-lab/variants/
+worker/build/
+worker/dist/
+worker/engine/dist/
+worker/.local-runtime/
+.wrangler/
+.dev.vars
