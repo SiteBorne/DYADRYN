@@ -717,7 +717,7 @@ Restore some Vitality, Energy and Guard — and gain some Heat.
 
 ### Veil Step
 
-Predictions against you count as misses unless your opponent has studied you enough. Your own move this round is slightly weaker.
+Blows against you land softer and gain you a little Guard and Energy. Predictions against you count as misses unless your opponent has studied you enough. Your own move this round is slightly weaker.
 
 `VEIL_STEP`
 

@@ -20,17 +20,28 @@
   var BACK = '<svg viewBox="0 0 100 140" aria-hidden="true"><rect x="6" y="6" width="88" height="128" fill="none" stroke="currentColor" stroke-width="2"/><path d="M50 30a26 26 0 1 1-18.4 7.6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M40 52h-8v36h8M60 52h8v36h-8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M50 40v64" stroke="#D63A32" stroke-width="3"/></svg>';
   P.cardHTML = function (x, side) {
     var k = x.action, c = MCLS[k] || MCLS.STALL, mv = (DY.MOVES || []).filter(function (m) { return m.k === k; })[0] || {}, sg = k === 'SIGNATURE' ? (DY.SIGS || []).filter(function (s) { return s.id === x.signatureId; })[0] : null;
-    var name = k === 'SIGNATURE' ? (SIGN[x.signatureId] || 'Signature') : (MOVE[k] || k), line = sg ? sg.tag : (mv.line || ''), tx = sg ? sg.desc : (mv.gain || ''), cost = COST[mv.energy] != null ? COST[mv.energy] : 0, sub = k === 'COUNTER' ? 'reads ' + MOVE[x.prediction] : k === 'ADAPT' ? (x.adaptStance || '').toLowerCase() + ' stance' : '';
+    var name = k === 'SIGNATURE' ? (SIGN[x.signatureId] || 'Signature') : (MOVE[k] || k), line = sg ? sg.tag : (mv.line || ''), tx = sg ? (sg.short || sg.desc) : (mv.gain || ''), cost = COST[mv.energy] != null ? COST[mv.energy] : 0, sub = k === 'COUNTER' ? 'reads ' + MOVE[x.prediction] : k === 'ADAPT' ? (x.adaptStance || '').toLowerCase() : '', ty = sub && (k === 'COUNTER' || k === 'ADAPT') ? sub : c.t + (sub ? ' · ' + sub : '');
     var pips = function (n, max) { var s = ''; for (var i = 1; i <= max; i++) s += '<i class="' + (i <= n ? 'on' : '') + '"></i>'; return s; };
-    return '<div class="dt-card ' + side + '" style="--c:' + c.c + '"><div class="ci"><div class="cb">' + BACK + '<span class="lk">' + DY.icon('lock', 14) + 'SEALED</span></div><div class="cf"><header><b class="' + (name.length > 11 ? 'l2' : name.length > 8 ? 'l1' : '') + '">' + name + '</b></header><div class="art"><span class="cost" title="Energy cost">' + pips(cost, 3) + '</span><span class="kj" aria-hidden="true">' + kj(KANJI[k]) + '</span><span class="emb">' + DY.icon(ICO[k] || 'drift', 44) + '</span></div><div class="ty"><span>' + c.t + (sub ? ' · ' + sub : '') + '</span><span class="ip" title="Intensity">' + pips(x.intensity || 0, 3) + '</span></div><p class="tx"><b>' + line + '</b><span>' + tx + '</span></p></div></div></div>';
+    return '<div class="dt-card ' + side + '" style="--c:' + c.c + '"><div class="ci"><div class="cb">' + BACK + '<span class="lk">' + DY.icon('lock', 14) + 'SEALED</span></div><div class="cf"><header><b class="' + (name.length > 14 ? 'l2' : name.length > 8 ? 'l1' : '') + '">' + name + '</b></header><div class="art"><span class="cost" title="Energy cost">' + pips(cost, 3) + '</span><span class="kj" aria-hidden="true">' + kj(KANJI[k]) + '</span><span class="emb">' + DY.icon(ICO[k] || 'drift', 44) + '</span></div><div class="ty"><span>' + ty + '</span><span class="ip" title="Intensity">' + pips(x.intensity || 0, 3) + '</span></div><p class="tx"><b>' + line + '</b><span>' + tx + '</span></p></div></div></div>';
   };
   P.layoutCards = function () {
     var cw = Math.round((this.W < 700 ? Math.round(this.W * .36) : Math.max(150, Math.min(this.H * .3, this.W * .3)))), ch = Math.round(cw * 1.5), Ra = this.R.a, Rb = this.R.b, rc = this.ringC(); this.cw = cw; this.ch = ch; this.dom.cards.style.setProperty('--cw', cw + 'px');
     this.slot = { a: { x: Ra.x + Ra.w - cw * .1, y: Ra.y + Ra.h - ch * .36 }, b: { x: Rb.x + cw * .1, y: Rb.y + Rb.h - ch * .36 } }; this.clashAt = { a: { x: rc.x - cw * (this.W < 700 ? .6 : .68), y: rc.y - ch * (this.W < 700 ? .3 : .02) }, b: { x: rc.x + cw * (this.W < 700 ? .6 : .68), y: rc.y - ch * (this.W < 700 ? .3 : .02) } };
   };
+  /* Shrink text until every part of the card face is fully visible (nothing is ever cropped). Runs at spawn and again once fonts settle. */
+  P.fitCard = function (node) {
+    var cf = node.querySelector('.cf'), tx = cf && cf.querySelector('.tx'), tt = cf && cf.querySelector('header b'); if (!cf) return;
+    var run = function () {
+      if (!cf.clientHeight) return; tx.style.fontSize = ''; tt.style.fontSize = ''; var fs = parseFloat(getComputedStyle(tx).fontSize), ts = parseFloat(getComputedStyle(tt).fontSize), n = 0;
+      while (tt.scrollWidth > tt.clientWidth + 1 && ts > 10 && n++ < 30) { ts -= .5; tt.style.fontSize = ts + 'px'; }
+      var ty = cf.querySelector('.ty span'); if (ty) { ty.style.fontSize = ''; var ys = parseFloat(getComputedStyle(ty).fontSize); n = 0; while (ty.scrollWidth > ty.clientWidth + 1 && ys > 8.5 && n++ < 20) { ys -= .5; ty.style.fontSize = ys + 'px'; } }
+      n = 0; while ((cf.scrollHeight > cf.clientHeight + 1 || tx.scrollHeight > tx.clientHeight + 1) && fs > 10.5 && n++ < 30) { fs -= .5; tx.style.fontSize = fs + 'px'; }
+    };
+    run(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(run); requestAnimationFrame(run);
+  };
   P.clearCards = function () { if (this.dom && this.dom.cards) this.dom.cards.innerHTML = ''; this.cards = { a: null, b: null }; };
   P.spawnCard = function (side, x, ghost) {
-    var w = document.createElement('div'); w.innerHTML = this.cardHTML(x, side); var node = w.firstChild; if (ghost) node.classList.add('ghost'); this.dom.cards.appendChild(node);
+    var w = document.createElement('div'); w.innerHTML = this.cardHTML(x, side); var node = w.firstChild; if (ghost) node.classList.add('ghost'); this.dom.cards.appendChild(node); this.fitCard(node);
     var s = { x: side === 'a' ? -this.cw : this.W + this.cw, y: this.slot[side].y, rot: 0, sc: 1, flip: ghost ? 1 : 0, a: 1, glow: 0, z: ghost ? 3 : 1 }; var key = ghost ? side + 'g' : side; this.cards[key] = { el: node, s: s, x: x }; this.applyCards(); return this.cards[key];
   };
   P.applyCards = function () {

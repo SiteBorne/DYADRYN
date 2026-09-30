@@ -20,14 +20,14 @@ export const RES = [
   { k: 'drift', name: 'Drift', range: '0–100', def: 'Loss of coherence. At 60 your non-recovery moves weaken a little; at 80, more. Adapt and Recover lower it.', more: 'Missed Counters, overheating and repeating yourself raise it.' }
 ];
 export const SIGS = [
-  { id: 'SECOND_ORDER_SIGHT', name: 'Second-Order Sight', desc: 'Trace immediately, and your next successful Counter hits harder.', tag: 'Reader' },
-  { id: 'CONSTRAINT_COLLAPSE', name: 'Constraint Collapse', desc: 'A Press that hits far harder if your opponent is low on Energy. Adds extra Heat.', tag: 'Pressure' },
-  { id: 'COUNTERFACTUAL_SHIELD', name: 'Counterfactual Shield', desc: 'A large Guard. Part of the Guard that actually gets used turns into Focus.', tag: 'Defense' },
-  { id: 'STILLPOINT', name: 'Stillpoint', desc: 'Regain Energy, gain Guard, cool Heat and Drift — at the price of taking slightly more damage.', tag: 'Reset' },
-  { id: 'BROKER_LOCK', name: 'Broker Lock', desc: 'If your opponent repeats their last move, it costs more and works less. Otherwise you gain Focus.', tag: 'Tempo' },
-  { id: 'ARCHIVE_ECHO', name: 'Archive Echo', desc: 'If your opponent has used the same non-Signature move at least twice, echo it back. Otherwise gain Focus and a little Drift.', tag: 'Memory' },
-  { id: 'SWARM_REPAIR', name: 'Swarm Repair', desc: 'Restore some Vitality, Energy and Guard — and gain some Heat.', tag: 'Repair' },
-  { id: 'VEIL_STEP', name: 'Veil Step', desc: 'Predictions against you count as misses unless your opponent has studied you enough. Your own move this round is slightly weaker.', tag: 'Disclosure' }
+  { id: 'SECOND_ORDER_SIGHT', name: 'Second-Order Sight', desc: 'Trace immediately, and your next successful Counter hits harder.', short: 'Trace now. Your next Counter hits harder.', tag: 'Reader' },
+  { id: 'CONSTRAINT_COLLAPSE', name: 'Constraint Collapse', desc: 'A Press that hits far harder if your opponent is low on Energy. Adds extra Heat.', short: 'A Press that crushes a low-Energy foe. Extra Heat.', tag: 'Pressure' },
+  { id: 'COUNTERFACTUAL_SHIELD', name: 'Counterfactual Shield', desc: 'A large Guard. Part of the Guard that actually gets used turns into Focus.', short: 'Big Guard. Guard you use turns into Focus.', tag: 'Defense' },
+  { id: 'STILLPOINT', name: 'Stillpoint', desc: 'Regain Energy, gain Guard, cool Heat and Drift — at the price of taking slightly more damage.', short: 'Regain Energy and Guard. Cool Heat and Drift.', tag: 'Reset' },
+  { id: 'BROKER_LOCK', name: 'Broker Lock', desc: 'If your opponent repeats their last move, it costs more and works less. Otherwise you gain Focus.', short: 'A repeated move costs more and works less.', tag: 'Tempo' },
+  { id: 'ARCHIVE_ECHO', name: 'Archive Echo', desc: 'If your opponent has used the same non-Signature move at least twice, echo it back. Otherwise gain Focus and a little Drift.', short: 'Echo back a move they keep repeating.', tag: 'Memory' },
+  { id: 'SWARM_REPAIR', name: 'Swarm Repair', desc: 'Restore some Vitality, Energy and Guard — and gain some Heat.', short: 'Restore Vitality, Energy and Guard. Some Heat.', tag: 'Repair' },
+  { id: 'VEIL_STEP', name: 'Veil Step', desc: 'Blows against you land softer and gain you a little Guard and Energy. Predictions against you count as misses unless your opponent has studied you enough. Your own move this round is slightly weaker.', short: 'Soften blows; Counters on you miss. Your move is weaker.', tag: 'Disclosure' }
 ];
 export const STANCES = [
   ['Predator', 'Execution', 'Resolve'], ['Sentinel', 'Resolve', 'Influence'], ['Hunter', 'Analysis', 'Creativity'],

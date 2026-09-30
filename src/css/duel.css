@@ -146,3 +146,11 @@ html[data-motion=reduce] .m u::after,html[data-motion=reduce] .m.flag,html[data-
 .dt-card .tx b{font-style:normal}
 .dt-card .ty{padding-right:calc(var(--cw)*.09);clip-path:none}.dt-card .tx{overflow-wrap:anywhere}
 .dt-emb .dt-av{width:100%;height:100%;object-fit:cover;transform:skewX(10deg) scale(1.22);image-rendering:auto}.dt-id.b .dt-emb .dt-av{transform:skewX(-10deg) scale(1.22)}.dt-emb{overflow:hidden}
+
+/* card text v4: titles may wrap to two balanced lines; art keeps a minimum; body never clips (fitCard shrinks as a last resort) */
+.dt-card header b{white-space:normal;overflow-wrap:normal;text-wrap:balance;line-height:1.08;padding:0 1px}
+.dt-card header b.l2{font-size:max(12px,calc(var(--cw)*.105))}
+.dt-card .art{min-height:calc(var(--cw)*.2)}
+.dt-card .ty{flex:0 0 auto;white-space:nowrap}
+.dt-card .tx{flex:0 0 auto;overflow:visible}
+.dt-card .ty>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
