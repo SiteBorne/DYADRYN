@@ -11,7 +11,7 @@ if (isMainThread) {
   console.log('n', pts.length, 'win-probability change per +1 point moved INTO the stat from CREATIVITY (x100 = percentage points):'); ST.slice(0, 5).forEach((n, i) => console.log(' ', n.padEnd(11), (100 * b[i]).toFixed(2), 'pp')); console.log('  CREATIVITY  0.00 pp (reference)');
   console.log('mean length', (pts.reduce((a, p) => a + p.n, 0) / pts.length).toFixed(1));
 } else {
-  const E = await L.load(workerData.OV ? 'sv' + threadId + Date.now() : 'v1', workerData.OV), out = [];
+  const E = await L.load(workerData.OV ? 'sv' + threadId + Date.now() : 'v2', workerData.OV), out = [];
   for (let i = workerData.w; i < NM; i += workerData.W) { const r = L.rng(L.fnv('sv' + i)), sa = prof(r), sb = prof(r); const mk = (id, s, g) => E.createPlayer(id, s, g); const sigs = Object.keys(E.SIGNATURES);
     const ga = [sigs[i % 8], sigs[(i + 3) % 8]], gb = [sigs[(i + 1) % 8], sigs[(i + 5) % 8]]; let st = { round: 1, a: mk('A', sa, ga), b: mk('B', sb, gb) }, o = null, n = 0; const c = { r };
     while (!o) { const aa = L.POLICIES.bandit(E, st.a, st.b, { r, round: st.round, side: 'a' }), ab = L.POLICIES.bandit(E, st.b, st.a, { r, round: st.round, side: 'b' }); const res = E.resolveRound(st, aa, ab, 'sv' + i); n++; o = res.outcome; st = { round: res.outcome ? res.round : res.round + 1, a: res.a, b: res.b }; }

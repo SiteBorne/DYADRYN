@@ -1,29 +1,26 @@
 // DYADRYN engine lab: policy-population tournaments on the REAL resolver (pure resolveRound), any rules variant.
-import { readFileSync, cpSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { parse } from '../eng/engine/node_modules/yaml/dist/index.js';
+// Variants are built from the worker's compiled engine (worker/engine/dist) + a rules YAML with dotted-path overrides,
+// so the lab measures exactly the code that ships. `v2: null` removes the v2 section => v1-equivalent behaviour.
+import { readFileSync, cpSync, writeFileSync, existsSync, rmSync } from 'node:fs';
+import { parse } from '../worker/node_modules/yaml/dist/index.js';
 import path from 'node:path';
 const HERE = path.dirname(new URL(import.meta.url).pathname);
-const BASE_YAML = path.join(HERE, '../eng/config/rules.v1.yaml');
+const DIST = path.join(HERE, '../worker/engine/dist'), CONFIG = path.join(HERE, '../worker/config');
 export function buildVariant(id, overrides = {}) {
   const dir = path.join(HERE, 'variants', id);
-  if (existsSync(dir) && id !== 'v1') { /* rebuild */ }
-  if (id !== 'v1') {
-    cpSync(path.join(HERE, 'variants/v1'), dir, { recursive: true });
-    const rules = parse(readFileSync(BASE_YAML, 'utf8'));
-    const set = (o, p, v) => { const k = p.split('.'); let t = o; for (let i = 0; i < k.length - 1; i++) t = t[k[i]]; t[k.at(-1)] = v; };
-    const code = {}; for (const [p, v] of Object.entries(overrides)) { if (p.startsWith('@')) code[p] = v; else set(rules, p, v); }
-    if (code['@statsLive']) { const f = path.join(dir, 'resolve.js'); let t = readFileSync(f, 'utf8'); const k = +code['@statsLive'];
-      t = t.replace('const i = a.intensity - 1,', `if (a.action === "SIGNATURE") e.scale *= 1 + ${k} * (statFactor(effectiveStats(p).INFLUENCE) - 1);\n    const i = a.intensity - 1,`);
-      t = t.replace('e.mitigation = RULES.actions.COUNTER.success_incoming_multiplier;', `e.mitigation = 1 - (1 - RULES.actions.COUNTER.success_incoming_multiplier) / (1 + ${k} * (statFactor(effectiveStats(other.actor).CREATIVITY) - 1));`);
-      writeFileSync(f, t); }
-    if (code['@sigBoost']) { const f = path.join(dir, 'resolve.js'); let t = readFileSync(f, 'utf8'); t = t.replace('const i = a.intensity - 1,', `if (a.action === "SIGNATURE") e.scale *= ${+code['@sigBoost']};\n    const i = a.intensity - 1,`); writeFileSync(f, t); }
-    if (code['@guardFatigue'] != null) { const f = path.join(dir, 'resolve.js'); writeFileSync(f, readFileSync(f, 'utf8').replace('d.guard += RULES.actions.GUARD.guard_base[i] * statFactor(s.RESOLVE) * f;', `d.guard += RULES.actions.GUARD.guard_base[i] * statFactor(s.RESOLVE) * f * (p.previousBaseAction === "GUARD" ? ${+code['@guardFatigue']} : 1);`)); }
-    rules.ruleset_id = 'lab.' + id;
-    writeFileSync(path.join(dir, 'rules.generated.js'), 'export const RULES = ' + JSON.stringify(rules) + ';\n');
+  rmSync(dir, { recursive: true, force: true });
+  cpSync(DIST, dir, { recursive: true });
+  const rules = parse(readFileSync(path.join(CONFIG, overrides['@file'] || (id === 'v1' ? 'rules.v1.yaml' : 'rules.v2.yaml')), 'utf8'));
+  for (const [p, v] of Object.entries(overrides)) {
+    if (p.startsWith('@')) continue;
+    const k = p.split('.'); let t = rules; for (let i = 0; i < k.length - 1; i++) t = t[k[i]];
+    if (v === null) delete t[k.at(-1)]; else t[k.at(-1)] = v;
   }
+  rules.ruleset_id = 'lab.' + id;
+  writeFileSync(path.join(dir, 'rules.generated.js'), 'export const RULES = ' + JSON.stringify(rules) + ';\n');
   return dir;
 }
-export async function load(id, overrides) { return import(buildVariant(id, overrides) + '/index.js'); }
+export async function load(id, overrides) { return import(buildVariant(id, overrides) + '/index.js?' + Date.now()); }
 
 export const rng = (s) => { let x = (s >>> 0) || 0x9e3779b9; return () => { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; };
 export const fnv = (str) => { let h = 0x811c9dc5; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); } return h >>> 0; };

@@ -8,7 +8,7 @@ if (isMainThread) {
   console.log('action removed -> win% of the restricted agent vs the full agent (50 = action adds nothing; lower = action matters)');
   for (const k of Object.keys(res)) if (k !== 'none') console.log(k.padEnd(10), (100 * res[k].wr).toFixed(1).padStart(5) + '%', ' n=' + res[k].n, ' meanLen', res[k].len);
 } else {
-  const E = await L.load(workerData.variant === 'v1' ? 'v1' : 'abl_' + threadId + '_' + Date.now(), workerData.ov), base = workerData.which === 'deep' ? L.POLICIES.deep : L.POLICIES.bandit;
+  const E = await L.load((workerData.variant === 'v1' ? 'v1' : 'abl_' + threadId + '_' + Date.now()), workerData.ov), base = workerData.which === 'deep' ? L.POLICIES.deep : L.POLICIES.bandit;
   for (const ban of workerData.jobs) {
     if (!ban.length) continue; let s = 0, n = 0, len = 0;
     for (let k = 0; k < workerData.N; k++) for (const sw of [0, 1]) {

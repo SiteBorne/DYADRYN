@@ -16,6 +16,7 @@ import {
   assertStats,
   clampResources,
   statFactor,
+  V2,
 } from "./rules.js";
 const own = (o: object, k: string) => Object.hasOwn(o, k);
 export function assertAction(value: unknown): asserts value is BattleAction {
@@ -136,6 +137,8 @@ export function assertPlayer(p: PlayerState): void {
     "history",
     "revealedSignals",
     "secondOrderSight",
+    "accord",
+    "reprisal",
   ];
   if (!p || Object.keys(p).some((k) => !keys.includes(k)))
     throw new Error("unknown_player_field");
@@ -150,6 +153,9 @@ export function assertPlayer(p: PlayerState): void {
   )
     throw new Error("invalid_resource_shape");
   if (p.insightStacks > 3) throw new Error("insight_out_of_bounds");
+  for (const k of ["accord", "reprisal"] as const)
+    if (p[k] !== undefined && (!V2 || !Number.isInteger(p[k]) || (p[k] as number) < 0 || (p[k] as number) > Math.max(V2.accord.cap, V2.accord.reprisal_rounds)))
+      throw new Error("invalid_v2_counter");
   if (
     p.secondOrderSight !== undefined &&
     typeof p.secondOrderSight !== "boolean"
@@ -203,7 +209,7 @@ export function assertPlayer(p: PlayerState): void {
       !Number.isFinite(p.activeAdapt.scale ?? 1) ||
       (p.activeAdapt.scale ?? 1) <= 0 ||
       (p.activeAdapt.scale ?? 1) >
-        RULES.actions.MIRROR.base_scale * statFactor(RULES.stats.max))
+        Math.max(1, RULES.actions.MIRROR.base_scale * statFactor(RULES.stats.max)) * (V2 ? (1 + V2.novelty.bonus) * Math.max(1, V2.signature.scale) : 1))
   )
     throw new Error("invalid_adapt");
   if (p.activeAdapt !== undefined && Object.keys(p.activeAdapt).some(k => !["stance", "roundsRemaining", "scale"].includes(k))) throw new Error("unknown_adapt_field");

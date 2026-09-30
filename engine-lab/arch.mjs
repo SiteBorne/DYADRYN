@@ -9,7 +9,7 @@ if (isMainThread) {
   console.log('SIGNATURE carried'); for (const k of Object.keys(sig).sort()) console.log(' ', k.padEnd(22), f(sig[k]));
   const len = rows.map(r => r.n); console.log('mean length', (len.reduce((a, b) => a + b) / len.length).toFixed(2), 'limit rate', (rows.filter(r => r.reason === 'round_limit').length / rows.length).toFixed(2));
 } else {
-  const E = await L.load(OV ? 'ar' + workerData.w + Date.now() : 'v1', OV), out = []; let idx = 0;
+  const E = await L.load(OV ? 'ar' + workerData.w + Date.now() : 'v2', OV), out = []; let idx = 0;
   for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) if (i !== j) for (let k = 0; k < S; k++) { if ((idx++) % workerData.W !== workerData.w) continue; const m = L.playMatch(E, 0, 0, L.NAMES[i], L.NAMES[j], `pa-${i}-${j}-${k}`, L.POLICIES.bandit, L.POLICIES.bandit); out.push({ a: L.NAMES[i], b: L.NAMES[j], w: m.outcome.winner, n: m.rounds, reason: m.outcome.reason, sa: L.ARCH[L.NAMES[i]].sig, sb: L.ARCH[L.NAMES[j]].sig }); }
   parentPort.postMessage(out);
 }

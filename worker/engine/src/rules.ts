@@ -11,6 +11,20 @@ function freeze(value: unknown): void {
   if(value && typeof value === 'object' && !Object.isFrozen(value)) { for(const v of Object.values(value)) freeze(v); Object.freeze(value); }
 }
 freeze(RULES);
+// Ruleset v2 knobs. Absent in the v1 YAML => every v2 code path is skipped and v1 replays stay byte-identical.
+export interface V2Rules {
+  accord: { cap: number; dividend_focus: number; dividend_energy: number; streak_bonus: number; betrayal_bonus: number; reprisal_rounds: number; reprisal_bonus: number };
+  novelty: { window: number; bonus: number; counter_surprise: number };
+  fatigue: { guard_decay: number; recover_decay: number; floor: number };
+  stale: { lead_min: number; drift: number; standoff_rounds: number; standoff_drift: number };
+  signature: { scale: number };
+  exposure: { trace: number; adapt: number };
+  insight: { press_bonus: number };
+  adapt: { amount: number };
+}
+export const V2: V2Rules | null = (RULES as unknown as { v2?: V2Rules }).v2 ?? null;
+/** 0..1 leverage of a 50..90 attribute. Low attributes earn no bonus; the four other attributes keep their own roles. */
+export const lev = (s: number): number => Math.max(0, Math.min(1, (s - RULES.stats.min) / (RULES.stats.max - RULES.stats.min)));
 export const MAX_ROUNDS = RULES.match.max_rounds;
 export const ACTIONS = [
   "TRACE",

@@ -1,4 +1,4 @@
-// Generated from config/rules.v1.yaml. Run npm run rules:generate.
+// Generated from config/rules.v*.yaml (default rules.v2.yaml). Run npm run rules:generate.
 export const RULES = {
   "ruleset_id": "dyadryn.core.v1",
   "match": {

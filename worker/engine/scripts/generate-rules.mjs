@@ -1,10 +1,10 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { parse } from "yaml";
 const rules = parse(
-  readFileSync(new URL("../../config/rules.v1.yaml", import.meta.url), "utf8"),
+  readFileSync(new URL(`../../config/${process.env.RULES_YAML ?? "rules.v2.yaml"}`, import.meta.url), "utf8"),
 );
 const output =
-  "// Generated from config/rules.v1.yaml. Run npm run rules:generate.\nexport const RULES = " +
+  "// Generated from config/rules.v*.yaml (default rules.v2.yaml). Run npm run rules:generate.\nexport const RULES = " +
   JSON.stringify(rules, null, 2) +
   " as const;\n";
 const target = new URL("../src/rules.generated.ts", import.meta.url);

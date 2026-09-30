@@ -74,6 +74,10 @@ export interface PlayerState {
   history?: HistoryEntry[];
   revealedSignals?: string[];
   secondOrderSight?: boolean;
+  /** v2: mirrored streak of rounds in which both agents held back (the Accord). */
+  accord?: number;
+  /** v2: rounds of Reprisal remaining for the agent that was betrayed. */
+  reprisal?: number;
 }
 export interface Outcome {
   winner: string | null;
