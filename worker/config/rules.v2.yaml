@@ -187,3 +187,10 @@ v2:
     press_bonus: 0
   adapt:
     amount: 8
+  stat_weight:
+    ANALYSIS: 1
+    EXECUTION: 1
+    ADAPTATION: 1
+    RESOLVE: 1
+  influence:
+    read: 0

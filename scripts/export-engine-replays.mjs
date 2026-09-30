@@ -28,7 +28,7 @@ const env = (m, id, a) => ({ match_id: m.matchId, round: m.state.round, actor_id
 // (Brier 0.124 vs 0.246 for a coin flip; see docs/ENGINE_BACKTEST.md). Computed here, at build time, so no engine constants ship.
 const WP_K = [[1, 3, 0.13], [4, 6, 0.145], [7, 10, 0.15], [11, 15, 0.165], [16, 99, 0.23]];
 const winChance = (st, round) => { const k = WP_K.find(([lo, hi]) => round >= lo && round <= hi)[2]; return Math.round(1e3 / (1 + Math.exp(-k * (E.proofScore(st.a.resources) - E.proofScore(st.b.resources))))) / 10; };
-const slim = (p) => ({ r: p.resources, ins: p.insightStacks, sg: p.revealedSignals ?? [], adapt: p.activeAdapt ? { stance: p.activeAdapt.stance, left: p.activeAdapt.roundsRemaining } : null, cd: Object.fromEntries(Object.entries(p.cooldowns).filter(([, v]) => v > 0)), sig: p.signatures });
+const slim = (p) => ({ r: p.resources, ins: p.insightStacks, sg: p.revealedSignals ?? [], adapt: p.activeAdapt ? { stance: p.activeAdapt.stance, left: p.activeAdapt.roundsRemaining } : null, cd: Object.fromEntries(Object.entries(p.cooldowns).filter(([, v]) => v > 0)), sig: p.signatures, acc: p.accord ?? 0, rep: p.reprisal ?? 0 });
 function play(card, seedIx) {
   const seed = `dyadryn-site-${card.id}-${seedIx}`, rand = E.xorshift32(E.fnv1a32(seed));
   let m = E.createMatch({ matchId: `${card.id}-${String(seedIx).padStart(4, '0')}`, seed, a: mk('A', card.a[1]), b: mk('B', card.b[1]), now: 0, mode: 'MODEL_TRIAL' });

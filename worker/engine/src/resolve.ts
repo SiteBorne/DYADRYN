@@ -24,6 +24,7 @@ import {
   proofScore,
   V2,
   lev,
+  type V2Rules,
 } from "./rules.js";
 import {
   assertState,
@@ -56,6 +57,11 @@ export function effectiveStats(p: PlayerState): Stats {
     s[down] -= amount;
   }
   return s;
+}
+/** Attribute leverage. v2 lets each attribute's effect be tuned so every point is worth about the same (no dominant build). */
+function sf(value: number, name: keyof Stats): number {
+  const base = statFactor(value);
+  return V2 ? 1 + (base - 1) * V2.stat_weight[name as keyof V2Rules["stat_weight"]] : base;
 }
 function delta(): PlayerDelta {
   return {
@@ -127,7 +133,7 @@ function setup(
       pattern = { ...previousPattern(o)!, intensity: a.intensity };
       scale =
         RULES.actions.MIRROR.base_scale *
-        statFactor(effectiveStats(p).ADAPTATION);
+        sf(effectiveStats(p).ADAPTATION, "ADAPTATION");
     }
   }
   return {
@@ -210,7 +216,7 @@ function press(e: Effect, i: number, seed: string, round: number): number {
     s = effectiveStats(p);
   return (
     RULES.actions.PRESS.base_damage *
-    statFactor(s.EXECUTION) *
+    sf(s.EXECUTION, "EXECUTION") *
     INTENSITY[i] *
     (1 + Math.min(p.resources.focus, 60) / 600) *
     (V2 ? 1 + V2.insight.press_bonus * p.insightStacks : 1) *
@@ -261,7 +267,7 @@ function materialize(
     case "GUARD":
       {
         const g = fatigue(e, "guard");
-        d.guard += RULES.actions.GUARD.guard_base[i] * statFactor(s.RESOLVE) * f * g;
+        d.guard += RULES.actions.GUARD.guard_base[i] * sf(s.RESOLVE, "RESOLVE") * f * g;
         d.heat += RULES.actions.GUARD.heat_delta * f * g;
         d.focus += RULES.actions.GUARD.focus_delta * f * g;
       }
@@ -299,7 +305,7 @@ function materialize(
           : RULES.actions.COUNTER.success_incoming_multiplier;
         e.raw =
           RULES.actions.COUNTER.return_base *
-          statFactor(s.ANALYSIS) *
+          sf(s.ANALYSIS, "ANALYSIS") *
           INTENSITY[i] *
           (1 + 0.06 * p.insightStacks) *
           f *
@@ -329,7 +335,7 @@ function materialize(
           d.heat += 10;
           break;
         case "COUNTERFACTUAL_SHIELD":
-          d.guard += 28 * statFactor(s.RESOLVE) * f;
+          d.guard += 28 * sf(s.RESOLVE, "RESOLVE") * f;
           e.shield = true;
           break;
         case "STILLPOINT":
@@ -363,7 +369,7 @@ function materialize(
           e.scale *= 0.85;
           if (archiveEntry(e.opponent)?.action.action === "MIRROR")
             e.scale *=
-              RULES.actions.MIRROR.base_scale * statFactor(s.ADAPTATION);
+              RULES.actions.MIRROR.base_scale * sf(s.ADAPTATION, "ADAPTATION");
           const drift = driftEffectiveness(p.resources.drift);
           // materialize applies drift once to the copied action, not a second time.
           if (copied.action !== "RECOVER") e.scale /= drift;
@@ -532,6 +538,11 @@ export function resolveRound(
     eb = setup(b, a, actionB, input.a.resources.energy);
   broker(ea, eb);
   broker(eb, ea);
+  if (V2) {
+    // INFLUENCE: leverage over a predictable opponent (a repeated base action loses effect); CREATIVITY's Novelty is the counter-weight.
+    for (const [c, t] of [[ea, eb], [eb, ea]] as const)
+      if (repeatsBase(t)) t.scale *= 1 - V2.influence.read * lev(effectiveStats(c.actor).INFLUENCE);
+  }
   materialize(ea, eb, matchSeed, input.round);
   materialize(eb, ea, matchSeed, input.round);
   let v2a: { accord: number; reprisal: number; lead: number; standoff: boolean } | undefined, v2b: typeof v2a;

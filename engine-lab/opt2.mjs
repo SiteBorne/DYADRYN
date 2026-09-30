@@ -1,0 +1,18 @@
+// Local search around a centre ruleset: nash structure + attribute-value equality + length. usage: node opt2.mjs <centre.json idx> <samples> <seed> <out> [radius]
+import { Worker, isMainThread, parentPort, workerData, threadId } from 'node:worker_threads';
+import { readFileSync, writeFileSync } from 'node:fs';
+import * as L from './lab.mjs'; import { nash } from './nash.mjs'; import { statValues } from './sv.mjs'; import { toOverrides, score } from './opt.mjs';
+const EXTRA = { 'v2.stat_weight.ANALYSIS': [0.3, 1.3], 'v2.stat_weight.EXECUTION': [0.3, 1.3], 'v2.stat_weight.ADAPTATION': [0.3, 1.3], 'v2.stat_weight.RESOLVE': [0.3, 1.3], 'v2.influence.read': [0, 0.35] };
+const RANGE = { 'actions.PRESS.base_damage': [9, 20], guard_scale: [0.5, 1.2], 'actions.COUNTER.return_base': [5, 14], 'actions.COUNTER.success_incoming_multiplier': [0.2, 0.6], 'actions.COUNTER.miss_drift': [4, 12], 'actions.COUNTER.miss_incoming_multiplier': [1, 1.3], trace_scale: [0.8, 2.2], recover_scale: [0.6, 1.2], 'actions.MIRROR.base_scale': [0.8, 1.4], 'actions.ADAPT.energy': [4, 10], 'v2.exposure.trace': [1, 1.4], 'v2.exposure.adapt': [1, 1.4], 'v2.insight.press_bonus': [0, 0.08], 'v2.adapt.amount': [8, 18], 'v2.signature.scale': [1, 3], 'v2.fatigue.guard_decay': [0.5, 0.9], 'v2.fatigue.recover_decay': [0.5, 0.9], 'v2.novelty.bonus': [0, 0.25], 'v2.accord.dividend_focus': [2, 8], 'v2.accord.dividend_energy': [0, 6], 'actions.SIGNATURE.default_focus_cost': [18, 32], ...EXTRA };
+export function full(E, tag) { const n = nash(E, 100, 'o'); return n.then(r => { const s = statValues(E, 200, tag); const lenPen = Math.max(0, 12 - s.meanLen) + Math.max(0, s.meanLen - 20); return { ...r, sv: s, total: +(score(r) - 0.8 * s.spread - 0.3 * lenPen).toFixed(3) }; }); }
+if (isMainThread && process.argv[1].endsWith('opt2.mjs')) {
+  const [file, idx] = process.argv[2].split(':'), N = +process.argv[3] || 60, seed = +process.argv[4] || 1, out = process.argv[5], rad = +process.argv[6] || 0.15, W = 3;
+  const centre = JSON.parse(readFileSync(file))[+idx || 0].p; const r = L.rng(seed * 104729), res = [];
+  const jobs = Array.from({ length: N }, (_, i) => { const p = {}; for (const [k, [lo, hi]] of Object.entries(RANGE)) { const c = centre[k] ?? (k.startsWith('v2.stat_weight') ? 1 : 0); p[k] = +Math.min(hi, Math.max(lo, c + (r() * 2 - 1) * rad * (hi - lo))).toFixed(3); } return { id: i, p }; });
+  jobs.unshift({ id: 'centre', p: { ...centre, 'v2.stat_weight.ANALYSIS': 1, 'v2.stat_weight.EXECUTION': 1, 'v2.stat_weight.ADAPTATION': 1, 'v2.stat_weight.RESOLVE': 1, 'v2.influence.read': 0 } });
+  await new Promise(resolve => { let d = 0; for (let w = 0; w < W; w++) { const wk = new Worker(new URL(import.meta.url), { workerData: { jobs: jobs.filter((_, i) => i % W === w) } }); wk.on('message', m => { if (m === 'done') { if (++d === W) resolve(); } else { res.push(m); process.stderr.write(res.length + '/' + jobs.length + '\r'); } }); } });
+  res.sort((a, b) => b.total - a.total); writeFileSync(out, JSON.stringify(res)); for (const x of res.slice(0, 6)) console.log(x.total, x.entropy, JSON.stringify(x.share), JSON.stringify(x.sv));
+} else if (!isMainThread) {
+  for (const j of workerData.jobs) { const E = await L.load('p' + threadId + '_' + j.id, toOverrides(j.p)); const r = await full(E, 'sv' + j.id); parentPort.postMessage({ id: j.id, p: j.p, ...r }); }
+  parentPort.postMessage('done');
+}

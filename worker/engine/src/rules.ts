@@ -21,6 +21,8 @@ export interface V2Rules {
   exposure: { trace: number; adapt: number };
   insight: { press_bonus: number };
   adapt: { amount: number };
+  stat_weight: { ANALYSIS: number; EXECUTION: number; ADAPTATION: number; RESOLVE: number };
+  influence: { read: number };
 }
 export const V2: V2Rules | null = (RULES as unknown as { v2?: V2Rules }).v2 ?? null;
 /** 0..1 leverage of a 50..90 attribute. Low attributes earn no bonus; the four other attributes keep their own roles. */
