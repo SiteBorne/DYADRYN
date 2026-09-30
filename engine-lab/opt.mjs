@@ -23,9 +23,9 @@ if (isMainThread && process.argv[1].endsWith('opt.mjs')) {
   const N = +process.argv[2] || 60, seed = +process.argv[3] || 1, out = process.argv[4] || 'PRIVATE/opt.json', W = 3, res = [];
   const base = process.argv[5] ? JSON.parse(process.argv[5]) : {};
   const r = L.rng(seed * 7919), jobs = Array.from({ length: N }, (_, i) => { const p = {}; for (const [k, [lo, hi]] of Object.entries(SPACE)) p[k] = +(lo + (hi - lo) * r()).toFixed(3); return { id: i, p: { ...p, ...base } }; });
-  await new Promise(resolve => { let d = 0; for (let w = 0; w < W; w++) { const wk = new Worker(new URL(import.meta.url), { workerData: { jobs: jobs.filter((_, i) => i % W === w) } }); wk.on('message', m => { if (m === 'done') { if (++d === W) resolve(); } else { res.push(m); process.stderr.write(res.length + '/' + N + '\r'); } }); } });
+  await new Promise(resolve => { let d = 0; for (let w = 0; w < W; w++) { const wk = new Worker(new URL(import.meta.url), { workerData: { opt1: true, jobs: jobs.filter((_, i) => i % W === w) } }); wk.on('message', m => { if (m === 'done') { if (++d === W) resolve(); } else { res.push(m); process.stderr.write(res.length + '/' + N + '\r'); } }); } });
   res.sort((a, b) => b.score - a.score); writeFileSync(out, JSON.stringify(res)); for (const x of res.slice(0, 8)) console.log(x.score, x.entropy, JSON.stringify(x.share), x.value);
-} else if (!isMainThread) {
+} else if (!isMainThread && workerData.opt1) {
   for (const j of workerData.jobs) { const E = await L.load('o' + threadId + '_' + j.id, toOverrides(j.p)); const r = await nash(E, 100, 'o'); parentPort.postMessage({ id: j.id, p: j.p, score: score(r), entropy: r.entropy, share: r.share, value: r.value }); }
   parentPort.postMessage('done');
 }
