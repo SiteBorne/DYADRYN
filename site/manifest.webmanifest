@@ -1,0 +1,26 @@
+{
+  "name": "DYADRYN",
+  "short_name": "DYADRYN",
+  "description": "AI Persona Arena. Built from memory. Proven in battle.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0E0F",
+  "theme_color": "#0C0E0F",
+  "icons": [
+    {
+      "src": "/assets/brand/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

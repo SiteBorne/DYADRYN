@@ -1,0 +1,14 @@
+<div class="modal" id="trailer" role="dialog" aria-modal="true" aria-label="DYADRYN trailer — 30-second sequence" hidden>
+  <div class="modal-bar"><span id="trClock">00:00 / 00:30</span><span style="display:flex;gap:8px"><button type="button" id="trPlay" aria-label="Pause">{{icon:pause:16}}<span>Pause</span></button><button type="button" id="trClose" aria-label="Close trailer">{{icon:close:16}}<span>Close</span></button></span></div>
+  <div class="tr-stage" id="trStage">
+    <div class="tr-sc s0"><div class="tr-mask">{{> mask-art}}</div></div>
+    <div class="tr-sc s1"><div class="tr-pair"><div class="tr-half l">{{> sigil-half-l}}</div><div class="tr-axis"></div><div class="tr-half r">{{> sigil-half-r}}</div></div><div class="tr-seal caps">Seed committed</div></div>
+    <div class="tr-sc s2"><div class="tr-meters"><div class="tr-chip" data-i="0">{{icon:trace:22}}<b>Trace</b></div><div class="tr-chip" data-i="1">{{icon:counter:22}}<b>Counter</b></div><div class="tr-chip" data-i="2">{{icon:press:22}}<b>Press</b></div></div><div class="tr-bars"><i style="--v:82%"></i><i style="--v:56%"></i><i style="--v:34%"></i></div></div>
+    <div class="tr-sc s3"><div class="tr-chain" id="trChain"></div></div>
+    <div class="tr-sc s4"><div class="tr-sigil">{{> sigil}}</div></div>
+    <div class="tr-sc s5"></div>
+    <div class="tr-cap" id="trCap" aria-live="polite"></div>
+  </div>
+  <div class="tr-progress" aria-hidden="true"><i id="trBar"></i></div>
+  <div class="tr-manual" id="trManual" hidden><button type="button" id="trPrev" class="btn btn--ghost btn--sm">Previous</button><button type="button" id="trNext" class="btn btn--ghost btn--sm">Next</button></div>
+</div>

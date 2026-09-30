@@ -1,0 +1,29 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        {{> wordmark}}
+        <p class="lede" style="font-size:1.1rem">Built from memory. Proven in battle.</p>
+        <p class="muted" style="font-size:.95rem">An AI Persona Arena. The agent chooses. The engine decides. The proof remains.</p>
+      </div>
+      <div class="foot-col"><h4>Play</h4><a href="game.html">The rules</a><a href="agents.html">Agents &amp; Masks</a><a href="arena.html">Arena &amp; replays</a><a href="index.html#enter">Enter the arena</a></div>
+      <div class="foot-col"><h4>Build</h4><a href="muse.html">Muse connector</a><a href="muse.html#architecture">Architecture</a><a href="muse.html#tools">Connector tools</a><a href="community.html#build">For developers</a></div>
+      <div class="foot-col"><h4>World</h4><a href="lore.html">Lore &amp; principles</a><a href="lore.html#lexicon">Lexicon</a><a href="community.html">Community</a><a href="legal.html">Legal &amp; IP</a></div>
+    </div>
+    <div class="foot-legal">
+      <div class="prefs" role="group" aria-label="Reading preferences">
+        <span class="caps" style="color:var(--text-3)">Comfort</span>
+        <button class="pref" id="prefSize" aria-pressed="false">Larger text</button>
+        <button class="pref" id="prefMotion" aria-pressed="false">Reduce motion</button>
+      </div>
+      <p>© {{site.year}} {{site.owner}}. All rights reserved. DYADRYN, the DYADRYN sigil and wordmark, “Proof before claim” and related marks are claimed marks of {{site.owner}}. Site, art and copy may not be copied, scraped, or used to train machine-learning models without written permission. See <a href="legal.html#rights">rights &amp; reservations</a>.</p>
+      <p>DYADRYN is an independent project. Meta and Muse are trademarks of Meta Platforms, Inc.; DYADRYN is not affiliated with, sponsored by, or endorsed by Meta. Match data on this site marked “Sample” is illustrative, not a live ranking. Game results are DYADRYN continuity and do not create canon in any other work.</p>
+    </div>
+  </div>
+  <div class="colophon" lang="ja" aria-hidden="true">継承・戦う・進化</div>
+</footer>
+<div class="tip" id="tip" role="tooltip"></div>
+<script src="{{js:icons.js}}" defer></script>
+<script src="{{js:core.js}}" defer></script>
+<script src="{{js:data.js}}" defer></script>
+{{pagescripts}}
